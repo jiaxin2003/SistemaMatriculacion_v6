@@ -68,7 +68,7 @@ public class AlumnosTest {
 
     @Test
     public void constructorCapacidadValidaCreaAlumnosCorrectamente() {
-        Alumnos alumnos = new Alumnos(MainApp.CAPACIDAD);
+        Alumno alumnos = new Alumno(MainApp.CAPACIDAD);
         assertNotEquals(null, alumnos, ALUMNOS_NO_CREADOS);
         assertEquals(MainApp.CAPACIDAD, alumnos.getCapacidad(), CAPACIDAD_NO_ESPERADA);
         assertEquals(0, alumnos.getTamano(), TAMANO_NO_ESPERADO);
@@ -76,10 +76,10 @@ public class AlumnosTest {
 
     @Test
     public void constructorCapacidadNoValidaLanzaExcepcion() {
-        Alumnos alumnos = null;
+        Alumno alumnos = null;
 
         try {
-            alumnos = new Alumnos(0);
+            alumnos = new Alumno(0);
             fail(OPERACION_NO_PERMITIDA);
         } catch (IllegalArgumentException e) {
             assertEquals(ERROR_CAPACIDAD_NO_CORRECTA, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -88,7 +88,7 @@ public class AlumnosTest {
             fail(TIPO_EXCEPCION_NO_CORRECTO);
         }
         try {
-            alumnos = new Alumnos(-1);
+            alumnos = new Alumno(-1);
             fail(OPERACION_NO_PERMITIDA);
         } catch (IllegalArgumentException e) {
             assertEquals(ERROR_CAPACIDAD_NO_CORRECTA, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -100,7 +100,7 @@ public class AlumnosTest {
 
     @Test
     public void insertarAlumnoValidoInsertaAlumnoCorrectamente() {
-        Alumnos alumnos = new Alumnos(5);
+        Alumno alumnos = new Alumno(5);
 
         try {
             alumnos.insertar(alumno1);
@@ -117,7 +117,7 @@ public class AlumnosTest {
 
     @Test
     public void insertarDosAlumnosValidosInsertaAlumnosCorrectamente() {
-        Alumnos alumnos = new Alumnos(5);
+        Alumno alumnos = new Alumno(5);
 
         try {
             alumnos.insertar(alumno1);
@@ -138,7 +138,7 @@ public class AlumnosTest {
 
     @Test
     public void insertarTresAlumnosValidosInsertaAlumnosCorrectamente() {
-        Alumnos alumnos = new Alumnos(5);
+        Alumno alumnos = new Alumno(5);
 
         try {
             alumnos.insertar(alumno1);
@@ -166,7 +166,7 @@ public class AlumnosTest {
 
     @Test
     public void insertarAlumnoNuloLanzaExcepcion() {
-        Alumnos alumnos = new Alumnos(5);
+        Alumno alumnos = new Alumno(5);
 
         try {
             alumnos.insertar(null);
@@ -181,7 +181,7 @@ public class AlumnosTest {
 
     @Test
     public void insertarAlumnoRepetidoLanzaExcepcion() {
-        Alumnos alumnos = new Alumnos(5);
+        Alumno alumnos = new Alumno(5);
 
         try {
             alumnos.insertar(alumno1);
@@ -196,7 +196,7 @@ public class AlumnosTest {
             fail(TIPO_EXCEPCION_NO_CORRECTO);
         }
 
-        alumnos = new Alumnos(5);
+        alumnos = new Alumno(5);
         try {
             alumnos.insertar(alumno2);
             alumnos.insertar(alumno1);
@@ -210,7 +210,7 @@ public class AlumnosTest {
             fail(TIPO_EXCEPCION_NO_CORRECTO);
         }
 
-        alumnos = new Alumnos(5);
+        alumnos = new Alumno(5);
         try {
             alumnos.insertar(alumno2);
             alumnos.insertar(alumno3);
@@ -227,7 +227,7 @@ public class AlumnosTest {
 
     @Test
     public void insertarAlumnoValidoConAlumnosLlenoLanzaExcepcion() {
-        Alumnos alumnos = new Alumnos(2);
+        Alumno alumnos = new Alumno(2);
 
         try {
             alumnos.insertar(alumno1);
@@ -249,7 +249,7 @@ public class AlumnosTest {
 
     @Test
     public void borrarAlumnoExistenteBorraAlumnoCorrectamente() throws OperationNotSupportedException {
-        Alumnos alumnos = new Alumnos(5);
+        Alumno alumnos = new Alumno(5);
 
         try {
             alumnos.insertar(alumno1);
@@ -260,7 +260,7 @@ public class AlumnosTest {
             fail(EXCEPCION_NO_PROCEDE);
         }
 
-        alumnos = new Alumnos(5);
+        alumnos = new Alumno(5);
         try {
             alumnos.insertar(alumno1);
             alumnos.insertar(alumno2);
@@ -272,7 +272,7 @@ public class AlumnosTest {
             fail(EXCEPCION_NO_PROCEDE);
         }
 
-        alumnos = new Alumnos(5);
+        alumnos = new Alumno(5);
         try {
             alumnos.insertar(alumno1);
             alumnos.insertar(alumno2);
@@ -284,7 +284,7 @@ public class AlumnosTest {
             fail(EXCEPCION_NO_PROCEDE);
         }
 
-        alumnos = new Alumnos(5);
+        alumnos = new Alumno(5);
         try {
             alumnos.insertar(alumno1);
             alumnos.insertar(alumno2);
@@ -298,7 +298,7 @@ public class AlumnosTest {
             fail(EXCEPCION_NO_PROCEDE);
         }
 
-        alumnos = new Alumnos(5);
+        alumnos = new Alumno(5);
         try {
             alumnos.insertar(alumno1);
             alumnos.insertar(alumno2);
@@ -312,7 +312,7 @@ public class AlumnosTest {
             fail(EXCEPCION_NO_PROCEDE);
         }
 
-        alumnos = new Alumnos(5);
+        alumnos = new Alumno(5);
         try {
             alumnos.insertar(alumno1);
             alumnos.insertar(alumno2);
@@ -326,7 +326,7 @@ public class AlumnosTest {
             fail(EXCEPCION_NO_PROCEDE);
         }
 
-        alumnos = new Alumnos(3);
+        alumnos = new Alumno(3);
         try {
             alumnos.insertar(alumno1);
             alumnos.insertar(alumno2);
@@ -343,7 +343,7 @@ public class AlumnosTest {
 
     @Test
     public void borrarAlumnoNoExistenteLanzaExcepcion() {
-        Alumnos alumnos = new Alumnos(5);
+        Alumno alumnos = new Alumno(5);
 
         try {
             alumnos.insertar(alumno1);
@@ -357,7 +357,7 @@ public class AlumnosTest {
         }
 
 
-        alumnos = new Alumnos(5);
+        alumnos = new Alumno(5);
         try {
             alumnos.insertar(alumno1);
             alumnos.insertar(alumno2);
@@ -373,7 +373,7 @@ public class AlumnosTest {
 
     @Test
     public void borrarAlumnoNuloLanzaExcepcion() {
-        Alumnos alumnos = new Alumnos(5);
+        Alumno alumnos = new Alumno(5);
         try {
             alumnos.insertar(alumno1);
             alumnos.borrar(null);
