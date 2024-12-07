@@ -15,5 +15,5 @@ public class GradoTest {
         assertEquals("GDCFGM", Grado.GDCFGM.name(), NOMBRE_NO_VALIDO);
         assertEquals("GDCFGS", Grado.GDCFGS.name(), NOMBRE_NO_VALIDO);
     }
-*/
+
 }

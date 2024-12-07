@@ -20,9 +20,27 @@ public class Alumno {
     private String nia;
 
 
-    private StringBuilder formateaNombre(String nombre) {
-        if (nombre == null || nombre.trim().isEmpty()) {
-            throw new NullPointerException("ERROR: el nombre del alumnado no puede ser nulo.");
+    public Alumno(String nombre, String dni, String correo, String telefono, LocalDate fechaNacimiento) {
+        setNombre(nombre);
+        setDni(getDni());
+        setCorreo(correo);
+        setTelefono(telefono);
+        setFechaNacimiento(fechaNacimiento);
+    }
+
+    public Alumno(Alumno alumno) {
+        setNombre(nombre);
+        setDni(dni);
+        setCorreo(correo);
+        setTelefono(telefono);
+        setFechaNacimiento(LocalDate.parse(fechaNacimiento));
+        setNia(nia);
+    }
+
+
+    private StringBuilder formateaNombre(String nombre)  {
+        if (nombre == null  ) {
+            throw new NullPointerException("ERROR: El dni de un alumno no puede ser nulo.");
 
         }
         String[] palabras = nombre.trim().toLowerCase().split("\\s+");
@@ -79,8 +97,10 @@ public class Alumno {
     }
 
     private String getIniciales(String nombreCompleto) {
-        if (nombreCompleto == null || nombreCompleto.trim().isEmpty()) {
-            throw new IllegalArgumentException("ERROR: El nombre no puede ser nulo ni vacío.");
+        if (nombreCompleto == null ) {
+            throw new NullPointerException("ERROR: El nombre no puede ser nulo ni vacío.");
+        } else if (nombreCompleto.trim().isEmpty()||nombreCompleto.trim().isBlank()) {
+            throw new IllegalArgumentException("ERROR: El nombre no puede ser vacío.");
         }
 
         String nombreFormateado = formateaNombre(nombreCompleto).toString();
@@ -89,29 +109,13 @@ public class Alumno {
         StringBuilder iniciales = new StringBuilder();
 
         for (String palabra : palabras) {
-            iniciales.append(palabra.charAt(0)); // Ya está en mayúscula gracias a formateaNombre
+            iniciales.append(palabra.charAt(0));
         }
 
         return iniciales.toString();
     }
 
-    public Alumno(String nombre, String dni, String correo, String telefono, String nia, LocalDate fechaNacimiento) {
-        setNombre(nombre);
-        setDni(dni);
-        setCorreo(correo);
-        setTelefono(telefono);
-        setNia(nia);
-        setFechaNacimiento(fechaNacimiento);
-    }
 
-    public Alumno(Alumno alumno) {
-        setNombre(nombre);
-        setDni(dni);
-        setCorreo(correo);
-        setTelefono(telefono);
-        setNia(nia);
-        setFechaNacimiento(LocalDate.parse(fechaNacimiento));
-    }
     public String imprimir(){
         return String.format(
                 "Alumno: %s\nDNI: %s\nCorreo: %s\nTeléfono: %s\nFecha de Nacimiento: %s\nNIA: %s",
@@ -160,10 +164,13 @@ public class Alumno {
     }
 
     public String getNombre() {
-        return nombre;
+        return formateaNombre(nombre).toString();
     }
 
     public void setNombre(String nombre) {
+        if (nombre == null ) {
+            throw new NullPointerException("ERROR: El nombre de un alumno no puede ser nulo.");
+        }
 
         this.nombre = nombre;
     }
@@ -173,10 +180,10 @@ public class Alumno {
     }
 
     public void setTelefono(String telefono) {
-        if (telefono == null || telefono.isEmpty()) {
-            throw new NullPointerException("ERROR: El telefono del alumnado no puede ser nulo.");
+        if (telefono == null ) {
+            throw new NullPointerException("ERROR: El teléfono de un alumno no puede ser nulo.");
         } else if (telefono.length() != 9) {
-            throw new IllegalArgumentException("ERROR: El telefono del alumnado debe tener 9 cifras.");
+            throw new IllegalArgumentException("ERROR: El teléfono del alumno no tiene un formato válido.");
         }
         this.telefono = telefono;
     }
@@ -187,10 +194,10 @@ public class Alumno {
     }
 
     public void setCorreo(String correo) {
-        if (correo == null || correo.isEmpty()) {
-            throw new NullPointerException("ERROR: El correo del alumnado no puede ser nulo.");
+        if (correo == null) {
+            throw new NullPointerException("ERROR: El correo de un alumno no puede ser nulo.");
         } else if (!correo.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
-            throw new IllegalArgumentException("ERROR: El correo del alumnado no tiene un formato válido.");
+            throw new IllegalArgumentException("ERROR: El correo de un alumno no tiene un formato válido.");
         }
         this.correo = correo;
     }
@@ -200,15 +207,23 @@ public class Alumno {
     }
 
     public void setDni(String dni) {
-        this.dni = dni;
+        if (dni == null) {
+            throw new NullPointerException("ERROR: El dni del alumnado no puede ser nulo.");
+        } else if (!dni.matches(ER_DNI)) {
+            throw new IllegalArgumentException("ERROR: El dni del alumnado no tiene un formato válido.");
+        }
+        this.dni = String.valueOf(comprobarLetraDni(dni));
     }
 
-    public String getFechaNacimiento() {
-        return fechaNacimiento;
+    public LocalDate getFechaNacimiento() {
+        return LocalDate.parse(fechaNacimiento);
     }
 
     private void setFechaNacimiento(LocalDate fechaNacimiento) {
-        if (fechaNacimiento.isAfter(LocalDate.now().minusYears(MIN_EDAD_ALUMNO))) {
+        if (fechaNacimiento == null) {
+            throw new NullPointerException("ERROR: La fecha de nacimiento de un alumno no puede ser nula.");
+        }
+        else if  (fechaNacimiento.isAfter(LocalDate.now().minusYears(MIN_EDAD_ALUMNO))) {
             throw new IllegalArgumentException("ERROR: La edad del alumnado debe ser mayor o igual a 16.");
         }
         this.fechaNacimiento = String.valueOf(fechaNacimiento);

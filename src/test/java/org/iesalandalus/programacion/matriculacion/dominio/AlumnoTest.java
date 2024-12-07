@@ -30,8 +30,8 @@ public class AlumnoTest {
 
     private static final LocalDate FECHA_NACIMIENTO_JRJR=LocalDate.of(2002, 9, 15);
     private static final LocalDate FECHA_NACIMIENTO_ARDR=LocalDate.of(1992, 7, 3);
-    private static final String NIA_JRJR=NOMBRE_JRJR.toLowerCase().substring(0,4)+DNI_JRJR.substring(5,8);;
-    private static final String NIA_ARDR=NOMBRE_ARDR.toLowerCase().substring(0,4)+DNI_ARDR.substring(5,8);;
+    private static final String NIA_JRJR=NOMBRE_JRJR.toLowerCase().substring(0,4)+DNI_JRJR.substring(5,8);
+    private static final String NIA_ARDR=NOMBRE_ARDR.toLowerCase().substring(0,4)+DNI_ARDR.substring(5,8);
     private static final String FORMATO_FECHA="dd/MM/yyyy";
     private static final String TIPO_EXCEPCION_NO_CORRECTA = "El tipo de la excepción no es correcto.";
     private static final String NOMBRE_INCORRECTO = "Debería haber saltado una excepción indicando que el nombre es incorrecto";
