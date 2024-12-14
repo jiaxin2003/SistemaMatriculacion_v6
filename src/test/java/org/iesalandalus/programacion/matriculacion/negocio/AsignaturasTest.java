@@ -10,7 +10,7 @@ import javax.naming.OperationNotSupportedException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/*
+
 public class AsignaturasTest {
 
     private static final String ERROR_CAPACIDAD_NO_CORRECTA = "ERROR: La capacidad debe ser mayor que cero.";
@@ -402,4 +402,3 @@ public class AsignaturasTest {
 
 
 }
-*/

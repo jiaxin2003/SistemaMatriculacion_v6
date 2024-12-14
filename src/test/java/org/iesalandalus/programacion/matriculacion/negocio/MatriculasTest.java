@@ -12,7 +12,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/*
+
 public class MatriculasTest {
 
     private static final String ERROR_NO_EXCEPCION = "No debería haber saltado la excepción.";
@@ -172,7 +172,7 @@ public class MatriculasTest {
             matriculas.insertar(matricula1);
 
             Matricula[] copiaMatriculas = matriculas.get();
-            assertEquals(1, matriculas.getTamano(), TAMANO_NO_ESPERADO);
+            assertEquals(1, Matriculas.getTamano(), TAMANO_NO_ESPERADO);
             assertEquals(matricula1, matriculas.buscar(matricula1), MATRICULA_NO_ESPERADA);
             assertNotSame(matricula1, copiaMatriculas[0], REFERENCIA_NO_ESPERADA);
             assertEquals(matricula1, copiaMatriculas[0], OPERACION_NO_REALIZADA);
@@ -464,4 +464,3 @@ public class MatriculasTest {
 
 
 }
-*/

@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
-/*
+
 public class AsignaturaTest {
 
     private static final String ERROR_EXCEPCION = "Debería haber saltado la excepción.";
@@ -255,4 +255,3 @@ public class AsignaturaTest {
     }
 
 }
-*/

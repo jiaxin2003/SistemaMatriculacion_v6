@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.*;
-/*
+
 public class MatriculaTest {
 
     private static final String ERROR_EXCEPCION = "Debería haber saltado la excepción.";
@@ -442,4 +442,3 @@ public class MatriculaTest {
     }
 
 }
-*/

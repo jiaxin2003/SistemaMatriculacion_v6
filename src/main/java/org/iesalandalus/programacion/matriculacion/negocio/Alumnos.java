@@ -2,41 +2,106 @@ package org.iesalandalus.programacion.matriculacion.negocio;
 
 import java.util.Arrays;
 import java.util.Objects;
+import org.iesalandalus.programacion.matriculacion.dominio.Alumno;
 
 public class Alumnos {
     private int capacidad = 3;
     private int tamano = 0;
-    String[] alumnos;
+    private Alumno [] alumnos;
 
 
     public Alumnos(int capacidad) {
-
-        setCapacidad(capacidad);
-        setTamano(tamano);
-        alumnos = new String[capacidad];
-    }
-
-    public Alumnos(Alumnos nuevosAlumnos) {
-        if (nuevosAlumnos == null) {
-            throw new NullPointerException("ERROR: Los alumnos no pueden ser nulos");
+        if (capacidad <= 0) {
+            throw new IllegalArgumentException("ERROR: La capacidad debe ser mayor que cero.");
         }
-        this.capacidad=nuevosAlumnos.getCapacidad();
-        this.tamano=nuevosAlumnos.getTamano();
-        this.alumnos = Arrays.copyOf(nuevosAlumnos.alumnos, nuevosAlumnos.alumnos.length);
+        this.capacidad = capacidad;
+        this.tamano = 0;
+        this.alumnos = new Alumno[capacidad];
+    }
+
+    private Alumnos(Alumnos otrosAlumnos) {
+        if (otrosAlumnos == null) {
+            throw new NullPointerException("ERROR: No se puede copiar un objeto nulo.");
+        }
+        this.capacidad = otrosAlumnos.getCapacidad();
+        this.tamano = otrosAlumnos.getTamano();
+        this.alumnos = copiaProfundaAlumnos();
     }
 
 
+
+    public void insertar(Alumno alumno) {
+        if (alumno == null) {
+            throw new IllegalArgumentException("ERROR: El alumno no puede ser nulo.");
+        }
+        if (tamano >= capacidad) {
+            throw new IllegalStateException("ERROR: No se pueden añadir más alumnos, la capacidad está completa.");
+        }
+        if (buscarIndice(alumno) != -1) {
+            throw new IllegalArgumentException("ERROR: El alumno ya existe en la lista.");
+        }
+        alumnos[tamano] = new Alumno(alumno);
+        tamano++;
+    }
+
+    public void borrar(Alumno alumno) {
+        if (alumno == null) {
+            throw new IllegalArgumentException("ERROR: El alumno no puede ser nulo.");
+        }
+        int indice = buscarIndice(alumno);
+        if (indice == -1) {
+            throw new IllegalArgumentException("ERROR: El alumno no existe en la lista.");
+        }else{
+            desplazarUnaPosicionHaciaIzquierda(indice);
+        }
+    }
+
+    private int buscarIndice(Alumno alumno) {
+        for (int i = 0; i < tamano; i++) {
+            if (alumnos[i].equals(alumno)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private boolean tamanoSuperado(int indice) {
+        return indice >= getTamano();
+    }
+
+    private boolean capacidadSuperada(int indice) {
+        return indice >= getCapacidad();
+    }
+
+    public Alumno buscar(Alumno alumno) {
+        int indice = buscarIndice(alumno);
+        if (indice == -1) {
+            return null;
+        }
+        return alumnos[indice];
+    }
+    private void desplazarUnaPosicionHaciaIzquierda (int indice) {
+        int i;
+        for (i = indice; !tamanoSuperado(i); i++) {
+            alumnos[i] = alumnos[i + 1];
+        }
+        alumnos[i] = null;
+        tamano--;
+    }
 
     public int getCapacidad() {
         return capacidad;
     }
 
     public void setCapacidad(int capacidad) {
+        if (capacidad<0) {
+            throw new IllegalArgumentException("ERROR: La capacidad no puede ser negativa.");
+        }
         this.capacidad = capacidad;
     }
 
     public int getTamano() {
-        return tamano=0;
+        return tamano;
     }
 
     public void setTamano(int tamano) {
@@ -46,53 +111,18 @@ public class Alumnos {
         this.tamano = tamano;
     }
 
-    public String[] getAlumnos() {
-        return Arrays.copyOf(alumnos, tamano);
+    public Alumno[] getAlumnos() {
+        return (copiaProfundaAlumnos());
     }
 
-    public void setAlumnos(String[] nuevosAlumnos) {
-        if (nuevosAlumnos == null) {
-            throw new NullPointerException("ERROR: El array de alumnos no puede ser nulo.");
-        }
-        if (nuevosAlumnos.length > capacidad) {
-            throw new IllegalArgumentException("ERROR: El array excede la capacidad.");
-        }
-        this.alumnos = Arrays.copyOf(nuevosAlumnos, nuevosAlumnos.length);
-        this.tamano = nuevosAlumnos.length;
-    }
-    public void insertarAlumno(String alumno) {
-        if (alumno == null || alumno.trim().isEmpty()) {
-            throw new IllegalArgumentException("ERROR: El alumno no puede ser nulo o vacío.");
-        }
-        if (tamano >= capacidad) {
-            throw new IllegalStateException("ERROR: No se pueden añadir más alumnos, la capacidad está completa.");
-        }
-        alumnos[tamano] = alumno;
-        tamano++;
-    }
-    public void eliminarAlumno(String alumno) {
-        if (alumno == null || alumno.trim().isEmpty()) {
-            throw new IllegalArgumentException("ERROR: El alumno no puede ser nulo o vacío.");
-        }
-        int indice = buscarIndice(alumno);
-        if (indice == -1) {
-            throw new IllegalArgumentException("ERROR: El alumno no existe en la lista.");
-        }
-        System.arraycopy(alumnos, indice + 1, alumnos, indice, tamano - indice - 1);
-        tamano--;
-        alumnos[tamano] = null;
-    }
-    public int buscarIndice(String alumno) {
-        if (alumno == null || alumno.trim().isEmpty()) {
-            throw new IllegalArgumentException("ERROR: El alumno no puede ser nulo o vacío.");
-        }
+    private Alumno[] copiaProfundaAlumnos() {
+        Alumno[] copia = new Alumno[tamano];
         for (int i = 0; i < tamano; i++) {
-            if (alumnos[i].equals(alumno)) {
-                return i;
-            }
+            copia[i] = new Alumno(alumnos[i]);
         }
-        return -1;
+        return copia;
     }
+
 
     @Override
     public boolean equals(Object o) {
