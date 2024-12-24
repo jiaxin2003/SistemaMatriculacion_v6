@@ -7,7 +7,7 @@ import org.iesalandalus.programacion.matriculacion.dominio.Alumno;
 public class Alumnos {
     private int capacidad = 3;
     private int tamano = 0;
-    private Alumno [] alumnos;
+    private final Alumno [] alumnos;
 
 
     public Alumnos(int capacidad) {
@@ -18,16 +18,6 @@ public class Alumnos {
         this.tamano = 0;
         this.alumnos = new Alumno[capacidad];
     }
-
-    private Alumnos(Alumnos otrosAlumnos) {
-        if (otrosAlumnos == null) {
-            throw new NullPointerException("ERROR: No se puede copiar un objeto nulo.");
-        }
-        this.capacidad = otrosAlumnos.getCapacidad();
-        this.tamano = otrosAlumnos.getTamano();
-        this.alumnos = copiaProfundaAlumnos();
-    }
-
 
 
     public void insertar(Alumno alumno) {
@@ -93,25 +83,13 @@ public class Alumnos {
         return capacidad;
     }
 
-    public void setCapacidad(int capacidad) {
-        if (capacidad<0) {
-            throw new IllegalArgumentException("ERROR: La capacidad no puede ser negativa.");
-        }
-        this.capacidad = capacidad;
-    }
 
     public int getTamano() {
         return tamano;
     }
 
-    public void setTamano(int tamano) {
-        if (tamano>capacidad) {
-            throw new IllegalArgumentException("ERROR: El tamaño supera la capacidad que puede tener la lista.");
-        }
-        this.tamano = tamano;
-    }
 
-    public Alumno[] getAlumnos() {
+    public Alumno[] get() {
         return (copiaProfundaAlumnos());
     }
 
@@ -124,12 +102,7 @@ public class Alumnos {
     }
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Alumnos alumnos1)) return false;
-        return capacidad == alumnos1.capacidad && tamano == alumnos1.tamano && Objects.deepEquals(alumnos, alumnos1.alumnos);
-    }
+
 
     @Override
     public int hashCode() {

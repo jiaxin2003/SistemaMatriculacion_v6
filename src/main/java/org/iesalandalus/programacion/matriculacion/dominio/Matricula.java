@@ -11,13 +11,13 @@ public class Matricula {
     public static int MAXIMO_NUMERO_HORAS_MATRICULA = 1000;
     public static int MAXIMO_NUMERO_ASIGNATURAS_POR_MATRICULA = 10;
     private String ER_CURSO_ACADEMICO;
-    public static String FORMATO_FECHA = "yy/yy";
+    public static String FORMATO_FECHA = "dd/MM/yyyy";
     private int idMatricula;
     private String cursoAcademico;
     private LocalDate fechaMatriculacion;
     private LocalDate fechaAnulacion;
-    public Asignatura[] coleccionAsignaturas;
-    public Alumno alumno;
+    private Asignatura[] coleccionAsignaturas;
+    private Alumno alumno;
 
     public Matricula(int idMatricula, String cursoAcademico, LocalDate fechaMatriculacion, Alumno alumno, Asignatura[] coleccionAsignaturas) {
         setIdMatricula(idMatricula);

@@ -5,6 +5,7 @@ import java.util.Objects;
 public class Asignatura {
     public static final int MAX_NUM_HORAS_ANUALES=300;
     public static final int MAX_NUM_HORAS_DESDOBLES=6;
+    private String ER_CODIGO="^[0-9]{4}$";
     private String codigo;
     private String nombre;
     private int horasAnuales;
@@ -34,16 +35,14 @@ public class Asignatura {
         setCicloFormativo(asignatura.getCicloFormativo());
     }
 
-    public String imprimir() {
-        return codigo + " - " + nombre + " - " + horasAnuales + " - " + curso + " - " + horasDesdoble + " - " + especialidadProfesorado + " - " + cicloFormativo;
-    }
+
 
     public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
-        if (codigo != null && codigo.length() == 4) {
+    private void setCodigo(String codigo) {
+        if (!codigo.matches(ER_CODIGO)) {
            throw new IllegalArgumentException("ERROR: El código de una asignatura debe ser un número de 4 dígitos.");
         }
         this.codigo = codigo;
@@ -116,6 +115,16 @@ public class Asignatura {
         }
         this.cicloFormativo = cicloFormativo;
     }
+    public String getER_CODIGO() {
+        return ER_CODIGO;
+    }
+
+    public void setER_CODIGO(String ER_CODIGO) {
+        if (codigo != null && codigo.length() != 4) {
+            throw new IllegalArgumentException("ERROR: El código de una asignatura debe ser un número de 4 dígitos.");
+        }
+        this.ER_CODIGO = ER_CODIGO;
+    }
 
 
     @Override
@@ -142,5 +151,10 @@ public class Asignatura {
                 ", cicloFormativo=" + cicloFormativo +
                 '}';
     }
+    public String imprimir() {
+        return codigo + " - " + nombre + " - " + horasAnuales + " - " + curso + " - " + horasDesdoble + " - " + especialidadProfesorado + " - " + cicloFormativo;
+    }
+
+
 }
 

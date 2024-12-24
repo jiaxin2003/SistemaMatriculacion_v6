@@ -118,7 +118,7 @@ public class AsignaturasTest {
         try {
             asignaturas.insertar(asignatura1);
 
-            Asignatura[] copiaAsignaturas = asignaturas.get();
+            Asignaturas[] copiaAsignaturas = asignaturas.get();
             assertEquals(1, asignaturas.getTamano(), TAMANO_NO_ESPERADO);
             assertEquals(asignatura1, asignaturas.buscar(asignatura1), ASIGNATURA_NO_ESPERADA);
             assertNotSame(asignatura1, copiaAsignaturas[0], REFERENCIA_NO_ESPERADA);

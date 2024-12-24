@@ -107,7 +107,7 @@ public class MainApp {
     private void buscarAsignatura() {
         try {
             Asignatura asignatura = Consola.getAsignaturaPorCodigo();
-            Asignaturas encontrada = asignaturas.buscar(asignatura);
+            Asignaturas encontrada = asignaturas;
             System.out.println(encontrada != null ? encontrada : "Asignatura no encontrada.");
         } catch (Exception e) {
             System.out.println("ERROR: No se pudo buscar la asignatura." );

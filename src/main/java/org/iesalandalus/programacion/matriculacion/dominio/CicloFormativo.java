@@ -9,7 +9,6 @@ public class CicloFormativo {
     private Grado grado;
     private String nombre;
     private int horas;
-    public CicloFormativo[] cicloFormativos;
 
     public CicloFormativo(int codigo, String familiaProfesional, Grado grado, String nombre, int horas) {
         setCodigo(codigo);
@@ -32,13 +31,6 @@ public class CicloFormativo {
     }
 
 
-    public int getMAXIMO_NUMERO_HORAS() {
-        return MAXIMO_NUMERO_HORAS;
-    }
-
-    public void setMAXIMO_NUMERO_HORAS(int MAXIMO_NUMERO_HORAS) {
-        CicloFormativo.MAXIMO_NUMERO_HORAS = MAXIMO_NUMERO_HORAS;
-    }
 
     public int getHoras() {
         return horas;
@@ -90,13 +82,10 @@ public class CicloFormativo {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    private void setCodigo(int codigo) {
         if (codigo < 1000 || codigo > 9999)
             throw new IllegalArgumentException("ERROR: El código de un ciclo formativo debe ser un número de 4 dígitos.");
         this.codigo = codigo;
-    }
-    public CicloFormativo[] getCicloFormativos() {
-        return cicloFormativos;
     }
 
     @Override

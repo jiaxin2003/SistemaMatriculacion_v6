@@ -171,7 +171,7 @@ public class Alumno {
         return dni;
     }
 
-    public void setDni(String dni) {
+    private void setDni(String dni) {
         if (dni == null) {
             throw new NullPointerException("ERROR: El dni de un alumno no puede ser nulo.");
         } else if (!dni.matches(ER_DNI)) {
@@ -205,7 +205,7 @@ public class Alumno {
         return nia;
     }
 
-    public void setNia() {
+    private void setNia() {
         if (nombre == null||nombre.length()<3) {
             throw new NullPointerException("ERROR: El NIA de un alumno no puede ser nulo.");
         }
@@ -218,6 +218,16 @@ public class Alumno {
         nDni = dni.substring(5, 8);
         this.nia =nNombre + nDni;
     }
+
+    private void setNia(String nia) {
+        if (nia.matches(ER_NIA)) {
+            this.nia = nia;
+        }
+        else{
+            throw new IllegalArgumentException("Nia incorrecto.");
+        }
+    }
+
     public String imprimir(){
         return String.format(
                 "Alumno: %s\nDNI: %s\nCorreo: %s\nTeléfono: %s\nFecha de Nacimiento: %s\nNIA: %s",

@@ -17,11 +17,10 @@ import java.time.format.DateTimeParseException;
         private void consola() {
 
         }
-        public static Consola mostrarMenu() {
+        public static void mostrarMenu() {
             for (Opcion opcion : Opcion.values()) {
                 System.out.println(opcion.toString());
             }
-            return new Consola();
         }
         public static Opcion elegirOpcion() {
             int opcion;
@@ -267,7 +266,7 @@ import java.time.format.DateTimeParseException;
                 fechaMatriculacion=leerFecha("Fecha Matriculacion: ");
                 alumno=leerAlumno();
                 alumno=alumnos.buscar(alumno);
-                matricula=new Matricula(idMatricula, cursoAcademico, fechaMatriculacion, alumno, new Asignatura[asignaturas.size()]);
+                matricula=new Matricula(idMatricula, cursoAcademico, fechaMatriculacion, alumno,new Asignatura[0]);
             }while (alumno==null||idMatricula<0||cursoAcademico.isEmpty()||fechaMatriculacion==null);
 
             return new Matricula(matricula);

@@ -2,119 +2,102 @@ package org.iesalandalus.programacion.matriculacion.negocio;
 
 import org.iesalandalus.programacion.matriculacion.dominio.Asignatura;
 
+
+import javax.naming.OperationNotSupportedException;
+import java.util.Objects;
+
 public class Asignaturas {
     private static int capacidad = 3;
     private static int tamano = 0;
-    private Asignaturas[] asignaturas;
+    private Asignaturas[] coleccionAsignaturas;
 
     public Asignaturas(int capacidad) {
         if (capacidad <= 0) {
             throw new IllegalArgumentException("ERROR: La capacidad debe ser mayor que cero.");
         }
-        Asignaturas.capacidad = capacidad;
-        Asignaturas.tamano = 0;
-        this.asignaturas = new Asignaturas[capacidad];
-    }
+        this.capacidad = capacidad;
 
-    public Asignaturas(Asignaturas asignaturas) {
-        if (asignaturas == null) {
-            throw new NullPointerException("ERROR: No se puede copiar un objeto nulo.");
-        }
-        Asignaturas.capacidad = getCapacidad();
-        Asignaturas.tamano = getTamano();
-        this.asignaturas = copiaProfundaAsignaturas();
-    }
-
-    private Asignaturas[]copiaProfundaAsignaturas() {
-        Asignaturas[] copiaAsignaturas = new Asignaturas[capacidad];
-        for (int i = 0; i < tamano; i++) {
-            copiaAsignaturas[i] = new Asignaturas(asignaturas[i]);
-        }
-        return copiaAsignaturas;
-
-    }
-
-    public void insertar(Asignatura asignatura) {
-        if (buscarIndice(asignatura) != -1) {
-            throw new IllegalArgumentException("ERROR: La asignatura ya está insertada.");
-        }
-        if (tamanoSuperado(getTamano())) {
-            Asignaturas[] copiaAsignaturas = copiaProfundaAsignaturas();
-            copiaAsignaturas[capacidad - 1] = new Asignaturas(asignaturas[tamano]);
-            this.asignaturas = copiaAsignaturas;
-        } else {
-            asignaturas[tamano] = new Asignaturas(asignaturas[tamano]);
-            tamano++;
-        }
+        this.tamano = 0;
+        this.coleccionAsignaturas = new Asignaturas[capacidad];
     }
 
     public Asignaturas[] get() {
         return copiaProfundaAsignaturas();
     }
 
-
-
-    public Asignaturas buscar(Asignatura asignatura) {
-        int indice = buscarIndice(asignatura);
-        if (indice == -1) {
-            return null;
-        } else {
-            return new Asignaturas(asignaturas[indice]);
+    private Asignaturas[] copiaProfundaAsignaturas() {
+        Asignaturas[] copia = new Asignaturas[tamano];
+        for (int i = 0; i < tamano; i++) {
+            copia[i] = coleccionAsignaturas[i];
         }
+        return copia;
     }
 
-    public void borrar(Asignatura asignatura) {
-        int indice = buscarIndice(asignatura);
-        if (indice == -1) {
-            throw new IllegalArgumentException("ERROR: La asignatura no existe en la lista.");
-        }
-        desplazarUnaPosicionHaciaIzquierda(indice);
-        tamano--;
+    public int getTamano() {
+        return tamano;
     }
 
-    public int buscarIndice(Asignatura asignatura) {
-        int indice = -1;
-        for (int i = 0; i < tamano && indice == -1; i++) {
-            if (asignaturas[i].equals(asignatura)) {
-                indice = i;
+    public int getCapacidad() {
+        return capacidad;
+    }
+
+    public void insertar(Asignatura asignaturas) throws OperationNotSupportedException {
+        Objects.requireNonNull(asignaturas, "ERROR: No se puede insertar una asignatura nula.");
+        if (capacidadSuperada(getTamano())) {
+            throw new OperationNotSupportedException("ERROR: No se puede insertar una asignatura. Capacidad superada.");
+        }
+        coleccionAsignaturas[tamano] = new Asignaturas(asignaturas);
+        tamano++;
+    }
+
+    private int buscarIndice(Asignaturas asignatura) {
+        for (int i = 0; !tamanoSuperado(i); i++) {
+            if (coleccionAsignaturas[i].equals(asignatura)) {
+                return i;
             }
         }
-        return indice;
+        return getTamano();
+    }
+
+    private boolean tamanoSuperado(int indice) {
+        return indice >= getTamano();
+    }
+
+    private boolean capacidadSuperada(int indice) {
+        return indice >= getCapacidad();
+    }
+
+    public void borrar(Asignaturas asignatura) throws OperationNotSupportedException {
+        Objects.requireNonNull(asignatura, "ERROR: No se puede borrar una asignatura nula.");
+
+        int indice = buscarIndice(asignatura);
+        if (tamanoSuperado(indice)) {
+            throw new OperationNotSupportedException("ERROR: No existe ninguna asignatura como la indicada.");
+        } else {
+            desplazarUnaPosicionHaciaIzquierda(indice);
+        }
     }
 
     private void desplazarUnaPosicionHaciaIzquierda(int indice) {
         int i;
         for (i = indice; !tamanoSuperado(i); i++) {
-            asignaturas[i] = asignaturas[i + 1];
+            coleccionAsignaturas[i] = coleccionAsignaturas[i + 1];
         }
-        asignaturas[i] = null;
+        coleccionAsignaturas[i] = null;
         tamano--;
     }
 
-    private boolean tamanoSuperado(int i) {
-        return i >= tamano;
-    }
-
-    private boolean capacidadSuperada(int i) {
-        return i >= capacidad;
-    }
-
-    public int getCapacidad() {
-        if (capacidadSuperada(getTamano())) {
-            return Asignaturas.capacidad * 2;
+    public Asignaturas buscar(Asignatura asignatura) {
+        if (tamanoSuperado(buscarIndice(asignatura))) {
+            throw new IllegalArgumentException("ERROR: No existe ninguna asignatura como la indicada.");
+        } else {
+            for (int i = 0; !tamanoSuperado(i); i++) {
+                if (coleccionAsignaturas[i].equals(asignatura)) {
+                    return coleccionAsignaturas[i];
+                }
+            }
         }
-        return Asignaturas.capacidad;
+        return new Asignaturas(0);
     }
 
-    public int getTamano() {
-        if (tamanoSuperado(getTamano())) {
-            return Asignaturas.tamano * 2;
-        }
-        return Asignaturas.tamano;
-    }
-
-
-    public int size() {
-        return getTamano();
-    }
 }
