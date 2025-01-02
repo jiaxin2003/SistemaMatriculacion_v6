@@ -1,7 +1,7 @@
 package org.iesalandalus.programacion.matriculacion.dominio;
 
 public enum Curso {
-    PRIMERO("Primero"), SEGUNDO("Segundo");
+    PRIMERO("1. Primero"), SEGUNDO("2. Segundo");
 
     private final String cadenaAMostrar;
     private Curso(String cadenaAMostrar)

@@ -1,5 +1,7 @@
 package org.iesalandalus.programacion.matriculacion.dominio;
 
+import org.iesalandalus.programacion.matriculacion.negocio.Asignaturas;
+
 import java.util.Objects;
 
 public class Asignatura {
@@ -36,12 +38,14 @@ public class Asignatura {
     }
 
 
-
     public String getCodigo() {
         return codigo;
     }
 
     private void setCodigo(String codigo) {
+        if (codigo == null){
+            throw new NullPointerException("ERROR: El código de una asignatura no puede ser nulo.");
+        }
         if (!codigo.matches(ER_CODIGO)) {
            throw new IllegalArgumentException("ERROR: El código de una asignatura debe ser un número de 4 dígitos.");
         }
@@ -131,7 +135,7 @@ public class Asignatura {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Asignatura that)) return false;
-        return horasAnuales == that.horasAnuales && horasDesdoble == that.horasDesdoble && Objects.equals(codigo, that.codigo) && Objects.equals(nombre, that.nombre) && curso == that.curso && especialidadProfesorado == that.especialidadProfesorado && Objects.equals(cicloFormativo, that.cicloFormativo);
+        return horasAnuales == that.horasAnuales && horasDesdoble == that.horasDesdoble && Objects.equals(nombre, that.nombre) && curso == that.curso && especialidadProfesorado == that.especialidadProfesorado && Objects.equals(cicloFormativo, that.cicloFormativo);
     }
 
     @Override
@@ -142,8 +146,8 @@ public class Asignatura {
     @Override
     public String toString() {
         return "Asignatura{" +
-                "codigo='" + codigo + '\'' +
-                ", nombre='" + nombre + '\'' +
+                "codigo='" + codigo +
+                ", nombre='" + nombre +
                 ", horas=" + horasAnuales +
                 ", horasDesdobles=" + horasDesdoble +
                 ", curso=" + curso +

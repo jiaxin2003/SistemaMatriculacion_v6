@@ -7,25 +7,13 @@ import java.util.Arrays;
 public class CiclosFormativos {
     private int capacidad;
     private int tamano;
-    private final CicloFormativo[] ciclosFormativos;
+    private final CicloFormativo[] coleccionCiclosFormativos;
 
 
     public CiclosFormativos(int capacidad) {
-        if (capacidad <= 0) {
-            throw new IllegalArgumentException("ERROR: La capacidad debe ser mayor que cero.");
-        }
         this.capacidad = capacidad;
         this.tamano = 0;
-        this.ciclosFormativos = new CicloFormativo[capacidad];
-    }
-
-    public CiclosFormativos(CiclosFormativos otrosCiclosFormativos) {
-        if (otrosCiclosFormativos == null) {
-            throw new NullPointerException("ERROR: No se puede copiar un objeto nulo.");
-        }
-        this.capacidad = otrosCiclosFormativos.getCapacidad();
-        this.tamano = otrosCiclosFormativos.getTamano();
-        this.ciclosFormativos = copiaProfundaCiclosFormativos(otrosCiclosFormativos.get());
+        this.coleccionCiclosFormativos = new CicloFormativo[capacidad];
     }
 
     public void insertar(CicloFormativo cicloFormativo) {
@@ -38,7 +26,7 @@ public class CiclosFormativos {
         if (buscarIndice(cicloFormativo) != -1) {
             throw new IllegalArgumentException("ERROR: El ciclo formativo ya existe en la lista.");
         }
-        ciclosFormativos[tamano] = new CicloFormativo(cicloFormativo);
+        coleccionCiclosFormativos[tamano] = new CicloFormativo(cicloFormativo);
         tamano++;
     }
 
@@ -56,37 +44,43 @@ public class CiclosFormativos {
 
 
     private int buscarIndice(CicloFormativo cicloFormativo) {
+        if (cicloFormativo == null) {
+            throw new NullPointerException("ERROR: El ciclo formativo no puede ser nulo.");
+        }
         for (int i = 0; i < tamano; i++) {
-            if (ciclosFormativos[i].equals(cicloFormativo)) {
+            if (coleccionCiclosFormativos[i].equals(cicloFormativo)) {
                 return i;
             }
         }
         return -1;
     }
     public CicloFormativo buscar(CicloFormativo cicloFormativo) {
+        if (cicloFormativo == null) {
+            throw new NullPointerException("ERROR: El ciclo formativo no puede ser nulo.");
+        }
         int indice = buscarIndice(cicloFormativo);
         if (indice == -1) {
             throw new IllegalArgumentException("ERROR: El ciclo formativo no existe en la lista.");
         }
-        return ciclosFormativos[indice];
+        return coleccionCiclosFormativos[indice];
     }
 
     private void desplazarUnaPosicionHaciaIzquierda(int indice) {
-        System.arraycopy(ciclosFormativos, indice + 1, ciclosFormativos, indice, tamano - indice - 1);
+        System.arraycopy(coleccionCiclosFormativos, indice + 1, coleccionCiclosFormativos, indice, tamano - indice - 1);
         tamano--;
-        ciclosFormativos[tamano] = null;
+        coleccionCiclosFormativos[tamano] = null;
     }
 
-    private CicloFormativo[] copiaProfundaCiclosFormativos(CicloFormativo[] ciclosOriginales) {
+    private CicloFormativo[] copiaProfundaCiclosFormativos(CicloFormativo[] ciclosFormativos) {
         CicloFormativo[] copia = new CicloFormativo[tamano];
         for (int i = 0; i < tamano; i++) {
-            copia[i] = new CicloFormativo(ciclosOriginales[i]); // Constructor copia
+            copia[i] = new CicloFormativo(ciclosFormativos[i]);
         }
         return copia;
     }
 
     public CicloFormativo[] get() {
-        return copiaProfundaCiclosFormativos(ciclosFormativos);
+        return copiaProfundaCiclosFormativos(coleccionCiclosFormativos);
     }
 
     public int getCapacidad() {
@@ -95,15 +89,6 @@ public class CiclosFormativos {
 
     public int getTamano() {
         return tamano;
-    }
-
-    @Override
-    public String toString() {
-        return "CiclosFormativos{" +
-                "capacidad=" + capacidad +
-                ", tamano=" + tamano +
-                ", ciclosFormativos=" + Arrays.toString(ciclosFormativos) +
-                '}';
     }
 
 

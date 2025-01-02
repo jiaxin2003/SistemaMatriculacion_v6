@@ -1,14 +1,14 @@
 package org.iesalandalus.programacion.matriculacion.negocio;
 
 import org.iesalandalus.programacion.matriculacion.dominio.Asignatura;
-
+import org.iesalandalus.programacion.matriculacion.dominio.CicloFormativo;
 
 import javax.naming.OperationNotSupportedException;
 import java.util.Objects;
 
 public class Asignaturas {
-    private static int capacidad = 3;
-    private static int tamano = 0;
+    private int capacidad;
+    private int tamano;
     private Asignaturas[] coleccionAsignaturas;
 
     public Asignaturas(int capacidad) {
@@ -16,7 +16,6 @@ public class Asignaturas {
             throw new IllegalArgumentException("ERROR: La capacidad debe ser mayor que cero.");
         }
         this.capacidad = capacidad;
-
         this.tamano = 0;
         this.coleccionAsignaturas = new Asignaturas[capacidad];
     }
@@ -28,7 +27,7 @@ public class Asignaturas {
     private Asignaturas[] copiaProfundaAsignaturas() {
         Asignaturas[] copia = new Asignaturas[tamano];
         for (int i = 0; i < tamano; i++) {
-            copia[i] = coleccionAsignaturas[i];
+            copia[i] = new Asignaturas(coleccionAsignaturas[i].getCapacidad());
         }
         return copia;
     }
@@ -41,63 +40,59 @@ public class Asignaturas {
         return capacidad;
     }
 
-    public void insertar(Asignatura asignaturas) throws OperationNotSupportedException {
-        Objects.requireNonNull(asignaturas, "ERROR: No se puede insertar una asignatura nula.");
-        if (capacidadSuperada(getTamano())) {
-            throw new OperationNotSupportedException("ERROR: No se puede insertar una asignatura. Capacidad superada.");
+    public void insertar(Asignatura asignatura) throws OperationNotSupportedException {
+        if (asignatura == null) {
+            throw new IllegalArgumentException("ERROR: La asignatura no puede ser nula.");
         }
-        coleccionAsignaturas[tamano] = new Asignaturas(asignaturas);
+        if (tamano >= capacidad) {
+            throw new IllegalStateException("ERROR: No se pueden añadir más asignaturas, la capacidad está completa.");
+        }
+        if (buscarIndice(asignatura) != -1) {
+            throw new OperationNotSupportedException("ERROR: La asignatura ya existe en la lista.");
+        }
+        coleccionAsignaturas[tamano] = new Asignaturas(1);
+        coleccionAsignaturas[tamano].insertar(asignatura);
         tamano++;
     }
 
-    private int buscarIndice(Asignaturas asignatura) {
-        for (int i = 0; !tamanoSuperado(i); i++) {
-            if (coleccionAsignaturas[i].equals(asignatura)) {
+    private int buscarIndice(Asignatura asignatura) {
+        if (asignatura == null) {
+            throw new NullPointerException("ERROR: La asignatura no puede ser nula.");
+        }
+        for (int i = 0; i < tamano; i++) {
+            if (coleccionAsignaturas[i].get()[0].equals(asignatura)) {
                 return i;
             }
         }
-        return getTamano();
+        return -1;
     }
 
-    private boolean tamanoSuperado(int indice) {
-        return indice >= getTamano();
-    }
-
-    private boolean capacidadSuperada(int indice) {
-        return indice >= getCapacidad();
-    }
-
-    public void borrar(Asignaturas asignatura) throws OperationNotSupportedException {
+    public void borrar(Asignatura asignatura)  {
         Objects.requireNonNull(asignatura, "ERROR: No se puede borrar una asignatura nula.");
-
         int indice = buscarIndice(asignatura);
-        if (tamanoSuperado(indice)) {
-            throw new OperationNotSupportedException("ERROR: No existe ninguna asignatura como la indicada.");
+        if (indice == -1) {
+            throw new IllegalArgumentException("ERROR: La asignatura no existe en la lista.");
         } else {
             desplazarUnaPosicionHaciaIzquierda(indice);
         }
     }
 
     private void desplazarUnaPosicionHaciaIzquierda(int indice) {
-        int i;
-        for (i = indice; !tamanoSuperado(i); i++) {
+        for (int i = indice; i < tamano - 1; i++) {
             coleccionAsignaturas[i] = coleccionAsignaturas[i + 1];
         }
-        coleccionAsignaturas[i] = null;
+        coleccionAsignaturas[tamano - 1] = null;
         tamano--;
     }
 
     public Asignaturas buscar(Asignatura asignatura) {
-        if (tamanoSuperado(buscarIndice(asignatura))) {
-            throw new IllegalArgumentException("ERROR: No existe ninguna asignatura como la indicada.");
-        } else {
-            for (int i = 0; !tamanoSuperado(i); i++) {
-                if (coleccionAsignaturas[i].equals(asignatura)) {
-                    return coleccionAsignaturas[i];
-                }
-            }
+        if (asignatura == null) {
+            throw new NullPointerException("ERROR: La asignatura no puede ser nula.");
         }
-        return new Asignaturas(0);
+        int indice = buscarIndice(asignatura);
+        if (indice == -1) {
+            return null;
+        }
+        return coleccionAsignaturas[indice].get()[0];
     }
-
 }

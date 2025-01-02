@@ -8,12 +8,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Alumno {
-    private static final String ER_TELEFONO="^[67]\\d{8}$";
-    private static final String ER_CORREO="^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$";
-    private static final String ER_DNI="^([0-9]{8})([A-Za-z])$";
+    private static final String ER_TELEFONO = "^[67]\\d{8}$";
+    private static final String ER_CORREO = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$";
+    private static final String ER_DNI = "^([0-9]{8})([A-Za-z])$";
     public static String FORMATO_FECHA = "dd/MM/yyyy";
     private String ER_NIA;
-    private final int MIN_EDAD_ALUMNO=16;
+    private final int MIN_EDAD_ALUMNO = 16;
     private String nombre;
     private String telefono;
     private String correo;
@@ -28,6 +28,7 @@ public class Alumno {
         setCorreo(correo);
         setTelefono(telefono);
         setFechaNacimiento(fechaNacimiento);
+        setNia();
     }
 
     public Alumno(Alumno alumno) {
@@ -43,8 +44,8 @@ public class Alumno {
     }
 
 
-    private StringBuilder formateaNombre(String nombre)  {
-        if (nombre == null  ) {
+    private StringBuilder formateaNombre(String nombre) {
+        if (nombre == null) {
             throw new NullPointerException("ERROR: El dni de un alumno no puede ser nulo.");
 
         }
@@ -69,29 +70,27 @@ public class Alumno {
         if (dni == null || dni.isEmpty())
             throw new NullPointerException("ERROR: El dni de un alumno no puede ser nulo.");
 
-        if (!dni.matches(ER_DNI))
-            return false;
+        if (!dni.matches(ER_DNI)) return false;
         try {
-        String numeroDniString;
-        int numeroDni, resto;
-        char letraDni;
+            String numeroDniString;
+            int numeroDni, resto;
+            char letraDni;
 
-        Pattern p = Pattern.compile(ER_DNI);
-        Matcher m = p.matcher(dni);
-        char[] LETRAS_DNI = {'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'};
+            Pattern p = Pattern.compile(ER_DNI);
+            Matcher m = p.matcher(dni);
+            char[] LETRAS_DNI = {'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'};
 
-        if (!m.matches())
+            if (!m.matches()) return false;
+
+            numeroDniString = dni.substring(0, dni.length() - 1);
+            numeroDni = Integer.parseInt(numeroDniString);
+
+            resto = numeroDni % 23;
+            letraDni = dni.charAt(8);
+            return LETRAS_DNI[resto] == Character.toUpperCase(letraDni);
+        } catch (NumberFormatException e) {
             return false;
-
-        numeroDniString = dni.substring(0, dni.length() - 1);
-        numeroDni = Integer.parseInt(numeroDniString);
-
-        resto = numeroDni % 23;
-        letraDni = dni.charAt(8);
-        return LETRAS_DNI[resto] == Character.toUpperCase(letraDni);
-    } catch (NumberFormatException e) {
-        return false;
-    }
+        }
     }
 
     public String getnia(String nia) {
@@ -104,9 +103,9 @@ public class Alumno {
     }
 
     private String getIniciales(String nombreCompleto) {
-        if (nombreCompleto == null ) {
+        if (nombreCompleto == null) {
             throw new NullPointerException("ERROR: El nombre no puede ser nulo ni vacío.");
-        } else if (nombreCompleto.trim().isEmpty()||nombreCompleto.trim().isBlank()) {
+        } else if (nombreCompleto.trim().isEmpty() || nombreCompleto.trim().isBlank()) {
             throw new IllegalArgumentException("ERROR: El nombre no puede ser vacío.");
         }
 
@@ -123,17 +122,14 @@ public class Alumno {
     }
 
 
-
-
-
     public String getNombre() {
         return formateaNombre(nombre).toString();
     }
 
     public void setNombre(String nombre) {
-        if (nombre == null ) {
+        if (nombre == null) {
             throw new NullPointerException("ERROR: El nombre de un alumno no puede ser nulo.");
-        }else if (nombre.trim().isEmpty()||nombre.trim().isBlank()) {
+        } else if (nombre.trim().isEmpty() || nombre.trim().isBlank()) {
             throw new IllegalArgumentException("ERROR: El nombre de un alumno no puede estar vacío.");
         }
 
@@ -145,9 +141,9 @@ public class Alumno {
     }
 
     public void setTelefono(String telefono) {
-        if (telefono == null ) {
+        if (telefono == null) {
             throw new NullPointerException("ERROR: El teléfono de un alumno no puede ser nulo.");
-        } else if (telefono.length() != 9) {
+        } else if (!telefono.matches(ER_TELEFONO)) {
             throw new IllegalArgumentException("ERROR: El teléfono del alumno no tiene un formato válido.");
         }
         this.telefono = telefono;
@@ -206,7 +202,7 @@ public class Alumno {
     }
 
     private void setNia() {
-        if (nombre == null||nombre.length()<3) {
+        if (nombre == null || nombre.length() < 3) {
             throw new NullPointerException("ERROR: El NIA de un alumno no puede ser nulo.");
         }
         if (dni == null || dni.length() < 8) {
@@ -216,41 +212,36 @@ public class Alumno {
         String nDni;
         nNombre = nombre.substring(0, 4).toLowerCase();
         nDni = dni.substring(5, 8);
-        this.nia =nNombre + nDni;
+        this.nia = nNombre + nDni;
     }
 
     private void setNia(String nia) {
         if (nia.matches(ER_NIA)) {
             this.nia = nia;
-        }
-        else{
+        } else {
             throw new IllegalArgumentException("Nia incorrecto.");
         }
     }
 
-    public String imprimir(){
-        return String.format(
-                "Alumno: %s\nDNI: %s\nCorreo: %s\nTeléfono: %s\nFecha de Nacimiento: %s\nNIA: %s",
-                nombre, dni, correo, telefono, fechaNacimiento, nia
-        );
+    public String imprimir() {
+        return String.format("Alumno: %s\nDNI: %s\nCorreo: %s\nTeléfono: %s\nFecha de Nacimiento: %s\nNIA: %s", nombre, dni, correo, telefono, fechaNacimiento, nia);
     }
 
     @Override
     public String toString() {
-        return "Número de Identificación del Alumnado " +
-                "(NIA)=" + nia +
+        return "Número de Identificación del Alumnado " + "(NIA)=" + nia +
                 " nombre=" + nombre +
                 " DNI=" + dni +
                 " correo=" + correo +
-                " telefono=" + telefono+
+                " telefono=" + telefono +
                 " fechaNacimiento=" + fechaNacimiento;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Alumno alumnos)) return false;
-        return  Objects.equals(nombre, alumnos.nombre) && Objects.equals(telefono, alumnos.telefono) && Objects.equals(correo, alumnos.correo) && Objects.equals(dni, alumnos.dni) && Objects.equals(fechaNacimiento, alumnos.fechaNacimiento) && Objects.equals(nia, alumnos.nia);
+        if (!(o instanceof Alumno alumno)) return false;
+        return Objects.equals(nombre, alumno.nombre) && Objects.equals(telefono, alumno.telefono) && Objects.equals(correo, alumno.correo) && Objects.equals(fechaNacimiento, alumno.fechaNacimiento) && Objects.equals(nia, alumno.nia);
     }
 
     @Override

@@ -8,11 +8,7 @@ import org.iesalandalus.programacion.matriculacion.dominio.Matricula;
 public class Matriculas {
     private static int capacidad = 3;
     private static int tamano;
-    private Matricula[] matriculas;
-    private Alumno[] alumno;
-    private Curso[] curso;
-    private CicloFormativo[] cicloFormativo;
-
+    private Matricula[] coleccionMatriculas;
 
     public Matriculas(int capacidad) {
         if (capacidad <= 0|| capacidad > 3) {
@@ -20,16 +16,7 @@ public class Matriculas {
         }
         Matriculas.capacidad = capacidad;
         Matriculas.tamano = 0;
-        this.matriculas = new Matricula[capacidad];
-    }
-
-    public Matriculas(Matriculas matriculas) {
-        if (matriculas == null) {
-            throw new NullPointerException("ERROR: No se puede copiar un objeto nulo.");
-        }
-        Matriculas.capacidad = getCapacidad();
-        Matriculas.tamano = getTamano();
-        this.matriculas = copiaProfundaMatriculas(matriculas.getMatriculas());
+        this.coleccionMatriculas = new Matricula[capacidad];
     }
 
     public void insertar(Matricula matricula) {
@@ -42,14 +29,17 @@ public class Matriculas {
         if (buscarIndice(matricula) != -1) {
             throw new IllegalArgumentException("ERROR: La matricula ya existe en la lista.");
         }
-        matriculas[tamano] = new Matricula(matricula);
+        coleccionMatriculas[tamano] = new Matricula(matricula);
         tamano++;
     }
 
     private int buscarIndice(Matricula matricula) {
+        if (matricula == null) {
+            throw new NullPointerException("ERROR: La matricula no puede ser nulo.");
+        }
         int indice = -1;
         for (int i = 0; i < tamano && indice == -1; i++) {
-            if (matriculas[i].equals(matricula)) {
+            if (coleccionMatriculas[i].equals(matricula)) {
                 indice = i;
             }
         }
@@ -57,25 +47,30 @@ public class Matriculas {
     }
 
     public Matricula buscar(Matricula matricula) {
+        if (matricula == null) {
+            throw new NullPointerException("ERROR: La matricula no puede ser nulo.");
+        }
         int indice = buscarIndice(matricula);
         if (indice == -1) {
             return null;
         }
-        return matriculas[indice];
+        return coleccionMatriculas[indice];
 
     }
 
     public void borrar(Matricula matricula) {
+        if (matricula == null) {
+            throw new NullPointerException("ERROR: La matricula no puede ser nulo.");
+        }
         int indice = buscarIndice(matricula);
         if (indice == -1) {
             throw new IllegalArgumentException("ERROR: La matricula no existe en la lista.");
         }
-        matriculas[indice] = null;
-        tamano--;
+        desplazarUnaPosicionHaciaIzquierda(indice);
     }
 
     public Matricula[] getMatriculas() {
-        return copiaProfundaMatriculas(matriculas);
+        return copiaProfundaMatriculas(coleccionMatriculas);
     }
 
     private Matricula[] copiaProfundaMatriculas(Matricula[] matriculasOriginales) {
@@ -88,9 +83,9 @@ public class Matriculas {
     private void desplazarUnaPosicionHaciaIzquierda(int indice) {
         int i;
         for (i = indice; !tamanoSuperado(i); i++) {
-            matriculas[i] = matriculas[i + 1];
+            coleccionMatriculas[i] = coleccionMatriculas[i + 1];
         }
-        matriculas[i] = null;
+        coleccionMatriculas[i] = null;
         tamano--;
     }
 
@@ -117,25 +112,28 @@ public class Matriculas {
     }
 
 
-    public Matricula[] getAlumnos(Alumno alumno) {
+    public Matricula[] getMatriculas(Alumno alumno) {
         Matricula[] copia = new Matricula[tamano];
         for (int i = 0; i < tamano; i++) {
-            copia[i] = new Matricula(matriculas[i]);
+            copia[i] = new Matricula(coleccionMatriculas[i]);
         }
         return copia;
     }
-    public Matricula[] getAlumnos(Curso cursoAcademico) {
+    public Matricula[] getMatriculas(Curso cursoAcademico) {
         Matricula[] copia = new Matricula[tamano];
         for (int i = 0; i < tamano; i++) {
-            copia[i] = new Matricula(matriculas[i]);
+            copia[i] = new Matricula(coleccionMatriculas[i]);
         }
         return copia;
     }
-    public Matricula[] getAlumnos(CicloFormativo cicloFormativo) {
+    public Matricula[] getMatriculas(CicloFormativo cicloFormativo) {
         Matricula[] copia = new Matricula[tamano];
         for (int i = 0; i < tamano; i++) {
-            copia[i] = new Matricula(matriculas[i]);
+            copia[i] = new Matricula(coleccionMatriculas[i]);
         }
         return copia;
     }
+
+
+
 }

@@ -81,7 +81,7 @@ import java.time.format.DateTimeParseException;
             String nombre = "Pepe Perez";
             String telefono = "666333888";
             String correo = "PepePerez@gmail.com";
-            String dni = "789456132B";
+            String dni = "78945613B";
             LocalDate fechaNacimiento = LocalDate.now();
 
             do {

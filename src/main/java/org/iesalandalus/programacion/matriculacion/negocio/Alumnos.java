@@ -7,7 +7,7 @@ import org.iesalandalus.programacion.matriculacion.dominio.Alumno;
 public class Alumnos {
     private int capacidad = 3;
     private int tamano = 0;
-    private final Alumno [] alumnos;
+    private final Alumno [] coleccionAlumnos;
 
 
     public Alumnos(int capacidad) {
@@ -16,7 +16,7 @@ public class Alumnos {
         }
         this.capacidad = capacidad;
         this.tamano = 0;
-        this.alumnos = new Alumno[capacidad];
+        this.coleccionAlumnos = new Alumno[capacidad];
     }
 
 
@@ -30,7 +30,7 @@ public class Alumnos {
         if (buscarIndice(alumno) != -1) {
             throw new IllegalArgumentException("ERROR: El alumno ya existe en la lista.");
         }
-        alumnos[tamano] = new Alumno(alumno);
+        coleccionAlumnos[tamano] = new Alumno(alumno);
         tamano++;
     }
 
@@ -47,8 +47,11 @@ public class Alumnos {
     }
 
     private int buscarIndice(Alumno alumno) {
+        if (alumno == null) {
+            throw new NullPointerException("ERROR: El alumno no puede ser nulo.");
+        }
         for (int i = 0; i < tamano; i++) {
-            if (alumnos[i].equals(alumno)) {
+            if (coleccionAlumnos[i].equals(alumno)) {
                 return i;
             }
         }
@@ -64,18 +67,21 @@ public class Alumnos {
     }
 
     public Alumno buscar(Alumno alumno) {
+        if (alumno == null) {
+            throw new NullPointerException("ERROR: El alumno no puede ser nulo.");
+        }
         int indice = buscarIndice(alumno);
         if (indice == -1) {
             return null;
         }
-        return alumnos[indice];
+        return coleccionAlumnos[indice];
     }
     private void desplazarUnaPosicionHaciaIzquierda (int indice) {
         int i;
         for (i = indice; !tamanoSuperado(i); i++) {
-            alumnos[i] = alumnos[i + 1];
+            coleccionAlumnos[i] = coleccionAlumnos[i + 1];
         }
-        alumnos[i] = null;
+        coleccionAlumnos[i] = null;
         tamano--;
     }
 
@@ -96,16 +102,13 @@ public class Alumnos {
     private Alumno[] copiaProfundaAlumnos() {
         Alumno[] copia = new Alumno[tamano];
         for (int i = 0; i < tamano; i++) {
-            copia[i] = new Alumno(alumnos[i]);
+            copia[i] = new Alumno(coleccionAlumnos[i]);
         }
         return copia;
     }
 
-
-
-
     @Override
     public int hashCode() {
-        return Objects.hash(capacidad, tamano, Arrays.hashCode(alumnos));
+        return Objects.hash(capacidad, tamano, Arrays.hashCode(coleccionAlumnos));
     }
 }
