@@ -1,19 +1,12 @@
 package org.iesalandalus.programacion.matriculacion.dominio;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Alumno {
-    private static final String ER_TELEFONO = "^[67]\\d{8}$";
-    private static final String ER_CORREO = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$";
-    private static final String ER_DNI = "^([0-9]{8})([A-Za-z])$";
-    public static String FORMATO_FECHA = "dd/MM/yyyy";
-    private String ER_NIA;
-    private final int MIN_EDAD_ALUMNO = 16;
     private String nombre;
     private String telefono;
     private String correo;
@@ -21,12 +14,19 @@ public class Alumno {
     private LocalDate fechaNacimiento;
     private String nia;
 
+    private static final String ER_TELEFONO = "^[67]\\d{8}$";
+    private static final String ER_CORREO = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$";
+    private static final String ER_DNI = "^([0-9]{8})([A-Za-z])$";
+    public static String FORMATO_FECHA = "dd/MM/yyyy";
+    private String ER_NIA = "[A-Za-z]{4}[0-9]{3}";
+    private final int MIN_EDAD_ALUMNO = 16;
 
-    public Alumno(String nombre, String dni, String correo, String telefono, LocalDate fechaNacimiento) {
+
+    public Alumno(String nombre, String dni, String telefono, String correo, LocalDate fechaNacimiento) {
         setNombre(nombre);
         setDni(dni);
-        setCorreo(correo);
         setTelefono(telefono);
+        setCorreo(correo);
         setFechaNacimiento(fechaNacimiento);
         setNia();
     }
@@ -82,7 +82,7 @@ public class Alumno {
 
             if (!m.matches()) return false;
 
-            numeroDniString = dni.substring(0, dni.length() - 1);
+            numeroDniString = dni.substring(0, 8);
             numeroDni = Integer.parseInt(numeroDniString);
 
             resto = numeroDni % 23;
@@ -187,14 +187,14 @@ public class Alumno {
         if (fechaNacimiento == null) {
             throw new NullPointerException("ERROR: La fecha de nacimiento de un alumno no puede ser nula.");
         }
+        // fechaNacimiento = LocalDate.parse(fechaNacimiento.format(DateTimeFormatter.ofPattern(Alumno.FORMATO_FECHA)));
 
         long edad = ChronoUnit.YEARS.between(fechaNacimiento, LocalDate.now());
 
         if (edad < MIN_EDAD_ALUMNO) {
             throw new IllegalArgumentException("ERROR: La edad del alumno debe ser mayor o igual a 16 años.");
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(FORMATO_FECHA);
-        this.fechaNacimiento = LocalDate.parse((fechaNacimiento.format(formatter)));
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public String getNia() {
@@ -207,6 +207,9 @@ public class Alumno {
         }
         if (dni == null || dni.length() < 8) {
             throw new IllegalArgumentException("ERROR: El DNI debe tener al menos 8 caracteres.");
+        }
+        if (!dni.matches(ER_DNI)) {
+            throw new IllegalArgumentException("ERROR: El dni del alumno no tiene un formato válido.");
         }
         String nNombre;
         String nDni;

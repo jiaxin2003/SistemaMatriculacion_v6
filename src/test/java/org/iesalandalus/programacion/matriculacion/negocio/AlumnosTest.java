@@ -60,10 +60,10 @@ public class AlumnosTest {
 
     @BeforeAll
     public static void asignarValoresAtributos() {
-        alumno1 = new Alumno(NOMBRE_JRJR, DNI_JRJR, CORREO_JRJR, TELEFONO_JRJR, FECHA_NACIMIENTO_JRJR);
-        alumno2 = new Alumno(NOMBRE_ARDR, DNI_ARDR, CORREO_ARDR, TELEFONO_ARDR, FECHA_NACIMIENTO_ARDR);
-        alumno3 = new Alumno(NOMBRE_BE, DNI_BE, CORREO_BE, TELEFONO_BE, FECHA_NACIMIENTO_BE);
-        alumnoRepetido1 =new Alumno(NOMBRE_ARDR, DNI_ARDR, CORREO_ARDR, TELEFONO_ARDR, FECHA_NACIMIENTO_ARDR);
+        alumno1 = new Alumno(NOMBRE_JRJR, DNI_JRJR, TELEFONO_JRJR, CORREO_JRJR, FECHA_NACIMIENTO_JRJR);
+        alumno2 = new Alumno(NOMBRE_ARDR, DNI_ARDR, TELEFONO_ARDR, CORREO_ARDR, FECHA_NACIMIENTO_ARDR);
+        alumno3 = new Alumno(NOMBRE_BE, DNI_BE, TELEFONO_BE, CORREO_BE, FECHA_NACIMIENTO_BE);
+        alumnoRepetido1 =new Alumno(NOMBRE_ARDR, DNI_ARDR, TELEFONO_ARDR, CORREO_ARDR, FECHA_NACIMIENTO_ARDR);
 
     }
 

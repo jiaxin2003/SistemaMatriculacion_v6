@@ -1,7 +1,7 @@
 package org.iesalandalus.programacion.matriculacion.dominio;
 
 public enum Curso {
-    PRIMERO("1. Primero"), SEGUNDO("2. Segundo");
+    PRIMERO(" Primero"), SEGUNDO(" Segundo");
 
     private final String cadenaAMostrar;
     private Curso(String cadenaAMostrar)
@@ -15,8 +15,6 @@ public enum Curso {
 
     @Override
     public String toString() {
-        return "Curso{" +
-                "cadenaAMostrar='" + cadenaAMostrar + '\'' +
-                '}';
+        return  cadenaAMostrar ;
     }
 }

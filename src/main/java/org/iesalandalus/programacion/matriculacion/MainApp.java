@@ -8,34 +8,41 @@ import org.iesalandalus.programacion.matriculacion.negocio.Matriculas;
 import org.iesalandalus.programacion.matriculacion.vista.Consola;
 import org.iesalandalus.programacion.matriculacion.vista.Opcion;
 
+import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
 import java.util.Arrays;
 
 
 public class MainApp {
     public static final int CAPACIDAD = 3;
-    private Alumnos alumnos;
-    private Asignaturas asignaturas;
-    private CiclosFormativos ciclosFormativos;
-    private Matriculas matriculas;
+    private static Alumnos alumnos;
+    private static Asignaturas asignaturas;
+    private static CiclosFormativos ciclosFormativos;
+    private static Matriculas matriculas;
 
     public static void main(String[] args) {
 
-        Alumnos alumno= new Alumnos(CAPACIDAD);
-        Asignaturas asignatura= new Asignaturas(CAPACIDAD);
-        CiclosFormativos cicloFormativo= new CiclosFormativos(CAPACIDAD);
-        Matriculas matricula= new Matriculas(CAPACIDAD);
-
-        Consola.mostrarMenu();
+        alumnos = new Alumnos(CAPACIDAD);
+        asignaturas = new Asignaturas(CAPACIDAD);
+        ciclosFormativos = new CiclosFormativos(CAPACIDAD);
+        matriculas = new Matriculas(CAPACIDAD);
 
         MainApp mainApp = new MainApp();
-        mainApp.ejecutarOpcion(Consola.elegirOpcion());
+        Opcion opcion;
+        do {
+            Consola.mostrarMenu();
+            opcion = Consola.elegirOpcion();
+            mainApp.ejecutarOpcion(opcion);
+        }while (opcion != Opcion.SALIR);
 
-        System.out.println("Hasta luego!!!!");
     }
 
     private void ejecutarOpcion(Opcion opcion) {
         switch (opcion) {
+            case SALIR:
+                System.out.println("Hasta pronto.");
+                System.exit(0);
+                break;
             case INSERTAR_ALUMNO:
                 insertarAlumno();
                 break;
@@ -93,18 +100,16 @@ public class MainApp {
             case MOSTRAR_MATRICULAS_CURSO_ACADEMICO:
                 mostrarMatriculasPorCurso();
                 break;
-            case SALIR:
-                System.out.println("Hasta pronto.");
-                break;
+
         }
     }
 
-    private void insertarAlumno() {
+    private static void insertarAlumno() {
         try {
             Alumno alumno = Consola.leerAlumno();
             alumnos.insertar(alumno);
             System.out.println("Alumno insertado correctamente.");
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("ERROR: No se pudo insertar el alumno.");
         }
     }
@@ -112,10 +117,10 @@ public class MainApp {
     private void buscarAlumno() {
         try {
             Alumno alumno = Consola.getAlumnoPorDni();
-            Alumno encontrado = alumnos.buscar(alumno);
-            System.out.println(encontrado != null ? encontrado : "Alumno no encontrado.");
-        } catch (Exception e) {
-            System.out.println("ERROR: no se pudo buscar el alumno.");
+            alumnos.buscar(alumno);
+            System.out.println("Alumno encontrado.");
+        } catch (IllegalArgumentException e) {
+            System.out.println("ERROR: No se pudo buscar el alumno.");
         }
     }
 
@@ -124,25 +129,25 @@ public class MainApp {
             Alumno alumno = Consola.getAlumnoPorDni();
             alumnos.borrar(alumno);
             System.out.println("Alumno borrado correctamente.");
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("ERROR: No se pudo borrar el alumno.");
         }
     }
 
     private void mostrarAlumnos() {
-        if (alumnos.getTamano() > 0) {
-            System.out.println(alumnos.toString());
-        } else {
-            System.out.println("No hay alumnos registrados.");
-        }
+        if (alumnos.getTamano() == 0 || alumnos.getTamano() == alumnos.getCapacidad()) {
+            System.out.println("No hay alumnos.");
+        }else System.out.println("Alumnos:" + Arrays.toString(alumnos.get()));
+
     }
+
 
     private void insertarAsignatura() {
         try {
             Asignatura asignatura = Consola.leerAsignatura(ciclosFormativos);
             asignaturas.insertar(asignatura);
             System.out.println("Asignatura insertada correctamente.");
-        } catch (Exception e) {
+        } catch (IllegalArgumentException | OperationNotSupportedException e) {
             System.out.println("ERROR: No se pudo insertar la asignatura.");
         }
     }
@@ -153,7 +158,7 @@ public class MainApp {
             Asignatura asignatura = Consola.getAsignaturaPorCodigo();
             Asignaturas encontrada = asignaturas.buscar(asignatura);
             System.out.println(encontrada != null ? encontrada : "Asignatura no encontrada.");
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("ERROR: No se pudo buscar la asignatura.");
         }
     }
@@ -163,7 +168,7 @@ public class MainApp {
             Asignatura asignatura = Consola.getAsignaturaPorCodigo();
             asignaturas.borrar(asignatura);
             System.out.println("Asignatura borrada correctamente.");
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("ERROR: No se pudo borrar la asignatura.");
         }
     }
@@ -182,7 +187,7 @@ public class MainApp {
             CicloFormativo ciclo = Consola.leerCicloFormativo();
             ciclosFormativos.insertar(ciclo);
             System.out.println("Ciclo formativo insertado correctamente.");
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("ERROR: No se pudo insertar el ciclo formativo.");
         }
     }
@@ -192,7 +197,7 @@ public class MainApp {
             CicloFormativo ciclo = Consola.getCicloPorCodigo();
             CicloFormativo encontrado = ciclosFormativos.buscar(ciclo);
             System.out.println(encontrado != null ? encontrado : "Ciclo formativo no encontrado.");
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("ERROR: No se pudo buscar el ciclo formativo.");
         }
     }
@@ -202,16 +207,16 @@ public class MainApp {
             CicloFormativo ciclo = Consola.getCicloPorCodigo();
             ciclosFormativos.borrar(ciclo);
             System.out.println("Ciclo formativo borrado correctamente.");
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("ERROR: No se pudo borrar el ciclo formativo.");
         }
     }
 
     private void mostrarCiclosFormativos() {
-        if (ciclosFormativos.getTamano() > 0) {
-            System.out.println(ciclosFormativos.toString());
-        } else {
+        if (ciclosFormativos.getTamano() < 0 || ciclosFormativos.getTamano() == ciclosFormativos.getCapacidad()) {
             System.out.println("No hay ciclos formativos registrados.");
+        } else {
+            System.out.println("Ciclos Formativos :" + Arrays.toString(ciclosFormativos.get()));
         }
     }
 
@@ -220,7 +225,7 @@ public class MainApp {
             Matricula matricula = Consola.leerMatricula(alumnos, asignaturas);
             matriculas.insertar(matricula);
             System.out.println("Matrícula insertada correctamente.");
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("ERROR: No se pudo insertar la matrícula.");
         }
     }
@@ -230,7 +235,7 @@ public class MainApp {
             Matricula matricula = Consola.getMatriculaPorIdentificador();
             Matricula encontrada = matriculas.buscar(matricula);
             System.out.println(encontrada != null ? encontrada : "Matrícula no encontrada.");
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("ERROR: No se pudo buscar la matrícula.");
         }
     }
@@ -240,7 +245,7 @@ public class MainApp {
             Matricula matricula = Consola.getMatriculaPorIdentificador();
             LocalDate fechaAnulacion = Consola.leerFecha("Fecha de anulación: ");
             System.out.println("Matrícula anulada correctamente.");
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("ERROR: No se pudo anular la matrícula.");
         }
     }
@@ -257,7 +262,7 @@ public class MainApp {
         try {
             Alumno alumno = Consola.getAlumnoPorDni();
             System.out.println(Arrays.toString(matriculas.getMatriculas(alumno)));
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("ERROR: No se pudo mostrar las matrículas por alumno.");
         }
     }
@@ -266,7 +271,7 @@ public class MainApp {
         try {
             CicloFormativo ciclo = Consola.getCicloPorCodigo();
             System.out.println(Arrays.toString(matriculas.getMatriculas(ciclo)));
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("ERROR: No se pudo mostrar las matrículas por ciclo.");
         }
     }
@@ -275,10 +280,11 @@ public class MainApp {
         try {
             Curso curso = Consola.leerCurso();
             System.out.println(Arrays.toString(matriculas.getMatriculas(curso)));
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("ERROR: No se pudo mostrar las matrículas por curso.");
         }
     }
+
 
 
 }

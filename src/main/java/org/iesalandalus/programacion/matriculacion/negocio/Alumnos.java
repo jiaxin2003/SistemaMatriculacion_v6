@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import org.iesalandalus.programacion.matriculacion.dominio.Alumno;
 
-public class Alumnos {
+public class  Alumnos {
     private int capacidad = 3;
     private int tamano = 0;
     private final Alumno [] coleccionAlumnos;
@@ -22,7 +22,7 @@ public class Alumnos {
 
     public void insertar(Alumno alumno) {
         if (alumno == null) {
-            throw new IllegalArgumentException("ERROR: El alumno no puede ser nulo.");
+            throw new NullPointerException("ERROR: El alumno no puede ser nulo.");
         }
         if (tamano >= capacidad) {
             throw new IllegalStateException("ERROR: No se pueden añadir más alumnos, la capacidad está completa.");
@@ -51,7 +51,7 @@ public class Alumnos {
             throw new NullPointerException("ERROR: El alumno no puede ser nulo.");
         }
         for (int i = 0; i < tamano; i++) {
-            if (coleccionAlumnos[i].equals(alumno)) {
+            if (Objects.equals(coleccionAlumnos[i].getDni(), alumno.getDni())) {
                 return i;
             }
         }
@@ -72,7 +72,7 @@ public class Alumnos {
         }
         int indice = buscarIndice(alumno);
         if (indice == -1) {
-            return null;
+            throw new IllegalArgumentException("ERROR: El alumno no existe en la lista.");
         }
         return coleccionAlumnos[indice];
     }

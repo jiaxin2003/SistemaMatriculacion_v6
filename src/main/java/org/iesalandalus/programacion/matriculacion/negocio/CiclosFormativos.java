@@ -48,7 +48,7 @@ public class CiclosFormativos {
             throw new NullPointerException("ERROR: El ciclo formativo no puede ser nulo.");
         }
         for (int i = 0; i < tamano; i++) {
-            if (coleccionCiclosFormativos[i].equals(cicloFormativo)) {
+            if (coleccionCiclosFormativos[i].getCodigo() == cicloFormativo.getCodigo()) {
                 return i;
             }
         }

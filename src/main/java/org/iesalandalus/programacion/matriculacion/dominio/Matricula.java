@@ -28,12 +28,12 @@ public class Matricula {
     }
 
     public Matricula(Matricula matricula) {
-        setIdMatricula(matricula.getIdMatricula());
-        setCursoAcademico(matricula.getCursoAcademico());
-        setFechaMatriculacion(matricula.getFechaMatriculacion());
-        setFechaAnulacion(matricula.getFechaAnulacion());
-        setAlumno(matricula.getAlumno());
-        setColeccionAsignaturas(new Asignatura[matricula.getColeccionAsignaturas().length]);
+        setIdMatricula(matricula.idMatricula);
+        setCursoAcademico(matricula.cursoAcademico);
+        setFechaMatriculacion(matricula.fechaMatriculacion);
+        setFechaAnulacion(matricula.fechaAnulacion);
+        setAlumno(matricula.alumno);
+        setColeccionAsignaturas(new Asignatura[matricula.coleccionAsignaturas.length]);
     }
 
 
