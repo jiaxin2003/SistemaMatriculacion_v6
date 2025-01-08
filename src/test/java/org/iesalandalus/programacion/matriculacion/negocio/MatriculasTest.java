@@ -171,7 +171,7 @@ public class MatriculasTest {
         try {
             matriculas.insertar(matricula1);
 
-            Matricula[] copiaMatriculas = matriculas.getMatriculas();
+            Matricula[] copiaMatriculas = matriculas.get();
             assertEquals(1, Matriculas.getTamano(), TAMANO_NO_ESPERADO);
             assertEquals(matricula1, matriculas.buscar(matricula1), MATRICULA_NO_ESPERADA);
             assertNotSame(matricula1, copiaMatriculas[0], REFERENCIA_NO_ESPERADA);
@@ -189,7 +189,7 @@ public class MatriculasTest {
             matriculas.insertar(matricula1);
             matriculas.insertar(matricula2);
 
-            Matricula[] copiaMatriculas = matriculas.getMatriculas();
+            Matricula[] copiaMatriculas = matriculas.get();
             assertEquals(2, matriculas.getTamano(), TAMANO_NO_ESPERADO);
             assertEquals(matricula1, matriculas.buscar(matricula1), MATRICULA_NO_ESPERADA);
             assertNotSame(matricula1, copiaMatriculas[0], REFERENCIA_NO_ESPERADA);
@@ -211,7 +211,7 @@ public class MatriculasTest {
             matriculas.insertar(matricula2);
             matriculas.insertar(matricula3);
 
-            Matricula[] copiaMatriculas = matriculas.getMatriculas();
+            Matricula[] copiaMatriculas = matriculas.get();
 
             assertEquals(3, matriculas.getTamano(), TAMANO_NO_ESPERADO);
             assertEquals(matricula1, matriculas.buscar(matricula1), MATRICULA_NO_ESPERADA);
@@ -307,7 +307,7 @@ public class MatriculasTest {
             assertNotSame(matricula1, matriculas.buscar(matricula1), REFERENCIA_NO_ESPERADA);
             try
             {
-                assertEquals(matricula1, matriculas.getMatriculas()[0], OPERACION_NO_REALIZADA);
+                assertEquals(matricula1, matriculas.get()[0], OPERACION_NO_REALIZADA);
 
             }
             catch (OperationNotSupportedException e1)

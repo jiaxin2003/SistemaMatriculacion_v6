@@ -1,7 +1,6 @@
 package org.iesalandalus.programacion.matriculacion.negocio;
 
 import org.iesalandalus.programacion.matriculacion.dominio.Asignatura;
-import org.iesalandalus.programacion.matriculacion.dominio.CicloFormativo;
 
 import javax.naming.OperationNotSupportedException;
 import java.util.Objects;
@@ -9,7 +8,7 @@ import java.util.Objects;
 public class Asignaturas {
     private int capacidad;
     private int tamano;
-    private Asignaturas[] coleccionAsignaturas;
+    private Asignatura[] coleccionAsignaturas;
 
     public Asignaturas(int capacidad) {
         if (capacidad <= 0) {
@@ -17,19 +16,26 @@ public class Asignaturas {
         }
         this.capacidad = capacidad;
         this.tamano = 0;
-        this.coleccionAsignaturas = new Asignaturas[capacidad];
+        this.coleccionAsignaturas = new Asignatura[capacidad];
     }
 
-    public Asignaturas[] get() {
-        return copiaProfundaAsignaturas();
+    public Asignatura[] get() {
+        return copiaProfundaAsignaturas(coleccionAsignaturas);
     }
 
-    private Asignaturas[] copiaProfundaAsignaturas() {
-        Asignaturas[] copia = new Asignaturas[tamano];
-        for (int i = 0; i < tamano; i++) {
-            copia[i] = new Asignaturas(coleccionAsignaturas[i].getCapacidad());
+    private Asignatura[] copiaProfundaAsignaturas(Asignatura[] coleccionAsignaturas) {
+        Asignatura[] copiaAsignaturas = new Asignatura[capacidad];
+        for (int i = 0; !tamanoSuperado(i); i++) {
+            copiaAsignaturas[i] = new Asignatura(this.coleccionAsignaturas[i]);
         }
-        return copia;
+        return copiaAsignaturas;
+    }
+
+    private boolean tamanoSuperado(int i) {
+        return i >= tamano;
+    }
+    private boolean capacidadSuperada(int i) {
+        return i >= capacidad;
     }
 
     public int getTamano() {
@@ -50,8 +56,7 @@ public class Asignaturas {
         if (buscarIndice(asignatura) != -1) {
             throw new OperationNotSupportedException("ERROR: La asignatura ya existe en la lista.");
         }
-        coleccionAsignaturas[tamano] = new Asignaturas(1);
-        coleccionAsignaturas[tamano].insertar(asignatura);
+        coleccionAsignaturas[tamano] = new Asignatura(asignatura);
         tamano++;
     }
 
@@ -60,7 +65,7 @@ public class Asignaturas {
             throw new NullPointerException("ERROR: La asignatura no puede ser nula.");
         }
         for (int i = 0; i < tamano; i++) {
-            if (coleccionAsignaturas[i].get()[0].equals(asignatura)) {
+            if (coleccionAsignaturas[i].getCodigo() == asignatura.getCodigo()) {
                 return i;
             }
         }
@@ -85,7 +90,7 @@ public class Asignaturas {
         tamano--;
     }
 
-    public Asignaturas buscar(Asignatura asignatura) {
+    public Asignatura buscar(Asignatura asignatura) {
         if (asignatura == null) {
             throw new NullPointerException("ERROR: La asignatura no puede ser nula.");
         }
@@ -93,6 +98,6 @@ public class Asignaturas {
         if (indice == -1) {
             return null;
         }
-        return coleccionAsignaturas[indice].get()[0];
+        return coleccionAsignaturas[indice];
     }
 }

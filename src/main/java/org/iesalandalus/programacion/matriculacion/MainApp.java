@@ -33,7 +33,7 @@ public class MainApp {
             Consola.mostrarMenu();
             opcion = Consola.elegirOpcion();
             mainApp.ejecutarOpcion(opcion);
-        }while (opcion != Opcion.SALIR);
+        } while (opcion != Opcion.SALIR);
 
     }
 
@@ -137,7 +137,7 @@ public class MainApp {
     private void mostrarAlumnos() {
         if (alumnos.getTamano() == 0 || alumnos.getTamano() == alumnos.getCapacidad()) {
             System.out.println("No hay alumnos.");
-        }else System.out.println("Alumnos:" + Arrays.toString(alumnos.get()));
+        } else System.out.println("Alumnos:" + Arrays.toString(alumnos.get()));
 
     }
 
@@ -156,8 +156,8 @@ public class MainApp {
     private void buscarAsignatura() {
         try {
             Asignatura asignatura = Consola.getAsignaturaPorCodigo();
-            Asignaturas encontrada = asignaturas.buscar(asignatura);
-            System.out.println(encontrada != null ? encontrada : "Asignatura no encontrada.");
+            asignaturas.buscar(asignatura);
+            System.out.println("Asignatura encontrada.");
         } catch (IllegalArgumentException e) {
             System.out.println("ERROR: No se pudo buscar la asignatura.");
         }
@@ -175,10 +175,13 @@ public class MainApp {
 
 
     private void mostrarAsignaturas() {
-        if (asignaturas.getTamano() > 0) {
-            System.out.println(asignaturas.toString());
-        } else {
+        if (asignaturas.getTamano() < 0) {
             System.out.println("No hay asignaturas registradas.");
+        }
+        if (asignaturas.getTamano() == asignaturas.getCapacidad())
+            System.out.println("No esta esa asignatura.");
+        else {
+            System.out.println(Arrays.toString(asignaturas.get()));
         }
     }
 
@@ -216,7 +219,8 @@ public class MainApp {
         if (ciclosFormativos.getTamano() < 0 || ciclosFormativos.getTamano() == ciclosFormativos.getCapacidad()) {
             System.out.println("No hay ciclos formativos registrados.");
         } else {
-            System.out.println("Ciclos Formativos :" + Arrays.toString(ciclosFormativos.get()));
+            System.out.println("Ciclos Formativos :");
+            Arrays.toString(ciclosFormativos.get());
         }
     }
 
@@ -243,7 +247,7 @@ public class MainApp {
     private void anularMatricula() {
         try {
             Matricula matricula = Consola.getMatriculaPorIdentificador();
-            LocalDate fechaAnulacion = Consola.leerFecha("Fecha de anulación: ");
+            matriculas.borrar(matricula);
             System.out.println("Matrícula anulada correctamente.");
         } catch (IllegalArgumentException e) {
             System.out.println("ERROR: No se pudo anular la matrícula.");
@@ -252,7 +256,7 @@ public class MainApp {
 
     private void mostrarMatriculas() {
         if (Matriculas.getTamano() > 0) {
-            System.out.println(matriculas.toString());
+            System.out.println(Arrays.toString(matriculas.get()));
         } else {
             System.out.println("No hay matrículas registradas.");
         }
@@ -260,8 +264,8 @@ public class MainApp {
 
     private void mostrarMatriculasPorAlumno() {
         try {
-            Alumno alumno = Consola.getAlumnoPorDni();
-            System.out.println(Arrays.toString(matriculas.getMatriculas(alumno)));
+            Consola.getAlumnoPorDni();
+            System.out.println(Arrays.toString(matriculas.get()));
         } catch (IllegalArgumentException e) {
             System.out.println("ERROR: No se pudo mostrar las matrículas por alumno.");
         }
@@ -269,8 +273,8 @@ public class MainApp {
 
     private void mostrarMatriculasPorCiclo() {
         try {
-            CicloFormativo ciclo = Consola.getCicloPorCodigo();
-            System.out.println(Arrays.toString(matriculas.getMatriculas(ciclo)));
+            Consola.getCicloPorCodigo();
+            System.out.println(Arrays.toString(matriculas.get()));
         } catch (IllegalArgumentException e) {
             System.out.println("ERROR: No se pudo mostrar las matrículas por ciclo.");
         }
@@ -278,13 +282,11 @@ public class MainApp {
 
     private void mostrarMatriculasPorCurso() {
         try {
-            Curso curso = Consola.leerCurso();
-            System.out.println(Arrays.toString(matriculas.getMatriculas(curso)));
+            System.out.println(Arrays.toString(matriculas.get()));
         } catch (IllegalArgumentException e) {
             System.out.println("ERROR: No se pudo mostrar las matrículas por curso.");
         }
     }
-
 
 
 }

@@ -10,7 +10,7 @@ public class Matricula {
     public static int MAXIMO_DIAS_ANTERIOR_MATRICULA = 15;
     public static int MAXIMO_NUMERO_HORAS_MATRICULA = 1000;
     public static int MAXIMO_NUMERO_ASIGNATURAS_POR_MATRICULA = 10;
-    private static final String ER_CURSO_ACADEMICO = "^\\d{4}/\\d{4}$";
+    private static final String ER_CURSO_ACADEMICO = "^\\d{2}/\\d{2}$";
     public static String FORMATO_FECHA = "dd/MM/yyyy";
     private int idMatricula;
     private String cursoAcademico;
@@ -31,7 +31,6 @@ public class Matricula {
         setIdMatricula(matricula.idMatricula);
         setCursoAcademico(matricula.cursoAcademico);
         setFechaMatriculacion(matricula.fechaMatriculacion);
-        setFechaAnulacion(matricula.fechaAnulacion);
         setAlumno(matricula.alumno);
         setColeccionAsignaturas(new Asignatura[matricula.coleccionAsignaturas.length]);
     }

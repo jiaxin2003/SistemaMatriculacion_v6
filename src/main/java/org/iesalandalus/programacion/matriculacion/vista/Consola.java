@@ -10,6 +10,7 @@ import org.iesalandalus.programacion.utilidades.Entrada;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 
 
 public class Consola {
@@ -103,7 +104,7 @@ public class Consola {
         do {
             System.out.println("Elige el grado: ");
             for (Grado grado : Grado.values()) {
-                System.out.println(grado.ordinal()+ grado.toString());
+                System.out.println(grado.ordinal() + grado.toString());
             }
             opcion = Entrada.entero();
         } while (opcion < 0 || opcion > Grado.values().length);
@@ -194,8 +195,8 @@ public class Consola {
         int horasDesdoble;
         Curso curso;
         EspecialidadProfesorado especialidadProfesorado;
-        CicloFormativo cicloFormativos ;
-        
+        CicloFormativo cicloFormativos;
+
         do {
             System.out.println("Introduce los datos de la asignatura");
             System.out.println("Codigo: ");
@@ -217,29 +218,24 @@ public class Consola {
     }
 
     public static Asignatura getAsignaturaPorCodigo() {
-        Asignatura asignatura = null;
         String codigo;
         String nombre = "Pepe Perez";
         int horasAnuales = 100;
         int horasDesdoble = 3;
         Curso curso = Curso.PRIMERO;
         EspecialidadProfesorado especialidadProfesorado = EspecialidadProfesorado.INFORMATICA;
-        CicloFormativo cicloFormativo = new CicloFormativo(1, "Informatica", Grado.GDCFGB, "Pepe Perez", 250);
+        CicloFormativo cicloFormativo = new CicloFormativo(1234, "Informatica", Grado.GDCFGB, "Pepe Perez", 250);
 
         do {
             System.out.println("Introduce el codigo de la asignatura: ");
             codigo = Entrada.cadena();
         } while (codigo.isEmpty());
-        try {
-            asignatura = new Asignatura(codigo, nombre, horasAnuales, curso, horasDesdoble, especialidadProfesorado, cicloFormativo);
-        } catch (IllegalArgumentException | NullPointerException e) {
-            System.out.println("ERROR: Los datos introducidos no son correctos.");
-        }
-        return new Asignatura(asignatura);
+
+        return new Asignatura(codigo, nombre, horasAnuales, curso, horasDesdoble, especialidadProfesorado, cicloFormativo);
     }
 
-    private void mostrarAsignaturas(Asignaturas asignaturas) {
-        System.out.println(asignaturas.toString());
+    private static void mostrarAsignaturas(Asignaturas asignaturas) {
+        System.out.println(Arrays.toString(asignaturas.get()));
     }
 
     private boolean asignaturaYaMatriculada(Asignatura[] asignaturasMatricula, Asignatura asignatura) {
@@ -258,20 +254,20 @@ public class Consola {
         Alumno alumno;
         Matricula matricula;
 
+
         do {
             System.out.println("Introduzca los datos de la Matricula:");
             System.out.println("IdMatricula: ");
             idMatricula = Entrada.entero();
             System.out.println("Curso Academico: ");
             cursoAcademico = Entrada.cadena();
-            System.out.println("Fecha Matriculacion: ");
             fechaMatriculacion = leerFecha("Fecha Matriculacion: ");
             alumno = leerAlumno();
             alumno = alumnos.buscar(alumno);
-            matricula = new Matricula(idMatricula, cursoAcademico, fechaMatriculacion, alumno, new Asignatura[0]);
+
         } while (alumno == null || idMatricula < 0 || cursoAcademico.isEmpty() || fechaMatriculacion == null);
 
-        return new Matricula(matricula);
+        return new Matricula(idMatricula, cursoAcademico, fechaMatriculacion, alumno, asignaturas.get());
     }
 
     public static Matricula getMatriculaPorIdentificador() {

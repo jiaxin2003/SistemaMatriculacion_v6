@@ -69,7 +69,7 @@ public class Matriculas {
         desplazarUnaPosicionHaciaIzquierda(indice);
     }
 
-    public Matricula[] getMatriculas() {
+    public Matricula[] get() {
         return copiaProfundaMatriculas(coleccionMatriculas);
     }
 
@@ -112,21 +112,21 @@ public class Matriculas {
     }
 
 
-    public Matricula[] getMatriculas(Alumno alumno) {
+    public Matricula[] get(Alumno alumno) {
         Matricula[] copia = new Matricula[tamano];
         for (int i = 0; i < tamano; i++) {
             copia[i] = new Matricula(coleccionMatriculas[i]);
         }
         return copia;
     }
-    public Matricula[] getMatriculas(Curso cursoAcademico) {
+    public Matricula[] get(Curso cursoAcademico) {
         Matricula[] copia = new Matricula[tamano];
         for (int i = 0; i < tamano; i++) {
             copia[i] = new Matricula(coleccionMatriculas[i]);
         }
         return copia;
     }
-    public Matricula[] getMatriculas(CicloFormativo cicloFormativo) {
+    public Matricula[] get(CicloFormativo cicloFormativo) {
         Matricula[] copia = new Matricula[tamano];
         for (int i = 0; i < tamano; i++) {
             copia[i] = new Matricula(coleccionMatriculas[i]);
