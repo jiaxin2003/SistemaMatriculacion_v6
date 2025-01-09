@@ -5,6 +5,8 @@ import org.iesalandalus.programacion.matriculacion.dominio.CicloFormativo;
 import org.iesalandalus.programacion.matriculacion.dominio.Curso;
 import org.iesalandalus.programacion.matriculacion.dominio.Matricula;
 
+import javax.naming.OperationNotSupportedException;
+
 public class Matriculas {
     private static int capacidad = 3;
     private static int tamano;
@@ -19,7 +21,7 @@ public class Matriculas {
         this.coleccionMatriculas = new Matricula[capacidad];
     }
 
-    public void insertar(Matricula matricula) {
+    public void insertar(Matricula matricula) throws OperationNotSupportedException {
         if (matricula == null) {
             throw new NullPointerException("ERROR: La matricula no puede ser nulo.");
         }
@@ -58,7 +60,7 @@ public class Matriculas {
 
     }
 
-    public void borrar(Matricula matricula) {
+    public void borrar(Matricula matricula) throws OperationNotSupportedException {
         if (matricula == null) {
             throw new NullPointerException("ERROR: La matricula no puede ser nulo.");
         }

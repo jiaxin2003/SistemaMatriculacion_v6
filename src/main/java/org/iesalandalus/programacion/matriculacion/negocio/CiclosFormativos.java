@@ -2,6 +2,7 @@ package org.iesalandalus.programacion.matriculacion.negocio;
 
 import org.iesalandalus.programacion.matriculacion.dominio.CicloFormativo;
 
+import javax.naming.OperationNotSupportedException;
 import java.util.Arrays;
 
 public class CiclosFormativos {
@@ -16,7 +17,7 @@ public class CiclosFormativos {
         this.coleccionCiclosFormativos = new CicloFormativo[capacidad];
     }
 
-    public void insertar(CicloFormativo cicloFormativo) {
+    public void insertar(CicloFormativo cicloFormativo)throws OperationNotSupportedException {
         if (cicloFormativo == null) {
             throw new IllegalArgumentException("ERROR: El ciclo formativo no puede ser nulo.");
         }
@@ -30,7 +31,7 @@ public class CiclosFormativos {
         tamano++;
     }
 
-    public void borrar(CicloFormativo cicloFormativo) {
+    public void borrar(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
         if (cicloFormativo == null) {
             throw new IllegalArgumentException("ERROR: El ciclo formativo no puede ser nulo.");
         }

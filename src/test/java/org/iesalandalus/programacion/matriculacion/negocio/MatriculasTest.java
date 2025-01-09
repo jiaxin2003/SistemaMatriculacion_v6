@@ -12,7 +12,6 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 public class MatriculasTest {
 
     private static final String ERROR_NO_EXCEPCION = "No debería haber saltado la excepción.";
@@ -104,9 +103,9 @@ public class MatriculasTest {
         cf2 = new CicloFormativo(CODIGO_CF_2, FAMILIA_PROFESIONAL_CF, GRADO_CF, NOMBRE_CICLO_FORMATIVO_2, HORAS_CICLO_FORMATIVO);
         cf3 = new CicloFormativo(CODIGO_CF_3, FAMILIA_PROFESIONAL_CF, GRADO_CF, NOMBRE_CICLO_FORMATIVO_3, HORAS_CICLO_FORMATIVO);
 
-        alumno1 = new Alumno(NOMBRE_JRJR, DNI_JRJR, TELEFONO_JRJR, CORREO_JRJR, FECHA_NACIMIENTO_JRJR);
-        alumno2 = new Alumno(NOMBRE_ARDR, DNI_ARDR, TELEFONO_ARDR, CORREO_ARDR, FECHA_NACIMIENTO_ARDR);
-        alumno3 = new Alumno(NOMBRE_BE, DNI_BE, TELEFONO_BE, CORREO_BE, FECHA_NACIMIENTO_BE);
+        alumno1 = new Alumno(NOMBRE_JRJR, DNI_JRJR, CORREO_JRJR, TELEFONO_JRJR, FECHA_NACIMIENTO_JRJR);
+        alumno2 = new Alumno(NOMBRE_ARDR, DNI_ARDR, CORREO_ARDR, TELEFONO_ARDR, FECHA_NACIMIENTO_ARDR);
+        alumno3 = new Alumno(NOMBRE_BE, DNI_BE, CORREO_BE, TELEFONO_BE, FECHA_NACIMIENTO_BE);
 
         asignatura1 = new Asignatura(CODIGO_ASIGNATURA, NOMBRE_ASIGNATURA,HORAS_ASIGNATURA,CURSO_ASIGNATURA,HORAS_DESDOBLE_ASIGNATURA,ESPECIALIDAD_PROFESORADO_ASIGNATURA,cf1);
         asignatura2 = new Asignatura(CODIGO_ASIGNATURA_2,NOMBRE_ASIGNATURA_2,HORAS_ASIGNATURA_2,CURSO_ASIGNATURA,HORAS_DESDOBLE_ASIGNATURA_2,ESPECIALIDAD_PROFESORADO_ASIGNATURA,cf2);
@@ -172,7 +171,7 @@ public class MatriculasTest {
             matriculas.insertar(matricula1);
 
             Matricula[] copiaMatriculas = matriculas.get();
-            assertEquals(1, Matriculas.getTamano(), TAMANO_NO_ESPERADO);
+            assertEquals(1, matriculas.getTamano(), TAMANO_NO_ESPERADO);
             assertEquals(matricula1, matriculas.buscar(matricula1), MATRICULA_NO_ESPERADA);
             assertNotSame(matricula1, copiaMatriculas[0], REFERENCIA_NO_ESPERADA);
             assertEquals(matricula1, copiaMatriculas[0], OPERACION_NO_REALIZADA);

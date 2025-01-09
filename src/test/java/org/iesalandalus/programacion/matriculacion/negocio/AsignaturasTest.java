@@ -118,7 +118,7 @@ public class AsignaturasTest {
         try {
             asignaturas.insertar(asignatura1);
 
-            Asignaturas[] copiaAsignaturas = asignaturas.get();
+            Asignatura[] copiaAsignaturas = asignaturas.get();
             assertEquals(1, asignaturas.getTamano(), TAMANO_NO_ESPERADO);
             assertEquals(asignatura1, asignaturas.buscar(asignatura1), ASIGNATURA_NO_ESPERADA);
             assertNotSame(asignatura1, copiaAsignaturas[0], REFERENCIA_NO_ESPERADA);
@@ -136,7 +136,7 @@ public class AsignaturasTest {
             asignaturas.insertar(asignatura1);
             asignaturas.insertar(asignatura2);
 
-            Asignaturas[] copiaAsignaturas = asignaturas.get();
+            Asignatura[] copiaAsignaturas = asignaturas.get();
             assertEquals(2, asignaturas.getTamano(), TAMANO_NO_ESPERADO);
             assertEquals(asignatura1, asignaturas.buscar(asignatura1), ASIGNATURA_NO_ESPERADA);
             assertNotSame(asignatura1, copiaAsignaturas[0], REFERENCIA_NO_ESPERADA);
@@ -158,7 +158,7 @@ public class AsignaturasTest {
             asignaturas.insertar(asignatura2);
             asignaturas.insertar(asignatura3);
 
-            Asignaturas[] copiaAsignaturas = asignaturas.get();
+            Asignatura[] copiaAsignaturas = asignaturas.get();
 
             assertEquals(3, asignaturas.getTamano(), TAMANO_NO_ESPERADO);
             assertEquals(asignatura1, asignaturas.buscar(asignatura1), ASIGNATURA_NO_ESPERADA);

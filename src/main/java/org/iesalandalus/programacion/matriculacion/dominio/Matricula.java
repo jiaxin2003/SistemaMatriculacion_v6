@@ -1,5 +1,6 @@
 package org.iesalandalus.programacion.matriculacion.dominio;
 
+import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -19,7 +20,7 @@ public class Matricula {
     private Asignatura[] coleccionAsignaturas;
     private Alumno alumno;
 
-    public Matricula(int idMatricula, String cursoAcademico, LocalDate fechaMatriculacion, Alumno alumno, Asignatura[] coleccionAsignaturas) {
+    public Matricula(int idMatricula, String cursoAcademico, LocalDate fechaMatriculacion, Alumno alumno, Asignatura[] coleccionAsignaturas) throws OperationNotSupportedException {
         setIdMatricula(idMatricula);
         setCursoAcademico(cursoAcademico);
         setFechaMatriculacion(fechaMatriculacion);
@@ -68,6 +69,7 @@ public class Matricula {
     }
 
     public void setFechaAnulacion(LocalDate fechaAnulacion) {
+
         if (fechaAnulacion == null) {
             throw new NullPointerException("ERROR: La fecha de anulación de una matrícula no puede ser nula.");
         }

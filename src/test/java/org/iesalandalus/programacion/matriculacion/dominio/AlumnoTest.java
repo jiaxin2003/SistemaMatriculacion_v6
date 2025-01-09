@@ -30,8 +30,8 @@ public class AlumnoTest {
 
     private static final LocalDate FECHA_NACIMIENTO_JRJR=LocalDate.of(2002, 9, 15);
     private static final LocalDate FECHA_NACIMIENTO_ARDR=LocalDate.of(1992, 7, 3);
-    private static final String NIA_JRJR=NOMBRE_JRJR.toLowerCase().substring(0,4)+DNI_JRJR.substring(5,8);
-    private static final String NIA_ARDR=NOMBRE_ARDR.toLowerCase().substring(0,4)+DNI_ARDR.substring(5,8);
+    private static final String NIA_JRJR=NOMBRE_JRJR.toLowerCase().substring(0,4)+DNI_JRJR.substring(5,8);;
+    private static final String NIA_ARDR=NOMBRE_ARDR.toLowerCase().substring(0,4)+DNI_ARDR.substring(5,8);;
     private static final String FORMATO_FECHA="dd/MM/yyyy";
     private static final String TIPO_EXCEPCION_NO_CORRECTA = "El tipo de la excepción no es correcto.";
     private static final String NOMBRE_INCORRECTO = "Debería haber saltado una excepción indicando que el nombre es incorrecto";
@@ -60,7 +60,7 @@ public class AlumnoTest {
 
     @Test
     public void constructorNombreValidoDniValidoCorreoValidoTelefonoValidoFechaNacimientoValidaNiaValidoCreaAlumnoCorrectamente() {
-        Alumno alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, TELEFONO_JRJR, CORREO_JRJR, FECHA_NACIMIENTO_JRJR);
+        Alumno alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, CORREO_JRJR, TELEFONO_JRJR, FECHA_NACIMIENTO_JRJR);
         assertEquals(NOMBRE_JRJR, alumno.getNombre(), NOMBRE_NO_ESPERADO);
         assertEquals(DNI_JRJR, alumno.getDni(), DNI_NO_ESPERADO);
         assertEquals(CORREO_JRJR, alumno.getCorreo(), CORREO_NO_ESPERADO);
@@ -68,7 +68,7 @@ public class AlumnoTest {
         assertEquals(NIA_JRJR, alumno.getNia(), NIA_NO_ESPERADO);
 
 
-        alumno = new Alumno(NOMBRE_MAL_ARDR, DNI_ARDR, TELEFONO_ARDR, CORREO_ARDR, FECHA_NACIMIENTO_ARDR);
+        alumno = new Alumno(NOMBRE_MAL_ARDR, DNI_ARDR, CORREO_ARDR, TELEFONO_ARDR, FECHA_NACIMIENTO_ARDR);
         assertEquals(NOMBRE_ARDR, alumno.getNombre(), NOMBRE_NO_ESPERADO);
         assertEquals(DNI_ARDR, alumno.getDni(), DNI_NO_ESPERADO);
         assertEquals(CORREO_ARDR, alumno.getCorreo(), CORREO_NO_ESPERADO);
@@ -82,7 +82,7 @@ public class AlumnoTest {
     public void constructorNombreNoValidoDniValidoCorreoValidoTelefonoValidoFechaNacimientoValidaLanzaExcepcion() {
         Alumno alumno = null;
         try {
-            alumno = new Alumno(null, DNI_JRJR, TELEFONO_JRJR, CORREO_JRJR, FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno(null, DNI_JRJR, CORREO_JRJR, TELEFONO_JRJR, FECHA_NACIMIENTO_JRJR);
             fail(NOMBRE_INCORRECTO);
         } catch (NullPointerException e) {
             assertEquals(ERROR_NOMBRE_NULO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -91,7 +91,7 @@ public class AlumnoTest {
             fail(TIPO_EXCEPCION_NO_CORRECTA);
         }
         try {
-            alumno = new Alumno("", DNI_JRJR, TELEFONO_JRJR, CORREO_JRJR, FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno("", DNI_JRJR, CORREO_JRJR, TELEFONO_JRJR, FECHA_NACIMIENTO_JRJR);
             fail(NOMBRE_INCORRECTO);
         } catch (IllegalArgumentException e) {
             assertEquals(ERROR_NOMBRE_NO_VALIDO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -100,7 +100,7 @@ public class AlumnoTest {
             fail(TIPO_EXCEPCION_NO_CORRECTA);
         }
         try {
-            alumno = new Alumno("  ", DNI_JRJR, TELEFONO_JRJR, CORREO_JRJR, FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno("  ", DNI_JRJR, CORREO_JRJR, TELEFONO_JRJR, FECHA_NACIMIENTO_JRJR);
             fail(NOMBRE_INCORRECTO);
         } catch (IllegalArgumentException e) {
             assertEquals(ERROR_NOMBRE_NO_VALIDO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -115,7 +115,7 @@ public class AlumnoTest {
         Alumno alumno = null;
 
         try {
-            alumno = new Alumno(NOMBRE_JRJR, null, TELEFONO_JRJR, CORREO_JRJR, FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno(NOMBRE_JRJR, null, CORREO_JRJR, TELEFONO_JRJR, FECHA_NACIMIENTO_JRJR);
             fail(DNI_INCORRECTO);
         } catch (NullPointerException e) {
             assertEquals(ERROR_DNI_NULO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -125,7 +125,7 @@ public class AlumnoTest {
         }
 
         try {
-            alumno = new Alumno(NOMBRE_JRJR, "", TELEFONO_JRJR, CORREO_JRJR, FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno(NOMBRE_JRJR, "", CORREO_JRJR, TELEFONO_JRJR, FECHA_NACIMIENTO_JRJR);
             fail(DNI_INCORRECTO);
         } catch (IllegalArgumentException e) {
             assertEquals(ERROR_DNI_NO_VALIDO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -135,7 +135,7 @@ public class AlumnoTest {
         }
 
         try {
-            alumno = new Alumno(NOMBRE_JRJR, "   ", TELEFONO_JRJR, CORREO_JRJR, FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno(NOMBRE_JRJR, "   ", CORREO_JRJR, TELEFONO_JRJR, FECHA_NACIMIENTO_JRJR);
             fail(DNI_INCORRECTO);
         } catch (IllegalArgumentException e) {
             assertEquals(ERROR_DNI_NO_VALIDO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -145,7 +145,7 @@ public class AlumnoTest {
         }
 
         try {
-            alumno = new Alumno(NOMBRE_JRJR, "11223344", TELEFONO_JRJR, CORREO_JRJR, FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno(NOMBRE_JRJR, "11223344", CORREO_JRJR, TELEFONO_JRJR, FECHA_NACIMIENTO_JRJR);
             fail(DNI_INCORRECTO);
         } catch (IllegalArgumentException e) {
             assertEquals(ERROR_DNI_NO_VALIDO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -155,7 +155,7 @@ public class AlumnoTest {
         }
 
         try {
-            alumno = new Alumno(NOMBRE_JRJR, "112233445A", TELEFONO_JRJR, CORREO_JRJR, FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno(NOMBRE_JRJR, "112233445A", CORREO_JRJR, TELEFONO_JRJR, FECHA_NACIMIENTO_JRJR);
             fail(DNI_INCORRECTO);
         } catch (IllegalArgumentException e) {
             assertEquals(ERROR_DNI_NO_VALIDO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -165,7 +165,7 @@ public class AlumnoTest {
         }
 
         try {
-            alumno = new Alumno(NOMBRE_JRJR, "11223344AA", TELEFONO_JRJR, CORREO_JRJR, FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno(NOMBRE_JRJR, "11223344AA", CORREO_JRJR, TELEFONO_JRJR, FECHA_NACIMIENTO_JRJR);
             fail(DNI_INCORRECTO);
         } catch (IllegalArgumentException e) {
             assertEquals(ERROR_DNI_NO_VALIDO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -175,7 +175,7 @@ public class AlumnoTest {
         }
 
         try {
-            alumno = new Alumno(NOMBRE_JRJR, "11223344A", TELEFONO_JRJR, CORREO_JRJR, FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno(NOMBRE_JRJR, "11223344A", CORREO_JRJR, TELEFONO_JRJR, FECHA_NACIMIENTO_JRJR);
             fail(DNI_INCORRECTO);
         } catch (IllegalArgumentException e) {
             assertEquals(ERROR_LETRA_DNI_NO_VALIDA, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -190,7 +190,7 @@ public class AlumnoTest {
         Alumno alumno = null;
 
         try {
-            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, TELEFONO_JRJR, null, FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, null, TELEFONO_JRJR, FECHA_NACIMIENTO_JRJR);
             fail(CORREO_INCORRECTO);
         } catch (NullPointerException e) {
             assertEquals(ERROR_CORREO_NULO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -200,7 +200,7 @@ public class AlumnoTest {
         }
 
         try {
-            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, TELEFONO_JRJR, "", FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, "", TELEFONO_JRJR, FECHA_NACIMIENTO_JRJR);
             fail(CORREO_INCORRECTO);
         } catch (IllegalArgumentException e) {
             assertEquals(ERROR_CORREO_NO_VALIDO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -210,7 +210,7 @@ public class AlumnoTest {
         }
 
         try {
-            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, TELEFONO_JRJR, "   ", FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, "   ", TELEFONO_JRJR, FECHA_NACIMIENTO_JRJR);
             fail(CORREO_INCORRECTO);
         } catch (IllegalArgumentException e) {
             assertEquals(ERROR_CORREO_NO_VALIDO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -220,7 +220,7 @@ public class AlumnoTest {
         }
 
         try {
-            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, TELEFONO_JRJR, "11223344", FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, "11223344", TELEFONO_JRJR, FECHA_NACIMIENTO_JRJR);
             fail(CORREO_INCORRECTO);
         } catch (IllegalArgumentException e) {
             assertEquals(ERROR_CORREO_NO_VALIDO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -230,7 +230,7 @@ public class AlumnoTest {
         }
 
         try {
-            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, TELEFONO_JRJR, "arr@.com", FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, "arr@.com", TELEFONO_JRJR, FECHA_NACIMIENTO_JRJR);
             fail(CORREO_INCORRECTO);
         } catch (IllegalArgumentException e) {
             assertEquals(ERROR_CORREO_NO_VALIDO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -240,7 +240,7 @@ public class AlumnoTest {
         }
 
         try {
-            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, TELEFONO_JRJR, "arr.es.com", FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, "arr.es.com", TELEFONO_JRJR, FECHA_NACIMIENTO_JRJR);
             fail(CORREO_INCORRECTO);
         } catch (IllegalArgumentException e) {
             assertEquals(ERROR_CORREO_NO_VALIDO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -250,7 +250,7 @@ public class AlumnoTest {
         }
 
         try {
-            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, TELEFONO_JRJR, "arr@gmail", FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, "arr@gmail", TELEFONO_JRJR, FECHA_NACIMIENTO_JRJR);
             fail(CORREO_INCORRECTO);
         } catch (IllegalArgumentException e) {
             assertEquals(ERROR_CORREO_NO_VALIDO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -265,7 +265,7 @@ public class AlumnoTest {
         Alumno alumno = null;
 
         try {
-            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, null, CORREO_JRJR, FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, CORREO_JRJR, null, FECHA_NACIMIENTO_JRJR);
             fail(TELEFONO_INCORRECTO);
         } catch (NullPointerException e) {
             assertEquals(ERROR_TELEFONO_NULO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -275,7 +275,7 @@ public class AlumnoTest {
         }
 
         try {
-            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, "", CORREO_JRJR, FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, CORREO_JRJR, "", FECHA_NACIMIENTO_JRJR);
             fail(TELEFONO_INCORRECTO);
         } catch (IllegalArgumentException e) {
             assertEquals(ERROR_TELEFONO_NO_VALIDO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -285,7 +285,7 @@ public class AlumnoTest {
         }
 
         try {
-            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, "   ", CORREO_JRJR, FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, CORREO_JRJR, "   ", FECHA_NACIMIENTO_JRJR);
             fail(TELEFONO_INCORRECTO);
         } catch (IllegalArgumentException e) {
             assertEquals(ERROR_TELEFONO_NO_VALIDO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -295,7 +295,7 @@ public class AlumnoTest {
         }
 
         try {
-            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, "1", CORREO_JRJR, FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, CORREO_JRJR, "1", FECHA_NACIMIENTO_JRJR);
             fail(TELEFONO_INCORRECTO);
         } catch (IllegalArgumentException e) {
             assertEquals(ERROR_TELEFONO_NO_VALIDO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -305,7 +305,7 @@ public class AlumnoTest {
         }
 
         try {
-            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, "arr@.com", CORREO_JRJR, FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, CORREO_JRJR, "arr@.com", FECHA_NACIMIENTO_JRJR);
             fail(TELEFONO_INCORRECTO);
         } catch (IllegalArgumentException e) {
             assertEquals(ERROR_TELEFONO_NO_VALIDO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -315,7 +315,7 @@ public class AlumnoTest {
         }
 
         try {
-            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, "9991122334", CORREO_JRJR, FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, CORREO_JRJR, "9991122334", FECHA_NACIMIENTO_JRJR);
             fail(TELEFONO_INCORRECTO);
         } catch (IllegalArgumentException e) {
             assertEquals(ERROR_TELEFONO_NO_VALIDO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -325,7 +325,7 @@ public class AlumnoTest {
         }
 
         try {
-            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, "99911223", CORREO_JRJR, FECHA_NACIMIENTO_JRJR);
+            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, CORREO_JRJR, "99911223", FECHA_NACIMIENTO_JRJR);
             fail(TELEFONO_INCORRECTO);
         } catch (IllegalArgumentException e) {
             assertEquals(ERROR_TELEFONO_NO_VALIDO, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -340,7 +340,7 @@ public class AlumnoTest {
         Alumno alumno = null;
 
         try {
-            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, TELEFONO_JRJR, CORREO_JRJR, null);
+            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, CORREO_JRJR, TELEFONO_JRJR, null);
             fail(FECHA_NACIMIENTO_INCORRECTA);
         } catch (NullPointerException e) {
             assertEquals(ERROR_FECHA_NULA, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -350,7 +350,7 @@ public class AlumnoTest {
         }
 
         try {
-            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, TELEFONO_JRJR, CORREO_JRJR, LocalDate.of(2020,10,12));
+            alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, CORREO_JRJR, TELEFONO_JRJR, LocalDate.of(2020,10,12));
             fail(FECHA_NACIMIENTO_INCORRECTA);
         } catch (IllegalArgumentException e) {
             assertEquals(ERROR_FECHA_NACIMIENTO_INCORRECTA, e.getMessage(), MENSAJE_EXCEPCION_NO_CORRECTO);
@@ -364,7 +364,7 @@ public class AlumnoTest {
 
     @Test
     public void constructorAlumnoValidoCopiaAlumnoCorrectamente() {
-        Alumno alumno1 = new Alumno(NOMBRE_ARDR, DNI_ARDR, TELEFONO_ARDR, CORREO_ARDR, FECHA_NACIMIENTO_ARDR);
+        Alumno alumno1 = new Alumno(NOMBRE_ARDR, DNI_ARDR, CORREO_ARDR, TELEFONO_ARDR, FECHA_NACIMIENTO_ARDR);
         Alumno alumno2 = new Alumno(alumno1);
         assertEquals(alumno1, alumno2, ALUMNO_NO_ESPERADO);
         assertEquals(NOMBRE_ARDR, alumno2.getNombre(), NOMBRE_NO_ESPERADO);
@@ -392,11 +392,11 @@ public class AlumnoTest {
 
     @Test
     public void toStringDevuelveLaCadenaEsperada() {
-        Alumno alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, TELEFONO_JRJR, CORREO_JRJR, FECHA_NACIMIENTO_JRJR);
+        Alumno alumno = new Alumno(NOMBRE_JRJR, DNI_JRJR, CORREO_JRJR, TELEFONO_JRJR, FECHA_NACIMIENTO_JRJR);
 
         assertEquals(String.format("Número de Identificación del Alumnado (NIA)=%s " + "nombre=%s (%s), DNI=%s, correo=%s, teléfono=%s, fecha nacimiento=%s",NIA_JRJR, NOMBRE_JRJR, "JRJR", DNI_JRJR, CORREO_JRJR, TELEFONO_JRJR, FECHA_NACIMIENTO_JRJR.format(DateTimeFormatter.ofPattern(FORMATO_FECHA))), alumno.toString(), CADENA_NO_ESPERADA);
 
-        alumno = new Alumno(NOMBRE_MAL_ARDR, DNI_ARDR, TELEFONO_ARDR, CORREO_ARDR, FECHA_NACIMIENTO_ARDR);
+        alumno = new Alumno(NOMBRE_MAL_ARDR, DNI_ARDR, CORREO_ARDR, TELEFONO_ARDR, FECHA_NACIMIENTO_ARDR);
         assertEquals(String.format("Número de Identificación del Alumnado (NIA)=%s " + "nombre=%s (%s), DNI=%s, correo=%s, teléfono=%s, fecha nacimiento=%s", NIA_ARDR, NOMBRE_ARDR, "ARDR", DNI_ARDR, CORREO_ARDR, TELEFONO_ARDR, FECHA_NACIMIENTO_ARDR.format(DateTimeFormatter.ofPattern(FORMATO_FECHA))), alumno.toString(), CADENA_NO_ESPERADA);
     }
 

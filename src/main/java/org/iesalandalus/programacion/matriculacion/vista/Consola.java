@@ -7,10 +7,12 @@ import org.iesalandalus.programacion.matriculacion.negocio.Asignaturas;
 import org.iesalandalus.programacion.matriculacion.negocio.CiclosFormativos;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
+import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
+import java.util.Objects;
 
 
 public class Consola {
@@ -139,9 +141,7 @@ public class Consola {
         System.out.println(ciclosFormativos.toString());
     }
 
-    public CicloFormativo getCicloFormativoPorCodigo() {
-        return null;
-    }
+
 
     public static CicloFormativo getCicloPorCodigo() {
         CicloFormativo cicloFormativo = null;
@@ -247,7 +247,7 @@ public class Consola {
         return false;
     }
 
-    public static Matricula leerMatricula(Alumnos alumnos, Asignaturas asignaturas) {
+    public static Matricula leerMatricula(Alumnos alumnos, Asignaturas asignaturas)throws OperationNotSupportedException {
         int idMatricula;
         String cursoAcademico;
         LocalDate fechaMatriculacion;
@@ -270,12 +270,12 @@ public class Consola {
         return new Matricula(idMatricula, cursoAcademico, fechaMatriculacion, alumno, asignaturas.get());
     }
 
-    public static Matricula getMatriculaPorIdentificador() {
+    public static Matricula getMatriculaPorIdentificador() throws OperationNotSupportedException {
         Matricula matricula = null;
         int idMatricula = 2009;
-        String cursoAcademico = "Primero";
-        LocalDate fechaMatriculacion = LocalDate.now();
-        Alumno alumno = new Alumno("Pepe Perez", "666333888", "789456132B", "PepePerez@gmail.com", LocalDate.now());
+        String cursoAcademico = "24/25";
+        LocalDate fechaMatriculacion = LocalDate.of(2009, 1, 1);
+        Alumno alumno = new Alumno("Pepe Perez", "12345678F", "666555444", "PepePerez@gmail.com", LocalDate.of(2000, 12, 12));
         Asignatura[] coleccionAsignaturas = new Asignatura[10];
 
 

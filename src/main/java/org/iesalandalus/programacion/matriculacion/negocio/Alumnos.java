@@ -4,9 +4,11 @@ import java.util.Arrays;
 import java.util.Objects;
 import org.iesalandalus.programacion.matriculacion.dominio.Alumno;
 
+import javax.naming.OperationNotSupportedException;
+
 public class  Alumnos {
-    private int capacidad = 3;
-    private int tamano = 0;
+    private int capacidad;
+    private int tamano;
     private final Alumno [] coleccionAlumnos;
 
 
@@ -20,7 +22,7 @@ public class  Alumnos {
     }
 
 
-    public void insertar(Alumno alumno) {
+    public void insertar(Alumno alumno) throws OperationNotSupportedException {
         if (alumno == null) {
             throw new NullPointerException("ERROR: El alumno no puede ser nulo.");
         }
@@ -34,7 +36,7 @@ public class  Alumnos {
         tamano++;
     }
 
-    public void borrar(Alumno alumno) {
+    public void borrar(Alumno alumno) throws OperationNotSupportedException {
         if (alumno == null) {
             throw new IllegalArgumentException("ERROR: El alumno no puede ser nulo.");
         }

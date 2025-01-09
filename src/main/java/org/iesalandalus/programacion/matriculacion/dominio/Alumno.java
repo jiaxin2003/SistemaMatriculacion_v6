@@ -65,7 +65,7 @@ public class Alumno {
 
 
     private boolean comprobarLetraDni(String dni) {
-        int numero = 0;
+
 
         if (dni == null || dni.isEmpty())
             throw new NullPointerException("ERROR: El dni de un alumno no puede ser nulo.");
