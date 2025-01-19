@@ -64,7 +64,7 @@ public class Matriculas {
         }
         int indice = buscarIndice(matricula);
         if (indice == -1) {
-            throw new OperationNotSupportedException("ERROR: La matricula no existe en la lista.");
+            throw new OperationNotSupportedException("ERROR: No existe ninguna matrícula como la indicada.");
         }
         desplazarUnaPosicionHaciaIzquierda(indice);
     }
