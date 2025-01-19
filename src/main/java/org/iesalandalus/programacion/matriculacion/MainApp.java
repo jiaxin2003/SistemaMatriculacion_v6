@@ -18,14 +18,18 @@ import java.util.Arrays;
 
 
 public class MainApp {
+    /*
     public static final int CAPACIDAD = 3;
     private static Alumnos alumnos;
     private static Asignaturas asignaturas;
-    private static CiclosFormativos ciclosFormativos;
-    private static Matriculas matriculas;
+    public static CiclosFormativos ciclosFormativos;
+    private static Matriculas matriculas;*/
 
     public static void main(String[] args) {
+    }
+}
 
+/*
         alumnos = new Alumnos(CAPACIDAD);
         asignaturas = new Asignaturas(CAPACIDAD);
         ciclosFormativos = new CiclosFormativos(CAPACIDAD);
@@ -39,7 +43,7 @@ public class MainApp {
             ejecutarOpcion(opcion);
         } while (opcion != Opcion.SALIR);
 
-    }
+
 
     private static void ejecutarOpcion(Opcion opcion) {
         switch (opcion) {
@@ -224,13 +228,13 @@ public class MainApp {
             System.out.println("No hay ciclos formativos registrados.");
         } else {
             System.out.println("Ciclos Formativos :");
-            Arrays.toString(ciclosFormativos.get());
+            Consola.mostrarCiclosFormativos(ciclosFormativos.get());
         }
     }
 
     private static void insertarMatricula() {
         try {
-            Matricula matricula = Consola.leerMatricula(alumnos, asignaturas);
+            Matricula matricula = Consola.leerMatricula(alumno, asignaturas);
             matriculas.insertar(matricula);
             System.out.println("Matrícula insertada correctamente.");
         } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException e) {
@@ -307,3 +311,4 @@ public class MainApp {
 
 
 }
+*/

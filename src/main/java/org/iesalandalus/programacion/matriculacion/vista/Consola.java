@@ -1,7 +1,6 @@
 
 package org.iesalandalus.programacion.matriculacion.vista;
 
-import org.iesalandalus.programacion.matriculacion.dominio.*;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.*;
 import org.iesalandalus.programacion.matriculacion.modelo.negocio.Alumnos;
 import org.iesalandalus.programacion.matriculacion.modelo.negocio.Asignaturas;
@@ -137,10 +136,11 @@ public class Consola {
         return new CicloFormativo(codigo, familiaProfesional, grado, nombre, horas);
     }
 
-    public static void mostrarCiclosFormativos(CiclosFormativos ciclosFormativos) {
-        System.out.println(ciclosFormativos.toString());
+    public static void mostrarCiclosFormativos(CicloFormativo[] cicloFormativos) {
+        for (CicloFormativo cicloFormativo : cicloFormativos) {
+            System.out.println(cicloFormativo.toString());
+        }
     }
-
 
 
     public static CicloFormativo getCicloPorCodigo() {
@@ -187,7 +187,7 @@ public class Consola {
         return Curso.values()[opcion];
     }
 
-    public static Asignatura leerAsignatura(CiclosFormativos ciclosFormativos) {
+    public static Asignatura leerAsignatura(CicloFormativo ciclosFormativo) {
 
         String codigo;
         String nombre;
@@ -212,7 +212,7 @@ public class Consola {
             especialidadProfesorado = leerEspecialidadProfesorado();
             cicloFormativos = leerCicloFormativo();
 
-        } while (codigo.isEmpty() || nombre.isEmpty() || horas <= 0 || horasDesdoble <= 0 || curso == null || especialidadProfesorado == null || cicloFormativos == null);
+        } while (codigo.isEmpty() || nombre.isEmpty() || horas <= 0 || horasDesdoble <= 0 || curso == null || especialidadProfesorado == null);
 
         return new Asignatura(codigo, nombre, horas, curso, horasDesdoble, especialidadProfesorado, cicloFormativos);
     }
@@ -234,8 +234,10 @@ public class Consola {
         return new Asignatura(codigo, nombre, horasAnuales, curso, horasDesdoble, especialidadProfesorado, cicloFormativo);
     }
 
-    private static void mostrarAsignaturas(Asignaturas asignaturas) {
-        System.out.println(Arrays.toString(asignaturas.get()));
+    private static void mostrarAsignaturas(Asignatura[] asignatura) {
+        for (Asignatura asignatura1 : asignatura) {
+            System.out.println(asignatura1.toString());
+        }
     }
 
     private boolean asignaturaYaMatriculada(Asignatura[] asignaturasMatricula, Asignatura asignatura) {
@@ -247,12 +249,10 @@ public class Consola {
         return false;
     }
 
-    public static Matricula leerMatricula(Alumnos alumnos, Asignaturas asignaturas)throws OperationNotSupportedException {
+    public static Matricula leerMatricula(Alumno alumno, Asignatura[] asignaturas) throws OperationNotSupportedException {
         int idMatricula;
         String cursoAcademico;
         LocalDate fechaMatriculacion;
-        Alumno alumno;
-        Matricula matricula;
 
 
         do {
@@ -262,16 +262,16 @@ public class Consola {
             System.out.println("Curso Academico: ");
             cursoAcademico = Entrada.cadena();
             fechaMatriculacion = leerFecha("Fecha Matriculacion: ");
-            alumno = leerAlumno();
-            alumno = alumnos.buscar(alumno);
+            leerAlumno();
+            alumno = getAlumnoPorDni();
 
         } while (alumno == null || idMatricula < 0 || cursoAcademico.isEmpty() || fechaMatriculacion == null);
 
-        return new Matricula(idMatricula, cursoAcademico, fechaMatriculacion, alumno, asignaturas.get());
+        return new Matricula(idMatricula, cursoAcademico, fechaMatriculacion, alumno, asignaturas);
     }
 
     public static Matricula getMatriculaPorIdentificador() throws OperationNotSupportedException {
-        Matricula matricula = null;
+        Matricula matricula;
         int idMatricula = 2009;
         String cursoAcademico = "24/25";
         LocalDate fechaMatriculacion = LocalDate.of(2009, 1, 1);
@@ -286,5 +286,14 @@ public class Consola {
 
         matricula = new Matricula(idMatricula, cursoAcademico, fechaMatriculacion, alumno, coleccionAsignaturas);
         return new Matricula(matricula);
+    }
+
+    public Asignatura[] elegirAsignaturasMatricula(Asignatura[] asignaturas) {
+        Asignatura[] coleccionAsignaturas = new Asignatura[asignaturas.length];
+
+        for (int i = 0; i < coleccionAsignaturas.length; i++) {
+            coleccionAsignaturas[i] = asignaturas[i];
+        }
+        return coleccionAsignaturas;
     }
 }
