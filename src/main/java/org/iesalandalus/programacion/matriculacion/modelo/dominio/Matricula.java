@@ -1,4 +1,4 @@
-package org.iesalandalus.programacion.matriculacion.dominio;
+package org.iesalandalus.programacion.matriculacion.modelo.dominio;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;

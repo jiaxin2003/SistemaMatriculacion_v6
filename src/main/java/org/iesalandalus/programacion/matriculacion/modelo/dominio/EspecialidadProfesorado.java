@@ -1,4 +1,4 @@
-package org.iesalandalus.programacion.matriculacion.dominio;
+package org.iesalandalus.programacion.matriculacion.modelo.dominio;
 
 public enum EspecialidadProfesorado {
     INFORMATICA(" Informática"), FOL(" Formación y Orientación Laboral"), SISTEMAS(" Sistemas y Aplicaciones Informáticas");

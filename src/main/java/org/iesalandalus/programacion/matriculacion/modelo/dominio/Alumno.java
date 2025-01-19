@@ -1,4 +1,4 @@
-package org.iesalandalus.programacion.matriculacion.dominio;
+package org.iesalandalus.programacion.matriculacion.modelo.dominio;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
