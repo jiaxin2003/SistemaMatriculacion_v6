@@ -7,7 +7,7 @@ import org.iesalandalus.programacion.matriculacion.dominio.Alumno;
 import javax.naming.OperationNotSupportedException;
 
 public class  Alumnos {
-    private int capacidad;
+    private final int capacidad;
     private int tamano;
     private final Alumno [] coleccionAlumnos;
 
@@ -24,25 +24,24 @@ public class  Alumnos {
 
     public void insertar(Alumno alumno) throws OperationNotSupportedException {
         if (alumno == null) {
-            throw new NullPointerException("ERROR: El alumno no puede ser nulo.");
+            throw new NullPointerException("ERROR: No se puede insertar un alumno nulo.");
         }
-        if (tamano >= capacidad) {
-            throw new IllegalStateException("ERROR: No se pueden añadir más alumnos, la capacidad está completa.");
+        if (getTamano() >= getCapacidad()) {
+            throw new OperationNotSupportedException("ERROR: No se aceptan más alumnos.");
         }
         if (buscarIndice(alumno) != -1) {
-            throw new IllegalArgumentException("ERROR: El alumno ya existe en la lista.");
+            throw new OperationNotSupportedException("ERROR: Ya existe un alumno con ese dni.");
         }
-        coleccionAlumnos[tamano] = new Alumno(alumno);
-        tamano++;
+        coleccionAlumnos[tamano++] = new Alumno(alumno);
     }
 
     public void borrar(Alumno alumno) throws OperationNotSupportedException {
         if (alumno == null) {
-            throw new IllegalArgumentException("ERROR: El alumno no puede ser nulo.");
+                throw new NullPointerException("ERROR: No se puede borrar un alumno nulo.");
         }
         int indice = buscarIndice(alumno);
         if (indice == -1) {
-            throw new IllegalArgumentException("ERROR: El alumno no existe en la lista.");
+            throw new OperationNotSupportedException("ERROR: No existe ningún alumno como el indicado.");
         }else{
             desplazarUnaPosicionHaciaIzquierda(indice);
         }
@@ -74,16 +73,18 @@ public class  Alumnos {
         }
         int indice = buscarIndice(alumno);
         if (indice == -1) {
-            throw new IllegalArgumentException("ERROR: El alumno no existe en la lista.");
+            return null;
         }
         return coleccionAlumnos[indice];
     }
     private void desplazarUnaPosicionHaciaIzquierda (int indice) {
+        coleccionAlumnos[indice] = null;
         int i;
         for (i = indice; !tamanoSuperado(i); i++) {
-            coleccionAlumnos[i] = coleccionAlumnos[i + 1];
+            if (i<getCapacidad()-1) {
+                coleccionAlumnos[i] = coleccionAlumnos[i + 1];
+            }
         }
-        coleccionAlumnos[i] = null;
         tamano--;
     }
 

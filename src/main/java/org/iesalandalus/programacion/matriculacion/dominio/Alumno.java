@@ -1,6 +1,7 @@
 package org.iesalandalus.programacion.matriculacion.dominio;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -14,7 +15,7 @@ public class Alumno {
     private LocalDate fechaNacimiento;
     private String nia;
 
-    private static final String ER_TELEFONO = "^[67]\\d{8}$";
+    private static final String ER_TELEFONO = "\\d{9}";
     private static final String ER_CORREO = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$";
     private static final String ER_DNI = "^([0-9]{8})([A-Za-z])$";
     public static String FORMATO_FECHA = "dd/MM/yyyy";
@@ -22,7 +23,7 @@ public class Alumno {
     private final int MIN_EDAD_ALUMNO = 16;
 
 
-    public Alumno(String nombre, String dni, String telefono, String correo, LocalDate fechaNacimiento) {
+    public Alumno(String nombre, String dni, String correo, String telefono, LocalDate fechaNacimiento) {
         setNombre(nombre);
         setDni(dni);
         setTelefono(telefono);
@@ -44,7 +45,7 @@ public class Alumno {
     }
 
 
-    private StringBuilder formateaNombre(String nombre) {
+    private String formateaNombre(String nombre) {
         if (nombre == null) {
             throw new NullPointerException("ERROR: El dni de un alumno no puede ser nulo.");
 
@@ -60,7 +61,7 @@ public class Alumno {
                 nombreFormateado.append(Character.toUpperCase(palabra.charAt(0))).append(palabra.substring(1)).append(" ");
             }
         }
-        return new StringBuilder(nombreFormateado.toString().trim());
+        return new StringBuilder(nombreFormateado.toString().trim()).toString();
     }
 
 
@@ -88,19 +89,11 @@ public class Alumno {
             resto = numeroDni % 23;
             letraDni = dni.charAt(8);
             return LETRAS_DNI[resto] == Character.toUpperCase(letraDni);
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             return false;
         }
     }
 
-    public String getnia(String nia) {
-        String nNombre;
-        String nDni;
-        nNombre = nombre.substring(0, 3);
-        nDni = dni.substring(6, 8);
-        nia = nNombre + nDni;
-        return nia;
-    }
 
     private String getIniciales(String nombreCompleto) {
         if (nombreCompleto == null) {
@@ -123,7 +116,7 @@ public class Alumno {
 
 
     public String getNombre() {
-        return formateaNombre(nombre).toString();
+        return formateaNombre(nombre);
     }
 
     public void setNombre(String nombre) {
@@ -133,7 +126,7 @@ public class Alumno {
             throw new IllegalArgumentException("ERROR: El nombre de un alumno no puede estar vacío.");
         }
 
-        this.nombre = nombre;
+        this.nombre = formateaNombre(nombre);
     }
 
     public String getTelefono() {
@@ -197,8 +190,15 @@ public class Alumno {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    private void setNia(String nia) {
+        if (!dni.matches(ER_NIA)) {
+            throw new IllegalArgumentException("ERROR: El nia del alumno no tiene un formato válido.");
+        }
+        this.nia = nia;
+    }
+
     public String getNia() {
-        return nia;
+        return this.nia;
     }
 
     private void setNia() {
@@ -208,23 +208,12 @@ public class Alumno {
         if (dni == null || dni.length() < 8) {
             throw new IllegalArgumentException("ERROR: El DNI debe tener al menos 8 caracteres.");
         }
-        if (!dni.matches(ER_DNI)) {
-            throw new IllegalArgumentException("ERROR: El dni del alumno no tiene un formato válido.");
-        }
         String nNombre;
-        String nDni;
-        nNombre = nombre.substring(0, 4).toLowerCase();
-        nDni = dni.substring(5, 8);
-        this.nia = nNombre + nDni;
+        nNombre = nombre.toLowerCase().substring(0, 4);
+        nia = dni.substring(5, 8);
+        this.nia = nNombre + nia;
     }
 
-    private void setNia(String nia) {
-        if (nia.matches(ER_NIA)) {
-            this.nia = nia;
-        } else {
-            throw new IllegalArgumentException("Nia incorrecto.");
-        }
-    }
 
     public String imprimir() {
         return String.format("Alumno: %s\nDNI: %s\nCorreo: %s\nTeléfono: %s\nFecha de Nacimiento: %s\nNIA: %s", nombre, dni, correo, telefono, fechaNacimiento, nia);
@@ -232,12 +221,7 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return "Número de Identificación del Alumnado " + "(NIA)=" + nia +
-                " nombre=" + nombre +
-                " DNI=" + dni +
-                " correo=" + correo +
-                " telefono=" + telefono +
-                " fechaNacimiento=" + fechaNacimiento;
+        return String.format("Número de Identificación del Alumnado (NIA)=%s " + "nombre=%s (%s), DNI=%s, correo=%s, teléfono=%s, fecha nacimiento=%s", this.nia, this.nombre, getIniciales(this.nombre), this.dni, this.correo, this.telefono, this.fechaNacimiento.format(DateTimeFormatter.ofPattern(FORMATO_FECHA)));
     }
 
     @Override

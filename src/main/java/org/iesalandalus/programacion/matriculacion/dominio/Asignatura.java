@@ -1,6 +1,6 @@
 package org.iesalandalus.programacion.matriculacion.dominio;
 
-import org.iesalandalus.programacion.matriculacion.negocio.Asignaturas;
+
 
 import java.util.Objects;
 
@@ -28,6 +28,9 @@ public class Asignatura {
     }
 
     public Asignatura(Asignatura asignatura) {
+        if(asignatura == null){
+            throw new NullPointerException("ERROR: No es posible copiar una asignatura nula.");
+        }
         setCodigo(asignatura.getCodigo());
         setNombre(asignatura.getNombre());
         setHorasAnuales(asignatura.getHorasAnuales());
@@ -46,8 +49,11 @@ public class Asignatura {
         if (codigo == null){
             throw new NullPointerException("ERROR: El código de una asignatura no puede ser nulo.");
         }
+        if (codigo.isBlank()) {
+            throw new IllegalArgumentException("ERROR: El código de una asignatura no puede estar vacío.");
+        }
         if (!codigo.matches(ER_CODIGO)) {
-           throw new IllegalArgumentException("ERROR: El código de una asignatura debe ser un número de 4 dígitos.");
+           throw new IllegalArgumentException("ERROR: El código de la asignatura no tiene un formato válido.");
         }
         this.codigo = codigo;
     }
@@ -59,7 +65,7 @@ public class Asignatura {
     public void setNombre(String nombre) {
         if (nombre == null){
             throw new NullPointerException("ERROR: El nombre de una asignatura no puede ser nulo.");
-    } else if (nombre.isBlank()) {
+    } else if (nombre.isBlank() || nombre.isEmpty()) {
             throw new IllegalArgumentException("ERROR: El nombre de una asignatura no puede estar vacío.");
         }
         this.nombre = nombre;
@@ -104,7 +110,7 @@ public class Asignatura {
 
     public void setEspecialidadProfesorado(EspecialidadProfesorado especialidadProfesorado) {
         if (especialidadProfesorado == null) {
-            throw new NullPointerException("ERROR: La especialidad de una asignatura no puede ser nula.");
+            throw new NullPointerException("ERROR: La especialidad del profesorado de una asignatura no puede ser nula.");
         }
         this.especialidadProfesorado = especialidadProfesorado;
     }
@@ -145,18 +151,19 @@ public class Asignatura {
 
     @Override
     public String toString() {
-        return "Asignatura{" +
-                "codigo='" + codigo +
-                ", nombre='" + nombre +
-                ", horas=" + horasAnuales +
-                ", horasDesdobles=" + horasDesdoble +
+        return "Código=" + codigo +
+                ", nombre=" + nombre +
+                ", horas anuales=" + horasAnuales +
                 ", curso=" + curso +
-                ", especialidadProfesorado=" + especialidadProfesorado +
-                ", cicloFormativo=" + cicloFormativo +
-                '}';
+                ", horas desdoble=" + horasDesdoble +
+                ", ciclo formativo=" + cicloFormativo.imprimir() +
+                ", especialidad profesorado=" + especialidadProfesorado
+                 ;
     }
     public String imprimir() {
-        return codigo + " - " + nombre + " - " + horasAnuales + " - " + curso + " - " + horasDesdoble + " - " + especialidadProfesorado + " - " + cicloFormativo;
+        return "Código asignatura=" + codigo +
+                ", nombre asignatura=" + nombre +
+                ", ciclo formativo=" + cicloFormativo.imprimir();
     }
 
 

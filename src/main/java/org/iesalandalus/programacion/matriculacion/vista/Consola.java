@@ -57,7 +57,7 @@ public class Consola {
             String fechaIntroducida = ("Fecha de nacimiento: ");
             fechaNacimiento = leerFecha(fechaIntroducida);
         } while (dni.isEmpty() || nombre.isEmpty() || telefono.isEmpty() || email.isEmpty());
-        return new Alumno(nombre, dni, telefono, email, fechaNacimiento);
+        return new Alumno(nombre, dni, email, telefono, fechaNacimiento);
     }
 
     public static LocalDate leerFecha(String fechaIntroducida) {

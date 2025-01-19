@@ -2,18 +2,17 @@ package org.iesalandalus.programacion.matriculacion.negocio;
 
 import org.iesalandalus.programacion.matriculacion.dominio.Alumno;
 import org.iesalandalus.programacion.matriculacion.dominio.CicloFormativo;
-import org.iesalandalus.programacion.matriculacion.dominio.Curso;
 import org.iesalandalus.programacion.matriculacion.dominio.Matricula;
 
 import javax.naming.OperationNotSupportedException;
 
 public class Matriculas {
-    private static int capacidad = 3;
+    private static int capacidad;
     private static int tamano;
-    private Matricula[] coleccionMatriculas;
+    private final Matricula[] coleccionMatriculas;
 
     public Matriculas(int capacidad) {
-        if (capacidad <= 0|| capacidad > 3) {
+        if (capacidad <= 0) {
             throw new IllegalArgumentException("ERROR: La capacidad debe ser mayor que cero.");
         }
         Matriculas.capacidad = capacidad;
@@ -23,13 +22,13 @@ public class Matriculas {
 
     public void insertar(Matricula matricula) throws OperationNotSupportedException {
         if (matricula == null) {
-            throw new NullPointerException("ERROR: La matricula no puede ser nulo.");
+            throw new NullPointerException("ERROR: No se puede insertar una matrícula nula.");
         }
         if (tamano >= capacidad) {
-            throw new IllegalStateException("ERROR: No se pueden añadir más matriculas, la capacidad está completa.");
+            throw new OperationNotSupportedException("ERROR: Ya existe una matrícula con ese identificador.");
         }
         if (buscarIndice(matricula) != -1) {
-            throw new IllegalArgumentException("ERROR: La matricula ya existe en la lista.");
+            throw new OperationNotSupportedException("ERROR: No se aceptan más matrículas.");
         }
         coleccionMatriculas[tamano] = new Matricula(matricula);
         tamano++;
@@ -62,7 +61,7 @@ public class Matriculas {
 
     public void borrar(Matricula matricula) throws OperationNotSupportedException {
         if (matricula == null) {
-            throw new NullPointerException("ERROR: La matricula no puede ser nulo.");
+            throw new NullPointerException("ERROR: No se puede borrar una matrícula nula.");
         }
         int indice = buscarIndice(matricula);
         if (indice == -1) {
@@ -71,23 +70,26 @@ public class Matriculas {
         desplazarUnaPosicionHaciaIzquierda(indice);
     }
 
-    public Matricula[] get() {
+    public Matricula[] get() throws OperationNotSupportedException {
         return copiaProfundaMatriculas(coleccionMatriculas);
     }
 
-    private Matricula[] copiaProfundaMatriculas(Matricula[] matriculasOriginales) {
+    private Matricula[] copiaProfundaMatriculas(Matricula[] matriculasOriginales) throws OperationNotSupportedException {
         Matricula[] copia = new Matricula[tamano];
         for (int i = 0; i < tamano; i++) {
-            copia[i] = new Matricula(matriculasOriginales[i]); // Constructor copia
+            copia[i] = new Matricula(matriculasOriginales[i]);
         }
         return copia;
     }
+
     private void desplazarUnaPosicionHaciaIzquierda(int indice) {
+        coleccionMatriculas[indice] = null;
         int i;
         for (i = indice; !tamanoSuperado(i); i++) {
-            coleccionMatriculas[i] = coleccionMatriculas[i + 1];
+            if (i < getCapacidad() - 1) {
+                coleccionMatriculas[i] = coleccionMatriculas[i + 1];
+            }
         }
-        coleccionMatriculas[i] = null;
         tamano--;
     }
 
@@ -100,35 +102,16 @@ public class Matriculas {
     }
 
 
-    public static int getCapacidad() {
-        if (capacidad <= 0|| capacidad > 3) {
-            throw new IllegalArgumentException("ERROR: La capacidad debe ser mayor que cero.");
-        }
+    public int getCapacidad() {
         return capacidad;
     }
+
     public static int getTamano() {
-        if (tamano <= 0|| tamano > capacidad) {
-            throw new IllegalArgumentException("ERROR: El tamaño supera la capacidad que puede tener la lista.");
-        }
         return tamano;
     }
 
 
-    public Matricula[] get(Alumno alumno) {
-        Matricula[] copia = new Matricula[tamano];
-        for (int i = 0; i < tamano; i++) {
-            copia[i] = new Matricula(coleccionMatriculas[i]);
-        }
-        return copia;
-    }
-    public Matricula[] get(Curso cursoAcademico) {
-        Matricula[] copia = new Matricula[tamano];
-        for (int i = 0; i < tamano; i++) {
-            copia[i] = new Matricula(coleccionMatriculas[i]);
-        }
-        return copia;
-    }
-    public Matricula[] get(CicloFormativo cicloFormativo) {
+    public Matricula[] get(Alumno alumno) throws OperationNotSupportedException {
         Matricula[] copia = new Matricula[tamano];
         for (int i = 0; i < tamano; i++) {
             copia[i] = new Matricula(coleccionMatriculas[i]);
@@ -136,6 +119,21 @@ public class Matriculas {
         return copia;
     }
 
+    public Matricula[] get(String cursoAcademico) throws OperationNotSupportedException {
+        Matricula[] copia = new Matricula[tamano];
+        for (int i = 0; i < tamano; i++) {
+            copia[i] = new Matricula(coleccionMatriculas[i]);
+        }
+        return copia;
+    }
+
+    public Matricula[] get(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
+        Matricula[] copia = new Matricula[tamano];
+        for (int i = 0; i < tamano; i++) {
+            copia[i] = new Matricula(coleccionMatriculas[i]);
+        }
+        return copia;
+    }
 
 
 }

@@ -102,7 +102,7 @@ public class CicloFormativo {
 
     @Override
     public String toString() {
-        return "Codigo ciclo formativo" +
+        return "Código ciclo formativo" +
                 "=" + codigo +
                 ", familia profesional=" + familiaProfesional +
                 ", grado=" + grado +
@@ -112,6 +112,6 @@ public class CicloFormativo {
     }
 
     public String imprimir() {
-        return "Codigo ciclo formativo=" + codigo + ", nombre ciclo formativo=" + nombre;
+        return "Código ciclo formativo=" + codigo + ", nombre ciclo formativo=" + nombre;
     }
 }
