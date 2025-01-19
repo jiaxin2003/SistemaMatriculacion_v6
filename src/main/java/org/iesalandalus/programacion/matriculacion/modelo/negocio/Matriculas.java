@@ -25,10 +25,10 @@ public class Matriculas {
             throw new NullPointerException("ERROR: No se puede insertar una matrícula nula.");
         }
         if (tamano >= capacidad) {
-            throw new OperationNotSupportedException("ERROR: Ya existe una matrícula con ese identificador.");
+            throw new OperationNotSupportedException("ERROR: No se aceptan más matrículas.");
         }
         if (buscarIndice(matricula) != -1) {
-            throw new OperationNotSupportedException("ERROR: No se aceptan más matrículas.");
+            throw new OperationNotSupportedException("ERROR: Ya existe una matrícula con ese identificador.");
         }
         coleccionMatriculas[tamano] = new Matricula(matricula);
         tamano++;
@@ -38,13 +38,12 @@ public class Matriculas {
         if (matricula == null) {
             throw new NullPointerException("ERROR: La matricula no puede ser nulo.");
         }
-        int indice = -1;
-        for (int i = 0; i < tamano && indice == -1; i++) {
-            if (coleccionMatriculas[i].equals(matricula)) {
-                indice = i;
+        for (int i = 0; i < tamano; i++) {
+            if (coleccionMatriculas[i].getIdMatricula() == matricula.getIdMatricula()) {
+                return i;
             }
         }
-        return indice;
+        return -1;
     }
 
     public Matricula buscar(Matricula matricula) {
@@ -65,7 +64,7 @@ public class Matriculas {
         }
         int indice = buscarIndice(matricula);
         if (indice == -1) {
-            throw new IllegalArgumentException("ERROR: La matricula no existe en la lista.");
+            throw new OperationNotSupportedException("ERROR: La matricula no existe en la lista.");
         }
         desplazarUnaPosicionHaciaIzquierda(indice);
     }
@@ -86,7 +85,7 @@ public class Matriculas {
         coleccionMatriculas[indice] = null;
         int i;
         for (i = indice; !tamanoSuperado(i); i++) {
-            if (i < getCapacidad() - 1) {
+            if (i < getTamano() - 1) {
                 coleccionMatriculas[i] = coleccionMatriculas[i + 1];
             }
         }
@@ -94,7 +93,7 @@ public class Matriculas {
     }
 
     private boolean tamanoSuperado(int i) {
-        return i >= tamano;
+        return i >= getTamano();
     }
 
     private boolean capacidadSuperada(int i) {
@@ -106,7 +105,7 @@ public class Matriculas {
         return capacidad;
     }
 
-    public static int getTamano() {
+    public int getTamano() {
         return tamano;
     }
 
