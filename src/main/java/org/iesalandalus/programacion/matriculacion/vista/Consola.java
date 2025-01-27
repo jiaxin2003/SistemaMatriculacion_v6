@@ -56,7 +56,7 @@ public class Consola {
             String fechaIntroducida = ("Fecha de nacimiento: ");
             fechaNacimiento = leerFecha(fechaIntroducida);
         } while (dni.isEmpty() || nombre.isEmpty() || telefono.isEmpty() || email.isEmpty());
-        return new Alumno(nombre, dni, email, telefono, fechaNacimiento);
+        return new Alumno(nombre, dni, telefono,email, fechaNacimiento);
     }
 
     public static LocalDate leerFecha(String fechaIntroducida) {
@@ -92,12 +92,8 @@ public class Consola {
             dni = Entrada.cadena();
 
         } while (dni == null || dni.isEmpty());
-        try {
-            alumno = new Alumno(nombre, dni, telefono, correo, fechaNacimiento);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-        return alumno;
+
+        return new Alumno(nombre, dni, telefono, correo, fechaNacimiento);
     }
 
     public static Grado leerGrado() {
@@ -136,16 +132,18 @@ public class Consola {
         return new CicloFormativo(codigo, familiaProfesional, grado, nombre, horas);
     }
 
-    public static void mostrarCiclosFormativos(CicloFormativo[] cicloFormativos) {
-        for (CicloFormativo cicloFormativo : cicloFormativos) {
-            System.out.println(cicloFormativo.toString());
+    public void mostrarCiclosFormativos(CicloFormativo[] cicloFormativos) {
+        if (cicloFormativos.length == 0) {
+            System.out.println("No hay ciclos formativos.");
+        } else {
+            System.out.println(Arrays.toString(cicloFormativos));
         }
     }
 
 
     public static CicloFormativo getCicloPorCodigo() {
         CicloFormativo cicloFormativo = null;
-        int codigo;
+        int codigo=5555;
         String familiaProfesional = "Informatica";
         Grado grado = Grado.GDCFGB;
         String nombre = "Pepe Perez";
@@ -195,7 +193,6 @@ public class Consola {
         int horasDesdoble;
         Curso curso;
         EspecialidadProfesorado especialidadProfesorado;
-        CicloFormativo cicloFormativos;
 
         do {
             System.out.println("Introduce los datos de la asignatura");
@@ -210,11 +207,10 @@ public class Consola {
 
             curso = leerCurso();
             especialidadProfesorado = leerEspecialidadProfesorado();
-            cicloFormativos = leerCicloFormativo();
 
         } while (codigo.isEmpty() || nombre.isEmpty() || horas <= 0 || horasDesdoble <= 0 || curso == null || especialidadProfesorado == null);
 
-        return new Asignatura(codigo, nombre, horas, curso, horasDesdoble, especialidadProfesorado, cicloFormativos);
+        return new Asignatura(codigo, nombre, horas, curso, horasDesdoble, especialidadProfesorado, ciclosFormativo);
     }
 
     public static Asignatura getAsignaturaPorCodigo() {
@@ -234,13 +230,15 @@ public class Consola {
         return new Asignatura(codigo, nombre, horasAnuales, curso, horasDesdoble, especialidadProfesorado, cicloFormativo);
     }
 
-    private static void mostrarAsignaturas(Asignatura[] asignatura) {
-        for (Asignatura asignatura1 : asignatura) {
-            System.out.println(asignatura1.toString());
+    private void mostrarAsignaturas(Asignatura[] asignaturas) {
+        if (asignaturas.length == 0) {
+            System.out.println("No hay asignaturas matriculadas.");
+        } else {
+            System.out.println(Arrays.toString(asignaturas));
         }
     }
 
-    private boolean asignaturaYaMatriculada(Asignatura[] asignaturasMatricula, Asignatura asignatura) {
+    boolean asignaturaYaMatriculada(Asignatura[] asignaturasMatricula, Asignatura asignatura) {
         for (Asignatura coleccionAsignatura : asignaturasMatricula) {
             if (coleccionAsignatura.getCodigo().equals(asignatura.getCodigo())) {
                 return true;
@@ -250,6 +248,13 @@ public class Consola {
     }
 
     public static Matricula leerMatricula(Alumno alumno, Asignatura[] asignaturas) throws OperationNotSupportedException {
+
+        if (alumno == null|| alumno.getDni().isEmpty()) {
+            throw new NullPointerException("ERROR: No se puede insertar un alumno nulo.");
+        }
+        if (asignaturas == null || asignaturas.length == 0) {
+            throw new NullPointerException("ERROR: La lista de asignaturas de una matrícula no puede ser nula.");
+        }
         int idMatricula;
         String cursoAcademico;
         LocalDate fechaMatriculacion;
@@ -262,10 +267,9 @@ public class Consola {
             System.out.println("Curso Academico: ");
             cursoAcademico = Entrada.cadena();
             fechaMatriculacion = leerFecha("Fecha Matriculacion: ");
-            leerAlumno();
-            alumno = getAlumnoPorDni();
 
-        } while (alumno == null || idMatricula < 0 || cursoAcademico.isEmpty() || fechaMatriculacion == null);
+
+        } while (idMatricula < 0 || cursoAcademico.isEmpty() || fechaMatriculacion == null);
 
         return new Matricula(idMatricula, cursoAcademico, fechaMatriculacion, alumno, asignaturas);
     }
@@ -288,12 +292,11 @@ public class Consola {
         return new Matricula(matricula);
     }
 
-    public Asignatura[] elegirAsignaturasMatricula(Asignatura[] asignaturas) {
-        Asignatura[] coleccionAsignaturas = new Asignatura[asignaturas.length];
-
-        for (int i = 0; i < coleccionAsignaturas.length; i++) {
-            coleccionAsignaturas[i] = asignaturas[i];
+    public static Asignatura[] elegirAsignaturasMatricula(Asignatura[] asignaturas) {
+        if (asignaturas.length == 0) {
+            throw new IllegalArgumentException("ERROR: No hay asignaturas matriculadas.");
         }
-        return coleccionAsignaturas;
+
+        return new Asignatura[asignaturas.length];
     }
 }

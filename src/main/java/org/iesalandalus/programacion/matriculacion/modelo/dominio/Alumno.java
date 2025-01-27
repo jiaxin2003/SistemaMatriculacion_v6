@@ -23,7 +23,7 @@ public class Alumno {
     private final int MIN_EDAD_ALUMNO = 16;
 
 
-    public Alumno(String nombre, String dni, String correo, String telefono, LocalDate fechaNacimiento) {
+    public Alumno(String nombre, String dni,  String telefono,String correo,LocalDate fechaNacimiento) {
         setNombre(nombre);
         setDni(dni);
         setTelefono(telefono);
@@ -38,8 +38,8 @@ public class Alumno {
         }
         setNombre(alumno.nombre);
         setDni(alumno.dni);
-        setCorreo(alumno.correo);
         setTelefono(alumno.telefono);
+        setCorreo(alumno.correo);
         setFechaNacimiento(alumno.fechaNacimiento);
         setNia();
     }
@@ -136,7 +136,8 @@ public class Alumno {
     public void setTelefono(String telefono) {
         if (telefono == null) {
             throw new NullPointerException("ERROR: El teléfono de un alumno no puede ser nulo.");
-        } else if (!telefono.matches(ER_TELEFONO)) {
+        }
+        if (!telefono.matches(ER_TELEFONO)) {
             throw new IllegalArgumentException("ERROR: El teléfono del alumno no tiene un formato válido.");
         }
         this.telefono = telefono;

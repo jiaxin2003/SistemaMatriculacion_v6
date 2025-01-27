@@ -12,23 +12,24 @@ import javax.naming.OperationNotSupportedException;
 public class Controlador {
 
     private Vista vista;
-    private Modelo modelo;
+    private final Modelo modelo;
 
     public Controlador(Vista vista, Modelo modelo) {
+        if (vista == null || modelo == null) {
+            throw new NullPointerException("ERROR: El modelo o la vista no pueden ser nulos");
+        }
         this.vista = vista;
         this.modelo = modelo;
-        this.vista.setControlador(controlador);
+        this.vista.setControlador(this);
     }
 
     public void comenzar() {
         modelo.comenzar();
-        vista.comenzar();
 
     }
 
     public void terminar() {
         modelo.terminar();
-        vista.terminar();
 
     }
 
@@ -38,8 +39,7 @@ public class Controlador {
     }
 
     public Alumno buscar(Alumno alumno) {
-       this.modelo.buscar(alumno);
-        return alumno;
+        return this.modelo.buscar(alumno);
     }
 
     public void borrar(Alumno alumno) throws OperationNotSupportedException {
@@ -75,7 +75,7 @@ public class Controlador {
     }
 
     public CicloFormativo buscar(CicloFormativo cicloFormativo) {
-       return this.modelo.buscar(cicloFormativo);
+        return this.modelo.buscar(cicloFormativo);
     }
 
     public void borrar(CicloFormativo cicloFormativo) throws OperationNotSupportedException {

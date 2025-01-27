@@ -1,23 +1,32 @@
 package org.iesalandalus.programacion.matriculacion.vista;
 
+import com.sun.tools.jconsole.JConsoleContext;
 import org.iesalandalus.programacion.matriculacion.controlador.Controlador;
 import org.iesalandalus.programacion.matriculacion.modelo.Modelo;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Alumno;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Asignatura;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.CicloFormativo;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Matricula;
+import org.iesalandalus.programacion.matriculacion.modelo.negocio.Alumnos;
+import org.iesalandalus.programacion.matriculacion.modelo.negocio.Asignaturas;
+import org.iesalandalus.programacion.matriculacion.modelo.negocio.CiclosFormativos;
 import org.iesalandalus.programacion.matriculacion.modelo.negocio.Matriculas;
 import org.iesalandalus.programacion.utilidades.Entrada;
+import org.iesalandalus.programacion.matriculacion.vista.Consola;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
 import java.util.Arrays;
 
 
-
 public class Vista {
 
     private Controlador controlador;
+    public static final int CAPACIDAD = 3;
+    private static Alumnos alumnos = new Alumnos(CAPACIDAD);
+    private static Asignaturas asignaturas = new Asignaturas(CAPACIDAD);
+    public static CiclosFormativos ciclosFormativos = new CiclosFormativos(CAPACIDAD);
+    private static Matriculas matriculas = new Matriculas(CAPACIDAD);
 
 
     public void setControlador(Controlador controlador) {
@@ -29,6 +38,7 @@ public class Vista {
 
     public void comenzar() {
         setControlador(new Controlador(this, new Modelo()));
+        controlador.comenzar();
         Opcion opcion;
         do {
             Consola.mostrarMenu();
@@ -45,8 +55,7 @@ public class Vista {
     private void ejecutarOpcion(Opcion opcion) {
         switch (opcion) {
             case SALIR:
-                System.out.println("Hasta pronto.");
-                System.exit(0);
+                terminar();
                 break;
             case INSERTAR_ALUMNO:
                 insertarAlumno();
@@ -140,14 +149,21 @@ public class Vista {
     }
 
     private void mostrarAlumnos() {
-        this.controlador.getAlumnos();
-
+        Alumno[] alumnos = this.controlador.getAlumnos();
+        if (alumnos == null) {
+            System.out.println("No hay alumnos.");
+        } else {
+            for (Alumno alumno : alumnos) {
+                System.out.println(alumno);
+            }
+        }
     }
 
 
     private void insertarAsignatura() {
         try {
-            Asignatura asignatura = Consola.leerAsignatura(ciclosFormativos);
+            CicloFormativo ciclo = Consola.getCicloPorCodigo();
+            Asignatura asignatura = Consola.leerAsignatura(ciclo);
             this.controlador.insertar(asignatura);
             System.out.println("Asignatura insertada correctamente.");
         } catch (IllegalArgumentException | OperationNotSupportedException e) {
@@ -178,7 +194,14 @@ public class Vista {
 
 
     private void mostrarAsignaturas() {
-        this.controlador.getAsignaturas();
+        Asignatura[] asignaturas = this.controlador.getAsignaturas();
+        if (asignaturas == null) {
+            System.out.println("No hay asignaturas.");
+        } else {
+            for (Asignatura asignatura : asignaturas) {
+                System.out.println(asignatura);
+            }
+        }
     }
 
     private void insertarCicloFormativo() {
@@ -194,8 +217,8 @@ public class Vista {
     private void buscarCicloFormativo() {
         try {
             CicloFormativo ciclo = Consola.getCicloPorCodigo();
-            CicloFormativo encontrado = this.controlador.buscar(ciclo);
-            System.out.println(encontrado != null ? encontrado : "Ciclo formativo no encontrado.");
+            this.controlador.buscar(ciclo);
+            System.out.println("Ciclo formativo encontrado.");
         } catch (IllegalArgumentException | NullPointerException e) {
             System.out.println("ERROR: No se pudo buscar el ciclo formativo.");
         }
@@ -212,12 +235,22 @@ public class Vista {
     }
 
     private void mostrarCiclosFormativos() {
-        this.controlador.getCiclosFormativos();
+        CicloFormativo[] cicloFormativos = this.controlador.getCiclosFormativos();
+        if (cicloFormativos.length == 0) {
+            System.out.println("No hay ciclos formativos.");
+        } else {
+            for (CicloFormativo cicloFormativo : cicloFormativos) {
+                System.out.println(cicloFormativo);
+            }
+        }
+
     }
 
     private void insertarMatricula() {
         try {
-            Matricula matricula = Consola.leerMatricula(alumno, asignaturas);
+            Alumno alumno = Consola.getAlumnoPorDni();
+            Asignatura[] asignatura = Consola.elegirAsignaturasMatricula(controlador.getAsignaturas());
+            Matricula matricula = Consola.leerMatricula(alumno, asignatura);
             this.controlador.insertar(matricula);
             System.out.println("Matrícula insertada correctamente.");
         } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException e) {
@@ -228,8 +261,8 @@ public class Vista {
     private void buscarMatricula() {
         try {
             Matricula matricula = Consola.getMatriculaPorIdentificador();
-            Matricula encontrada = this.controlador.buscar(matricula);
-            System.out.println(encontrada != null ? encontrada : "Matrícula no encontrada.");
+            this.controlador.buscar(matricula);
+            System.out.println("Matrícula encontrada.");
         } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException e) {
             System.out.println("ERROR: No se pudo buscar la matrícula.");
         }
@@ -255,13 +288,19 @@ public class Vista {
         }
     }
 
-    private void mostrarMatriculas()  {
+    private void mostrarMatriculas() {
         try {
-        this.controlador.getMatriculas();
+            Matricula[] matriculas = this.controlador.getMatriculas();
+            if (matriculas == null) {
+                System.out.println("No hay matrículas.");
+            } else {
+                for (Matricula matricula : matriculas) {
+                    System.out.println(matricula);
+                }
+            }
         } catch (OperationNotSupportedException e) {
             System.out.println("ERROR: No se pudo mostrar las matrículas.");
         }
-
     }
 
     private void mostrarMatriculasPorAlumno() {
@@ -284,12 +323,9 @@ public class Vista {
 
     private void mostrarMatriculasPorCursoAcademico() {
         try {
-            System.out.println();
             System.out.println(Arrays.toString(this.controlador.getMatriculas()));
         } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException e) {
             System.out.println("ERROR: No se pudo mostrar las matrículas por curso.");
         }
     }
-
-
 }

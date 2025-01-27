@@ -14,8 +14,7 @@ import javax.naming.OperationNotSupportedException;
 
 public class Modelo {
 
-    public static int CAPACIDAD;
-    private Controlador controlador;
+    public final int CAPACIDAD = 10;
     private Alumnos alumnos;
     private Asignaturas asignaturas;
     private CiclosFormativos ciclosFormativos;
@@ -41,8 +40,8 @@ public class Modelo {
     }
 
     public Alumno buscar(Alumno alumno) {
-        this.alumnos.buscar(alumno);
-        return alumno;
+        return this.alumnos.buscar(alumno);
+
     }
 
     public void borrar(Alumno alumno) throws OperationNotSupportedException {
@@ -59,8 +58,8 @@ public class Modelo {
     }
 
     public Asignatura buscar(Asignatura asignatura) {
-        this.asignaturas.buscar(asignatura);
-        return asignatura;
+        return this.asignaturas.buscar(asignatura);
+
     }
 
     public void borrar(Asignatura asignatura) throws OperationNotSupportedException {
@@ -78,8 +77,8 @@ public class Modelo {
     }
 
     public CicloFormativo buscar(CicloFormativo cicloFormativo) {
-        this.ciclosFormativos.buscar(cicloFormativo);
-        return cicloFormativo;
+        return this.ciclosFormativos.buscar(cicloFormativo);
+
     }
 
     public void borrar(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
@@ -97,8 +96,8 @@ public class Modelo {
     }
 
     public Matricula buscar(Matricula matricula) {
-        this.matriculas.buscar(matricula);
-        return matricula;
+        return this.matriculas.buscar(matricula);
+
     }
 
     public void borrar(Matricula matricula) throws OperationNotSupportedException {
@@ -107,7 +106,7 @@ public class Modelo {
     }
 
     public Matricula[] getMatriculas() throws OperationNotSupportedException {
-       return this.matriculas.get();
+        return this.matriculas.get();
 
     }
 

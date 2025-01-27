@@ -1,5 +1,7 @@
 package org.iesalandalus.programacion.matriculacion;
 
+import org.iesalandalus.programacion.matriculacion.controlador.Controlador;
+import org.iesalandalus.programacion.matriculacion.modelo.Modelo;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Alumno;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Asignatura;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.CicloFormativo;
@@ -10,6 +12,7 @@ import org.iesalandalus.programacion.matriculacion.modelo.negocio.CiclosFormativ
 import org.iesalandalus.programacion.matriculacion.modelo.negocio.Matriculas;
 import org.iesalandalus.programacion.matriculacion.vista.Consola;
 import org.iesalandalus.programacion.matriculacion.vista.Opcion;
+import org.iesalandalus.programacion.matriculacion.vista.Vista;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 import javax.naming.OperationNotSupportedException;
@@ -26,6 +29,11 @@ public class MainApp {
     private static Matriculas matriculas;*/
 
     public static void main(String[] args) {
+
+        Modelo modelo = new Modelo();
+        Vista vista = new Vista();
+        Controlador controlador = new Controlador(vista, modelo);
+        vista.comenzar();
     }
 }
 
