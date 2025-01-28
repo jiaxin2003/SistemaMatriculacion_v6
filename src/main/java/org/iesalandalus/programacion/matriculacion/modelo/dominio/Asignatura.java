@@ -49,7 +49,7 @@ public class Asignatura {
         if (codigo == null){
             throw new NullPointerException("ERROR: El código de una asignatura no puede ser nulo.");
         }
-        if (codigo.isBlank()) {
+        if (codigo.isEmpty()) {
             throw new IllegalArgumentException("ERROR: El código de una asignatura no puede estar vacío.");
         }
         if (!codigo.matches(ER_CODIGO)) {

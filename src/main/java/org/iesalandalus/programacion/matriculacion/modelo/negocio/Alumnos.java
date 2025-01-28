@@ -2,14 +2,15 @@ package org.iesalandalus.programacion.matriculacion.modelo.negocio;
 
 import java.util.Arrays;
 import java.util.Objects;
+
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Alumno;
 
 import javax.naming.OperationNotSupportedException;
 
-public class  Alumnos {
+public class Alumnos {
     private final int capacidad;
     private int tamano;
-    private final Alumno [] coleccionAlumnos;
+    private final Alumno[] coleccionAlumnos;
 
 
     public Alumnos(int capacidad) {
@@ -37,12 +38,12 @@ public class  Alumnos {
 
     public void borrar(Alumno alumno) throws OperationNotSupportedException {
         if (alumno == null) {
-                throw new NullPointerException("ERROR: No se puede borrar un alumno nulo.");
+            throw new NullPointerException("ERROR: No se puede borrar un alumno nulo.");
         }
         int indice = buscarIndice(alumno);
         if (indice == -1) {
             throw new OperationNotSupportedException("ERROR: No existe ningún alumno como el indicado.");
-        }else{
+        } else {
             desplazarUnaPosicionHaciaIzquierda(indice);
         }
     }
@@ -77,11 +78,12 @@ public class  Alumnos {
         }
         return coleccionAlumnos[indice];
     }
-    private void desplazarUnaPosicionHaciaIzquierda (int indice) {
+
+    private void desplazarUnaPosicionHaciaIzquierda(int indice) {
         coleccionAlumnos[indice] = null;
         int i;
         for (i = indice; !tamanoSuperado(i); i++) {
-            if (i<getCapacidad()-1) {
+            if (i < getCapacidad() - 1) {
                 coleccionAlumnos[i] = coleccionAlumnos[i + 1];
             }
         }

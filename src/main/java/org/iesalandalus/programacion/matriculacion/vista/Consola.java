@@ -56,7 +56,7 @@ public class Consola {
             String fechaIntroducida = ("Fecha de nacimiento: ");
             fechaNacimiento = leerFecha(fechaIntroducida);
         } while (dni.isEmpty() || nombre.isEmpty() || telefono.isEmpty() || email.isEmpty());
-        return new Alumno(nombre, dni, telefono,email, fechaNacimiento);
+        return new Alumno(nombre, dni, telefono, email, fechaNacimiento);
     }
 
     public static LocalDate leerFecha(String fechaIntroducida) {
@@ -79,21 +79,23 @@ public class Consola {
 
     public static Alumno getAlumnoPorDni() {
 
+
+        /*
         Alumno alumno = null;
         String nombre = "Pepe Perez";
         String telefono = "666333888";
         String correo = "PepePerez@gmail.com";
-        String dni = "78945613B";
-        LocalDate fechaNacimiento = LocalDate.of(2000, 12, 12);
-        ;
 
+        LocalDate fechaNacimiento = LocalDate.of(2000, 12, 12);
+        */
+        String dni = "78945613B";
         do {
             System.out.println("Introduce el DNI del alumno: ");
             dni = Entrada.cadena();
 
         } while (dni == null || dni.isEmpty());
-
-        return new Alumno(nombre, dni, telefono, correo, fechaNacimiento);
+        //return new Alumno(nombre, dni, telefono, correo, fechaNacimiento);
+        return new Alumno("pepe perez",dni, "666333888", "PepePerez@gmail.com", LocalDate.of(2000, 12, 12));
     }
 
     public static Grado leerGrado() {
@@ -143,7 +145,7 @@ public class Consola {
 
     public static CicloFormativo getCicloPorCodigo() {
         CicloFormativo cicloFormativo = null;
-        int codigo=5555;
+        int codigo = 5555;
         String familiaProfesional = "Informatica";
         Grado grado = Grado.GDCFGB;
         String nombre = "Pepe Perez";
@@ -249,7 +251,7 @@ public class Consola {
 
     public static Matricula leerMatricula(Alumno alumno, Asignatura[] asignaturas) throws OperationNotSupportedException {
 
-        if (alumno == null|| alumno.getDni().isEmpty()) {
+        if (alumno == null || alumno.getDni().isEmpty()) {
             throw new NullPointerException("ERROR: No se puede insertar un alumno nulo.");
         }
         if (asignaturas == null || asignaturas.length == 0) {

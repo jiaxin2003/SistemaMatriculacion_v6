@@ -39,7 +39,7 @@ public class Controlador {
     }
 
     public Alumno buscar(Alumno alumno) {
-        return this.modelo.buscar(alumno);
+        return modelo.buscar(alumno);
     }
 
     public void borrar(Alumno alumno) throws OperationNotSupportedException {
