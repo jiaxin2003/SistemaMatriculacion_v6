@@ -65,14 +65,16 @@ public class Matricula {
     }
 
     private String asignaturasMatricula() {
-        StringBuilder asignaturas = new StringBuilder();
-        for (int i = 0; i < coleccionAsignaturas.length; i++) {
-            asignaturas.append(coleccionAsignaturas[i].getNombre());
-            if (i < coleccionAsignaturas.length - 1) {
-                asignaturas.append(", ");
+        String asignaturas="";
+        for (int i = 0; i < coleccionAsignaturas.size(); i++) {
+            if (coleccionAsignaturas.get(i) != null) {
+                asignaturas += coleccionAsignaturas.get(i).getNombre();
+            };
+            if (i < coleccionAsignaturas.size() - 1) {
+               asignaturas+=(", ");
             }
         }
-        return asignaturas.toString();
+        return asignaturas;
     }
 
     public String imprimir() {
@@ -185,7 +187,7 @@ public class Matricula {
 
     @Override
     public int hashCode() {
-        return Objects.hash(idMatricula, cursoAcademico, fechaMatriculacion, fechaAnulacion, Arrays.hashCode(coleccionAsignaturas));
+        return Objects.hash(idMatricula, cursoAcademico, fechaMatriculacion, fechaAnulacion);
     }
 
     @Override
@@ -195,7 +197,7 @@ public class Matricula {
                 ", cursoAcademico='" + cursoAcademico + '\'' +
                 ", fechaMatriculacion=" + fechaMatriculacion +
                 ", fechaAnulacion=" + fechaAnulacion +
-                ", coleccionAsignaturas=" + Arrays.toString(coleccionAsignaturas) +
+                ", coleccionAsignaturas=" + coleccionAsignaturas +
                 ", alumno=" + alumno.imprimir();
     }
 }

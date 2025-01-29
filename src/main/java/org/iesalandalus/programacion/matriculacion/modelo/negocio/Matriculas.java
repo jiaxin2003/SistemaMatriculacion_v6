@@ -5,56 +5,53 @@ import org.iesalandalus.programacion.matriculacion.modelo.dominio.CicloFormativo
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Matricula;
 
 import javax.naming.OperationNotSupportedException;
+import java.util.ArrayList;
 
 public class Matriculas {
-    private static int capacidad;
-    private static int tamano;
-    private final Matricula[] coleccionMatriculas;
+    private final ArrayList<Matricula> coleccionMatriculas;
 
-    public Matriculas(int capacidad) {
-        if (capacidad <= 0) {
-            throw new IllegalArgumentException("ERROR: La capacidad debe ser mayor que cero.");
+    public Matriculas() {
+        this.coleccionMatriculas = new ArrayList<>();
+    }
+
+    public Matricula[] get() throws OperationNotSupportedException {
+        return copiaProfundaMatriculas();
+    }
+
+    private Matricula[] copiaProfundaMatriculas() throws OperationNotSupportedException {
+        Matricula[] copia = new Matricula[this.coleccionMatriculas.size()];
+        for (int i = 0; i < coleccionMatriculas.size(); i++) {
+            copia[i] = new Matricula(this.coleccionMatriculas.get(i));
         }
-        Matriculas.capacidad = capacidad;
-        Matriculas.tamano = 0;
-        this.coleccionMatriculas = new Matricula[capacidad];
+        return copia;
+    }
+
+
+    public int getTamano() {
+        return this.coleccionMatriculas.size();
     }
 
     public void insertar(Matricula matricula) throws OperationNotSupportedException {
         if (matricula == null) {
             throw new NullPointerException("ERROR: No se puede insertar una matrícula nula.");
         }
-        if (tamano >= capacidad) {
-            throw new OperationNotSupportedException("ERROR: No se aceptan más matrículas.");
-        }
-        if (buscarIndice(matricula) != -1) {
+        int indice=this.coleccionMatriculas.indexOf(matricula);
+        if (indice != -1) {
             throw new OperationNotSupportedException("ERROR: Ya existe una matrícula con ese identificador.");
         }
-        coleccionMatriculas[tamano] = new Matricula(matricula);
-        tamano++;
+        this.coleccionMatriculas.add(new Matricula(matricula));
     }
 
-    private int buscarIndice(Matricula matricula) {
+
+    public Matricula buscar(Matricula matricula) throws OperationNotSupportedException {
         if (matricula == null) {
             throw new NullPointerException("ERROR: La matricula no puede ser nulo.");
         }
-        for (int i = 0; i < tamano; i++) {
-            if (coleccionMatriculas[i].getIdMatricula() == matricula.getIdMatricula()) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    public Matricula buscar(Matricula matricula) {
-        if (matricula == null) {
-            throw new NullPointerException("ERROR: La matricula no puede ser nulo.");
-        }
-        int indice = buscarIndice(matricula);
+        int indice = this.coleccionMatriculas.indexOf(matricula);
         if (indice == -1) {
             return null;
         }
-        return coleccionMatriculas[indice];
+        return new Matricula(this.coleccionMatriculas.get(indice));
 
     }
 
@@ -62,51 +59,11 @@ public class Matriculas {
         if (matricula == null) {
             throw new NullPointerException("ERROR: No se puede borrar una matrícula nula.");
         }
-        int indice = buscarIndice(matricula);
+        int indice =this.coleccionMatriculas.indexOf(matricula);
         if (indice == -1) {
             throw new OperationNotSupportedException("ERROR: No existe ninguna matrícula como la indicada.");
         }
-        desplazarUnaPosicionHaciaIzquierda(indice);
-    }
-
-    public Matricula[] get() throws OperationNotSupportedException {
-        return copiaProfundaMatriculas(coleccionMatriculas);
-    }
-
-    private Matricula[] copiaProfundaMatriculas(Matricula[] matriculasOriginales) throws OperationNotSupportedException {
-        Matricula[] copia = new Matricula[tamano];
-        for (int i = 0; i < tamano; i++) {
-            copia[i] = new Matricula(matriculasOriginales[i]);
-        }
-        return copia;
-    }
-
-    private void desplazarUnaPosicionHaciaIzquierda(int indice) {
-        coleccionMatriculas[indice] = null;
-        int i;
-        for (i = indice; !tamanoSuperado(i); i++) {
-            if (i < getTamano() - 1) {
-                coleccionMatriculas[i] = coleccionMatriculas[i + 1];
-            }
-        }
-        tamano--;
-    }
-
-    private boolean tamanoSuperado(int i) {
-        return i >= getTamano();
-    }
-
-    private boolean capacidadSuperada(int i) {
-        return i >= capacidad;
-    }
-
-
-    public int getCapacidad() {
-        return capacidad;
-    }
-
-    public int getTamano() {
-        return tamano;
+        this.coleccionMatriculas.remove(indice);
     }
 
 
