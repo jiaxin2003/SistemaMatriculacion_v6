@@ -35,7 +35,7 @@ public class Matriculas {
         if (matricula == null) {
             throw new NullPointerException("ERROR: No se puede insertar una matrícula nula.");
         }
-        int indice=this.coleccionMatriculas.indexOf(matricula);
+        int indice = this.coleccionMatriculas.indexOf(matricula);
         if (indice != -1) {
             throw new OperationNotSupportedException("ERROR: Ya existe una matrícula con ese identificador.");
         }
@@ -59,7 +59,7 @@ public class Matriculas {
         if (matricula == null) {
             throw new NullPointerException("ERROR: No se puede borrar una matrícula nula.");
         }
-        int indice =this.coleccionMatriculas.indexOf(matricula);
+        int indice = this.coleccionMatriculas.indexOf(matricula);
         if (indice == -1) {
             throw new OperationNotSupportedException("ERROR: No existe ninguna matrícula como la indicada.");
         }
