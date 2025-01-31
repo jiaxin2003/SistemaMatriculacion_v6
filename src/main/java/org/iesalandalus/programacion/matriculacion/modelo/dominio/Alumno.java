@@ -24,24 +24,22 @@ public class Alumno {
 
 
     public Alumno(String nombre, String dni,  String telefono,String correo,LocalDate fechaNacimiento) {
-        setNombre(nombre);
         setDni(dni);
+        setNombre(nombre);
         setTelefono(telefono);
         setCorreo(correo);
         setFechaNacimiento(fechaNacimiento);
-        setNia();
     }
 
     public Alumno(Alumno alumno) {
         if (alumno == null) {
             throw new NullPointerException("ERROR: No es posible copiar un alumno nulo.");
         }
-        setNombre(alumno.nombre);
         setDni(alumno.dni);
+        setNombre(alumno.nombre);
         setTelefono(alumno.telefono);
         setCorreo(alumno.correo);
         setFechaNacimiento(alumno.fechaNacimiento);
-        setNia();
     }
 
 
@@ -127,6 +125,7 @@ public class Alumno {
         }
 
         this.nombre = formateaNombre(nombre);
+        setNia();
     }
 
     public String getTelefono() {

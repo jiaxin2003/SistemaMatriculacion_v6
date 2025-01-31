@@ -1,6 +1,5 @@
 package org.iesalandalus.programacion.matriculacion.modelo;
 
-import org.iesalandalus.programacion.matriculacion.controlador.Controlador;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Alumno;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Asignatura;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.CicloFormativo;
@@ -22,10 +21,10 @@ public class Modelo {
 
     public void comenzar() {
 
-        this.alumnos = new Alumnos(CAPACIDAD);
-        this.asignaturas = new Asignaturas(CAPACIDAD);
-        this.ciclosFormativos = new CiclosFormativos(CAPACIDAD);
-        this.matriculas = new Matriculas(CAPACIDAD);
+        this.alumnos = new Alumnos();
+        this.asignaturas = new Asignaturas();
+        this.ciclosFormativos = new CiclosFormativos();
+        this.matriculas = new Matriculas();
 
     }
 
@@ -95,7 +94,7 @@ public class Modelo {
 
     }
 
-    public Matricula buscar(Matricula matricula) {
+    public Matricula buscar(Matricula matricula) throws OperationNotSupportedException {
         return this.matriculas.buscar(matricula);
 
     }

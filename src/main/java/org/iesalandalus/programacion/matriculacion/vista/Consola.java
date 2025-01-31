@@ -2,9 +2,7 @@
 package org.iesalandalus.programacion.matriculacion.vista;
 
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.*;
-import org.iesalandalus.programacion.matriculacion.modelo.negocio.Alumnos;
 import org.iesalandalus.programacion.matriculacion.modelo.negocio.Asignaturas;
-import org.iesalandalus.programacion.matriculacion.modelo.negocio.CiclosFormativos;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 import javax.naming.OperationNotSupportedException;
@@ -45,10 +43,10 @@ public class Consola {
 
         do {
             System.out.println("Introduce los datos del alumno");
-            System.out.println("Nombre: ");
-            nombre = Entrada.cadena();
             System.out.println("DNI: ");
             dni = Entrada.cadena();
+            System.out.println("Nombre: ");
+            nombre = Entrada.cadena();
             System.out.println("Telefono: ");
             telefono = Entrada.cadena();
             System.out.println("Email: ");
@@ -56,7 +54,7 @@ public class Consola {
             String fechaIntroducida = ("Fecha de nacimiento: ");
             fechaNacimiento = leerFecha(fechaIntroducida);
         } while (dni.isEmpty() || nombre.isEmpty() || telefono.isEmpty() || email.isEmpty());
-        return new Alumno(nombre, dni, telefono, email, fechaNacimiento);
+        return new Alumno(dni,nombre, telefono, email, fechaNacimiento);
     }
 
     public static LocalDate leerFecha(String fechaIntroducida) {
@@ -95,7 +93,7 @@ public class Consola {
 
         } while (dni == null || dni.isEmpty());
         //return new Alumno(nombre, dni, telefono, correo, fechaNacimiento);
-        return new Alumno("pepe perez",dni, "666333888", "PepePerez@gmail.com", LocalDate.of(2000, 12, 12));
+        return new Alumno("pepe perez", dni, "666333888", "PepePerez@gmail.com", LocalDate.of(2000, 12, 12));
     }
 
     public static Grado leerGrado() {
@@ -282,7 +280,6 @@ public class Consola {
         String cursoAcademico = "24/25";
         LocalDate fechaMatriculacion = LocalDate.of(2009, 1, 1);
         Alumno alumno = new Alumno("Pepe Perez", "12345678F", "666555444", "PepePerez@gmail.com", LocalDate.of(2000, 12, 12));
-        Asignatura[] coleccionAsignaturas = new Asignatura[10];
 
 
         do {
@@ -290,8 +287,7 @@ public class Consola {
             idMatricula = Entrada.entero();
         } while (idMatricula < 0);
 
-        matricula = new Matricula(idMatricula, cursoAcademico, fechaMatriculacion, alumno, coleccionAsignaturas);
-        return new Matricula(matricula);
+        return new Matricula(idMatricula, cursoAcademico, fechaMatriculacion, alumno, new Asignaturas().get());
     }
 
     public static Asignatura[] elegirAsignaturasMatricula(Asignatura[] asignaturas) {

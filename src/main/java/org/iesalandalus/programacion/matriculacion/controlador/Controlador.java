@@ -92,7 +92,7 @@ public class Controlador {
 
     }
 
-    public Matricula buscar(Matricula matricula) {
+    public Matricula buscar(Matricula matricula) throws OperationNotSupportedException {
         return this.modelo.buscar(matricula);
     }
 
