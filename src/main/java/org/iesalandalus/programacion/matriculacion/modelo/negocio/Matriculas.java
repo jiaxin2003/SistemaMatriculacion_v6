@@ -1,6 +1,7 @@
 package org.iesalandalus.programacion.matriculacion.modelo.negocio;
 
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Alumno;
+import org.iesalandalus.programacion.matriculacion.modelo.dominio.Asignatura;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.CicloFormativo;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Matricula;
 
@@ -68,27 +69,42 @@ public class Matriculas {
 
 
     public Matricula[] get(Alumno alumno) throws OperationNotSupportedException {
-        Matricula[] copia = new Matricula[tamano];
-        for (int i = 0; i < tamano; i++) {
-            copia[i] = new Matricula(coleccionMatriculas[i]);
+        ArrayList<Matricula> tempAlumno = new ArrayList<>();
+        for (Matricula matricula : coleccionMatriculas) {
+            if (matricula != null && matricula.getAlumno().equals(alumno)) {
+                tempAlumno.add(new Matricula(matricula));
+            }
         }
-        return copia;
+        Matricula[] matriculasAlumnos = new Matricula[tempAlumno.size()];
+        return tempAlumno.toArray(matriculasAlumnos);
     }
 
     public Matricula[] get(String cursoAcademico) throws OperationNotSupportedException {
-        Matricula[] copia = new Matricula[tamano];
-        for (int i = 0; i < tamano; i++) {
-            copia[i] = new Matricula(coleccionMatriculas[i]);
+        ArrayList<Matricula> tempCurso = new ArrayList<>();
+        for (Matricula matricula : coleccionMatriculas) {
+            if (matricula != null && matricula.getCursoAcademico().equals(cursoAcademico)) {
+                tempCurso.add(new Matricula(matricula));
+            }
         }
-        return copia;
+        Matricula[] matriculasCursoAcademico = new Matricula[tempCurso.size()];
+        return tempCurso.toArray(matriculasCursoAcademico);
     }
 
+
     public Matricula[] get(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
-        Matricula[] copia = new Matricula[tamano];
-        for (int i = 0; i < tamano; i++) {
-            copia[i] = new Matricula(coleccionMatriculas[i]);
+        ArrayList<Matricula> tempCiclo = new ArrayList<>();
+        for (Matricula matricula : coleccionMatriculas) {
+            if (matricula != null) {
+                for (Asignatura asignatura : matricula.getColeccionAsignaturas()) {
+                    if (asignatura != null && asignatura.getCicloFormativo().equals(cicloFormativo)) {
+                        tempCiclo.add(matricula);
+                        break;
+                    }
+                }
+            }
         }
-        return copia;
+        Matricula[] matriculasCicloFormativo = new Matricula[tempCiclo.size()];
+        return tempCiclo.toArray(matriculasCicloFormativo);
     }
 
 
