@@ -14,14 +14,14 @@ public class Alumnos {
         this.coleccionAlumnos = new ArrayList<>();
     }
 
-    public Alumno[] get() {
+    public ArrayList<Alumno> get() {
         return (copiaProfundaAlumnos());
     }
 
-    private Alumno[] copiaProfundaAlumnos() {
-        Alumno[] copia = new Alumno[this.coleccionAlumnos.size()];
-        for (int i = 0; i < this.coleccionAlumnos.size(); i++) {
-            copia[i] = new Alumno(coleccionAlumnos.get(i));
+    private ArrayList<Alumno> copiaProfundaAlumnos() {
+        ArrayList<Alumno> copia = new ArrayList<>(this.coleccionAlumnos.size());
+        for (Alumno alumno : this.coleccionAlumnos) {
+            copia.add(new Alumno(alumno));
         }
         return copia;
     }
@@ -43,6 +43,18 @@ public class Alumnos {
         }
     }
 
+    public Alumno buscar(Alumno alumno) {
+        if (alumno == null) {
+            throw new NullPointerException("ERROR: El alumno no puede ser nulo.");
+        }
+        int indice = this.coleccionAlumnos.indexOf(alumno);
+        if (indice == -1) {
+            return null;
+        }
+        return new Alumno(this.coleccionAlumnos.get(indice));
+    }
+
+
     public void borrar(Alumno alumno) throws OperationNotSupportedException {
         if (alumno == null) {
             throw new NullPointerException("ERROR: No se puede borrar un alumno nulo.");
@@ -54,15 +66,5 @@ public class Alumnos {
         this.coleccionAlumnos.remove(indice);
     }
 
-    public Alumno buscar(Alumno alumno) {
-        if (alumno == null) {
-            throw new NullPointerException("ERROR: El alumno no puede ser nulo.");
-        }
-        int indice = this.coleccionAlumnos.indexOf(alumno);
-        if (indice == -1) {
-            return null;
-        }
-        return new Alumno(this.coleccionAlumnos.get(indice));
-    }
 
 }

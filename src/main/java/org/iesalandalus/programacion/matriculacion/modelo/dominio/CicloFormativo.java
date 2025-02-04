@@ -91,7 +91,8 @@ public class CicloFormativo {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof CicloFormativo that)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
+        CicloFormativo that = (CicloFormativo) o;
         return horas == that.horas && Objects.equals(familiaProfesional, that.familiaProfesional) && grado == that.grado && Objects.equals(nombre, that.nombre);
     }
 

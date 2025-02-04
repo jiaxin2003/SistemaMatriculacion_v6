@@ -21,7 +21,7 @@ public class Matricula {
     private ArrayList<Asignatura> coleccionAsignaturas;
     private Alumno alumno;
 
-    public Matricula(int idMatricula, String cursoAcademico, LocalDate fechaMatriculacion, Alumno alumno, Asignatura[] coleccionAsignaturas) throws OperationNotSupportedException {
+    public Matricula(int idMatricula, String cursoAcademico, LocalDate fechaMatriculacion, Alumno alumno, ArrayList<Asignatura> coleccionAsignaturas) throws OperationNotSupportedException {
         if (alumno == null) {
             throw new NullPointerException("ERROR: El alumno de una matrícula no puede ser nulo.");
         }
@@ -54,7 +54,8 @@ public class Matricula {
     }
 
 
-    private boolean superaMaximoNumeroHorasMatricula(Asignatura[] asignaturasMatricula) {
+
+    private boolean superaMaximoNumeroHorasMatricula(ArrayList<Asignatura> asignaturasMatricula) {
         int horasMatriculadas = 0;
         for (Asignatura coleccionAsignatura : asignaturasMatricula) {
             if (coleccionAsignatura != null) {
@@ -128,7 +129,7 @@ public class Matricula {
         if (cursoAcademico == null) {
             throw new NullPointerException("ERROR: El curso académico de una matrícula no puede ser nulo.");
         }
-        if (cursoAcademico.isBlank() || cursoAcademico.isEmpty()) {
+        if (cursoAcademico.isBlank()) {
             throw new IllegalArgumentException("ERROR: El curso académico de una matrícula no puede estar vacío.");
         }
         if (!cursoAcademico.matches(ER_CURSO_ACADEMICO)) {
@@ -148,16 +149,15 @@ public class Matricula {
         this.idMatricula = idMatricula;
     }
 
-    public Asignatura[] getColeccionAsignaturas() {
-        Asignatura[] copiaAsignaturas = new Asignatura[this.coleccionAsignaturas.size()];
-        return this.coleccionAsignaturas.toArray(copiaAsignaturas);
+    public ArrayList<Asignatura> getColeccionAsignaturas() {
+        return new ArrayList<>(this.coleccionAsignaturas);
     }
 
-    public void setColeccionAsignaturas(Asignatura[] coleccionAsignaturas) throws OperationNotSupportedException {
+    public void setColeccionAsignaturas(ArrayList<Asignatura> coleccionAsignaturas) throws OperationNotSupportedException {
         if (coleccionAsignaturas == null) {
             throw new NullPointerException("ERROR: La colección de asignaturas de una matrícula no puede ser nula.");
         }
-        if (coleccionAsignaturas.length > MAXIMO_NUMERO_ASIGNATURAS_POR_MATRICULA) {
+        if (coleccionAsignaturas.size() > MAXIMO_NUMERO_ASIGNATURAS_POR_MATRICULA) {
             throw new OperationNotSupportedException("ERROR: La colección de asignaturas de una matrícula no puede tener más de " + MAXIMO_NUMERO_ASIGNATURAS_POR_MATRICULA + " asignaturas.");
         }
         if (superaMaximoNumeroHorasMatricula(coleccionAsignaturas)) {

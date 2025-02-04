@@ -65,7 +65,7 @@ public class Asignatura {
     public void setNombre(String nombre) {
         if (nombre == null){
             throw new NullPointerException("ERROR: El nombre de una asignatura no puede ser nulo.");
-    } else if (nombre.isBlank() || nombre.isEmpty()) {
+    } else if (nombre.isBlank() ) {
             throw new IllegalArgumentException("ERROR: El nombre de una asignatura no puede estar vacío.");
         }
         this.nombre = nombre;

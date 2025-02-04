@@ -23,12 +23,13 @@ public class Alumno {
     private final int MIN_EDAD_ALUMNO = 16;
 
 
-    public Alumno(String nombre, String dni,  String telefono,String correo,LocalDate fechaNacimiento) {
-        setDni(dni);
+    public Alumno(String nombre, String dni, String telefono,String correo,LocalDate fechaNacimiento) {
         setNombre(nombre);
+        setDni(dni);
         setTelefono(telefono);
         setCorreo(correo);
         setFechaNacimiento(fechaNacimiento);
+        setNia();
     }
 
     public Alumno(Alumno alumno) {
@@ -40,6 +41,7 @@ public class Alumno {
         setTelefono(alumno.telefono);
         setCorreo(alumno.correo);
         setFechaNacimiento(alumno.fechaNacimiento);
+        setNia();
     }
 
 
@@ -125,7 +127,6 @@ public class Alumno {
         }
 
         this.nombre = formateaNombre(nombre);
-        setNia();
     }
 
     public String getTelefono() {

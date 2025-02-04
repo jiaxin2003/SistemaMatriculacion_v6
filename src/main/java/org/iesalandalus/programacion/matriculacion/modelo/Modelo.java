@@ -10,6 +10,7 @@ import org.iesalandalus.programacion.matriculacion.modelo.negocio.CiclosFormativ
 import org.iesalandalus.programacion.matriculacion.modelo.negocio.Matriculas;
 
 import javax.naming.OperationNotSupportedException;
+import java.util.List;
 
 public class Modelo {
 
@@ -47,7 +48,7 @@ public class Modelo {
         this.alumnos.borrar(alumno);
     }
 
-    public Alumno[] getAlumnos() {
+    public List<Alumno> getAlumnos() {
         return this.alumnos.get();
     }
 
@@ -66,7 +67,7 @@ public class Modelo {
 
     }
 
-    public Asignatura[] getAsignaturas() {
+    public List<Asignatura> getAsignaturas() {
         return this.asignaturas.get();
     }
 
@@ -85,7 +86,7 @@ public class Modelo {
 
     }
 
-    public CicloFormativo[] getCiclosFormativos() {
+    public List<CicloFormativo> getCiclosFormativos() {
         return this.ciclosFormativos.get();
     }
 
@@ -104,20 +105,20 @@ public class Modelo {
 
     }
 
-    public Matricula[] getMatriculas() throws OperationNotSupportedException {
+    public List<Matricula> getMatriculas() throws OperationNotSupportedException {
         return this.matriculas.get();
 
     }
 
-    public Matricula[] getMatriculas(Alumno alumno) throws OperationNotSupportedException {
-        return this.matriculas.get(alumno);
+    public List<Matricula> getMatriculas(Alumno alumno) throws OperationNotSupportedException {
+        return this.matriculas.get();
     }
 
-    public Matricula[] getMatriculas(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
-        return this.matriculas.get(cicloFormativo);
+    public List<Matricula> getMatriculas(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
+        return this.matriculas.get();
     }
 
-    public Matricula[] getMatriculas(String cursoAcademico) throws OperationNotSupportedException {
-        return this.matriculas.get(cursoAcademico);
+    public List<Matricula> getMatriculas(String cursoAcademico) throws OperationNotSupportedException {
+        return this.matriculas.get();
     }
 }

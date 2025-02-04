@@ -8,6 +8,7 @@ import org.iesalandalus.programacion.matriculacion.modelo.dominio.Matricula;
 import org.iesalandalus.programacion.matriculacion.vista.Vista;
 
 import javax.naming.OperationNotSupportedException;
+import java.util.List;
 
 public class Controlador {
 
@@ -24,12 +25,12 @@ public class Controlador {
     }
 
     public void comenzar() {
-        modelo.comenzar();
+        this.modelo.comenzar();
 
     }
 
     public void terminar() {
-        modelo.terminar();
+        this.modelo.terminar();
 
     }
 
@@ -39,7 +40,7 @@ public class Controlador {
     }
 
     public Alumno buscar(Alumno alumno) {
-        return modelo.buscar(alumno);
+        return this.modelo.buscar(alumno);
     }
 
     public void borrar(Alumno alumno) throws OperationNotSupportedException {
@@ -47,7 +48,7 @@ public class Controlador {
 
     }
 
-    public Alumno[] getAlumnos() {
+    public List<Alumno> getAlumnos() {
         return this.modelo.getAlumnos();
     }
 
@@ -65,7 +66,7 @@ public class Controlador {
 
     }
 
-    public Asignatura[] getAsignaturas() {
+    public List<Asignatura> getAsignaturas() {
         return this.modelo.getAsignaturas();
     }
 
@@ -83,7 +84,7 @@ public class Controlador {
 
     }
 
-    public CicloFormativo[] getCiclosFormativos() {
+    public List<CicloFormativo> getCiclosFormativos() {
         return this.modelo.getCiclosFormativos();
     }
 
@@ -101,19 +102,19 @@ public class Controlador {
 
     }
 
-    public Matricula[] getMatriculas() throws OperationNotSupportedException {
+    public List<Matricula> getMatriculas() throws OperationNotSupportedException {
         return this.modelo.getMatriculas();
     }
 
-    public Matricula[] getMatriculas(Alumno alumno) throws OperationNotSupportedException {
+    public List<Matricula> getMatriculas(Alumno alumno) throws OperationNotSupportedException {
         return this.modelo.getMatriculas(alumno);
     }
 
-    public Matricula[] getMatriculas(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
+    public List<Matricula> getMatriculas(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
         return this.modelo.getMatriculas(cicloFormativo);
     }
 
-    public Matricula[] getMatriculas(String cursoAcademico) throws OperationNotSupportedException {
+    public List<Matricula> getMatriculas(String cursoAcademico) throws OperationNotSupportedException {
         return this.modelo.getMatriculas(cursoAcademico);
     }
 }

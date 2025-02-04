@@ -15,14 +15,14 @@ public class Matriculas {
         this.coleccionMatriculas = new ArrayList<>();
     }
 
-    public Matricula[] get() throws OperationNotSupportedException {
+    public ArrayList<Matricula> get() throws OperationNotSupportedException {
         return copiaProfundaMatriculas();
     }
 
-    private Matricula[] copiaProfundaMatriculas() throws OperationNotSupportedException {
-        Matricula[] copia = new Matricula[this.coleccionMatriculas.size()];
-        for (int i = 0; i < coleccionMatriculas.size(); i++) {
-            copia[i] = new Matricula(this.coleccionMatriculas.get(i));
+    private ArrayList<Matricula> copiaProfundaMatriculas() throws OperationNotSupportedException {
+            ArrayList<Matricula> copia = new ArrayList<>(this.coleccionMatriculas.size());
+        for (Matricula matricula:this.coleccionMatriculas) {
+            copia.add(new Matricula(matricula));
         }
         return copia;
     }
@@ -68,30 +68,29 @@ public class Matriculas {
     }
 
 
-    public Matricula[] get(Alumno alumno) throws OperationNotSupportedException {
+    public ArrayList<Matricula> get(Alumno alumno) throws OperationNotSupportedException {
         ArrayList<Matricula> tempAlumno = new ArrayList<>();
         for (Matricula matricula : coleccionMatriculas) {
             if (matricula != null && matricula.getAlumno().equals(alumno)) {
                 tempAlumno.add(new Matricula(matricula));
             }
         }
-        Matricula[] matriculasAlumnos = new Matricula[tempAlumno.size()];
-        return tempAlumno.toArray(matriculasAlumnos);
+        return tempAlumno;
     }
 
-    public Matricula[] get(String cursoAcademico) throws OperationNotSupportedException {
+    public ArrayList<Matricula> get(String cursoAcademico) throws OperationNotSupportedException {
         ArrayList<Matricula> tempCurso = new ArrayList<>();
         for (Matricula matricula : coleccionMatriculas) {
             if (matricula != null && matricula.getCursoAcademico().equals(cursoAcademico)) {
                 tempCurso.add(new Matricula(matricula));
             }
         }
-        Matricula[] matriculasCursoAcademico = new Matricula[tempCurso.size()];
-        return tempCurso.toArray(matriculasCursoAcademico);
+
+        return tempCurso;
     }
 
 
-    public Matricula[] get(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
+    public ArrayList<Matricula> get(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
         ArrayList<Matricula> tempCiclo = new ArrayList<>();
         for (Matricula matricula : coleccionMatriculas) {
             if (matricula != null) {
@@ -103,8 +102,8 @@ public class Matriculas {
                 }
             }
         }
-        Matricula[] matriculasCicloFormativo = new Matricula[tempCiclo.size()];
-        return tempCiclo.toArray(matriculasCicloFormativo);
+
+        return tempCiclo;
     }
 
 

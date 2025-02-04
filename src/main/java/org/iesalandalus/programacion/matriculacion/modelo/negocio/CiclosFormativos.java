@@ -15,14 +15,14 @@ public class CiclosFormativos {
         this.coleccionCiclosFormativos = new ArrayList<>();
     }
 
-    public CicloFormativo[] get() {
+    public ArrayList<CicloFormativo> get() {
         return copiaProfundaCiclosFormativos();
     }
 
-    private CicloFormativo[] copiaProfundaCiclosFormativos() {
-        CicloFormativo[] copia = new CicloFormativo[this.coleccionCiclosFormativos.size()];
-        for (int i = 0; i < this.coleccionCiclosFormativos.size(); i++) {
-            copia[i] = new CicloFormativo(this.coleccionCiclosFormativos.get(i));
+    private ArrayList<CicloFormativo> copiaProfundaCiclosFormativos() {
+        ArrayList<CicloFormativo> copia = new ArrayList<>(this.coleccionCiclosFormativos.size());
+        for (CicloFormativo cicloFormativo : this.coleccionCiclosFormativos) {
+            copia.add(new CicloFormativo(cicloFormativo));
         }
         return copia;
     }

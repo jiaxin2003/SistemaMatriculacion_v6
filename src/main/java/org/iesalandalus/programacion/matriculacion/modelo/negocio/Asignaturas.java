@@ -13,16 +13,16 @@ public class Asignaturas {
         this.coleccionAsignaturas = new ArrayList<>();
     }
 
-    public Asignatura[] get() {
+        public ArrayList<Asignatura> get() {
         return copiaProfundaAsignaturas();
     }
 
-    private Asignatura[] copiaProfundaAsignaturas() {
-        Asignatura[] copiaAsignaturas = new Asignatura[this.coleccionAsignaturas.size()];
-        for (int i = 0; i < this.coleccionAsignaturas.size(); i++) {
-            copiaAsignaturas[i] = new Asignatura(this.coleccionAsignaturas.get(i));
+    private ArrayList<Asignatura> copiaProfundaAsignaturas() {
+        ArrayList<Asignatura> copia = new ArrayList<>(this.coleccionAsignaturas.size());
+        for (Asignatura coleccionAsignatura : this.coleccionAsignaturas) {
+            copia.add(new Asignatura(coleccionAsignatura));
         }
-        return copiaAsignaturas;
+        return copia;
     }
 
     public int getTamano() {
