@@ -1,15 +1,13 @@
 package org.iesalandalus.programacion.matriculacion.modelo;
 
-import org.iesalandalus.programacion.matriculacion.modelo.dominio.Alumno;
-import org.iesalandalus.programacion.matriculacion.modelo.dominio.Asignatura;
-import org.iesalandalus.programacion.matriculacion.modelo.dominio.CicloFormativo;
-import org.iesalandalus.programacion.matriculacion.modelo.dominio.Matricula;
+import org.iesalandalus.programacion.matriculacion.modelo.dominio.*;
 import org.iesalandalus.programacion.matriculacion.modelo.negocio.Alumnos;
 import org.iesalandalus.programacion.matriculacion.modelo.negocio.Asignaturas;
 import org.iesalandalus.programacion.matriculacion.modelo.negocio.CiclosFormativos;
 import org.iesalandalus.programacion.matriculacion.modelo.negocio.Matriculas;
 
 import javax.naming.OperationNotSupportedException;
+import java.time.LocalDate;
 import java.util.List;
 
 public class Modelo {
@@ -26,6 +24,19 @@ public class Modelo {
         this.asignaturas = new Asignaturas();
         this.ciclosFormativos = new CiclosFormativos();
         this.matriculas = new Matriculas();
+        try {
+            Alumno a1 = new Alumno("Pepe", "12345678Z",  "666666666","asbvadvsa@aasdsad.com", LocalDate.of(2000, 1, 1));
+            this.alumnos.insertar(a1);
+            CicloFormativo cf1 = new CicloFormativo(1234, "DAW", Grado.GDCFGS, "Desarrollo Aplicaciones Web", 20);
+            this.ciclosFormativos.insertar(cf1);
+            Asignatura as1 = new Asignatura("5678", "Programacion", 30, Curso.PRIMERO, 2, EspecialidadProfesorado.INFORMATICA, cf1);
+            this.asignaturas.insertar(as1);
+            Matricula m1 = new Matricula(9876, "24-25", LocalDate.now(), a1, this.asignaturas.get());
+            this.matriculas.insertar(m1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
 

@@ -139,14 +139,14 @@ public class Asignatura {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Asignatura that)) return false;
-        return horasAnuales == that.horasAnuales && horasDesdoble == that.horasDesdoble && Objects.equals(nombre, that.nombre) && curso == that.curso && especialidadProfesorado == that.especialidadProfesorado && Objects.equals(cicloFormativo, that.cicloFormativo);
+        if (o == null || getClass() != o.getClass()) return false;
+        Asignatura that = (Asignatura) o;
+        return Objects.equals(codigo, that.codigo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codigo, nombre, horasAnuales, horasDesdoble, curso, especialidadProfesorado, cicloFormativo);
+        return Objects.hashCode(codigo);
     }
 
     @Override

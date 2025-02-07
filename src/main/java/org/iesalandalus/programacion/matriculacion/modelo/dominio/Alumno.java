@@ -23,7 +23,7 @@ public class Alumno {
     private final int MIN_EDAD_ALUMNO = 16;
 
 
-    public Alumno(String nombre, String dni, String telefono,String correo,LocalDate fechaNacimiento) {
+    public Alumno(String nombre, String dni, String telefono, String correo, LocalDate fechaNacimiento) {
         setNombre(nombre);
         setDni(dni);
         setTelefono(telefono);
@@ -98,7 +98,7 @@ public class Alumno {
     private String getIniciales(String nombreCompleto) {
         if (nombreCompleto == null) {
             throw new NullPointerException("ERROR: El nombre no puede ser nulo ni vacío.");
-        } else if (nombreCompleto.trim().isEmpty() || nombreCompleto.trim().isBlank()) {
+        } else if (nombreCompleto.trim().isBlank()) {
             throw new IllegalArgumentException("ERROR: El nombre no puede ser vacío.");
         }
 
@@ -122,7 +122,7 @@ public class Alumno {
     public void setNombre(String nombre) {
         if (nombre == null) {
             throw new NullPointerException("ERROR: El nombre de un alumno no puede ser nulo.");
-        } else if (nombre.trim().isEmpty() || nombre.trim().isBlank()) {
+        } else if (nombre.trim().isBlank()) {
             throw new IllegalArgumentException("ERROR: El nombre de un alumno no puede estar vacío.");
         }
 
@@ -167,10 +167,10 @@ public class Alumno {
         } else if (!dni.matches(ER_DNI)) {
             throw new IllegalArgumentException("ERROR: El dni del alumno no tiene un formato válido.");
         }
-        if (!comprobarLetraDni(dni)) {
+        if (!comprobarLetraDni(dni.toUpperCase())) {
             throw new IllegalArgumentException("ERROR: La letra del dni del alumno no es correcta.");
         }
-        this.dni = dni;
+        this.dni = dni.toUpperCase();
     }
 
     public LocalDate getFechaNacimiento() {
@@ -227,16 +227,15 @@ public class Alumno {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Alumno alumno)) return false;
-        return Objects.equals(nombre, alumno.nombre) && Objects.equals(telefono, alumno.telefono) && Objects.equals(correo, alumno.correo) && Objects.equals(fechaNacimiento, alumno.fechaNacimiento) && Objects.equals(nia, alumno.nia);
+        if (o == null || getClass() != o.getClass()) return false;
+        Alumno alumno = (Alumno) o;
+        return Objects.equals(dni, alumno.dni);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nombre, telefono, correo, dni, fechaNacimiento, nia);
+        return Objects.hashCode(dni);
     }
-
 }
 
 

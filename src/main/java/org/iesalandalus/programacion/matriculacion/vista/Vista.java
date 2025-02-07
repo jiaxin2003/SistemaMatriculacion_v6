@@ -267,7 +267,7 @@ public class Vista {
             Alumno alumno = Consola.getAlumnoPorDni();
             Alumno alumnoMatricula = controlador.buscar(alumno);
             ArrayList<Asignatura> asignatura = Consola.elegirAsignaturasMatricula(controlador.getAsignaturas());
-            Matricula matricula = Consola.leerMatricula(alumnoMatricula,asignatura);
+            Matricula matricula = Consola.leerMatricula(alumnoMatricula, asignatura);
             this.controlador.insertar(matricula);
             System.out.println("Matrícula insertada correctamente.");
         } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException e) {
@@ -364,7 +364,7 @@ public class Vista {
             List<Matricula> matriculas = (this.controlador.getMatriculas(ciclo));
             if (matriculas == null) {
                 System.out.println("No hay Matriculas con ese Ciclo Formativo");
-            } else matriculas.sort( new Comparator<Matricula>() {
+            } else matriculas.sort(new Comparator<Matricula>() {
                 public int compare(Matricula matricula1, Matricula matricula2) {
                     int comparador = -matricula1.getFechaMatriculacion().compareTo(matricula2.getFechaMatriculacion());
                     if (comparador == 0) {
@@ -388,12 +388,12 @@ public class Vista {
     private void mostrarMatriculasPorCursoAcademico() {
         try {
             System.out.println("Indique el curso academico ");
-            System.out.println("Tiene que tener este formato YY/YY");
+            System.out.println("Tiene que tener este formato YY-YY");
             String cursoAcademmico = Entrada.cadena();
             List<Matricula> matriculas = controlador.getMatriculas(cursoAcademmico);
             if (matriculas == null) {
                 System.out.println("no hay matriculas con ese curso academico");
-            } else matriculas.sort( new Comparator<Matricula>() {
+            } else matriculas.sort(new Comparator<Matricula>() {
                 public int compare(Matricula matricula1, Matricula matricula2) {
                     int comparador = -matricula1.getFechaMatriculacion().compareTo(matricula2.getFechaMatriculacion());
                     if (comparador == 0) {

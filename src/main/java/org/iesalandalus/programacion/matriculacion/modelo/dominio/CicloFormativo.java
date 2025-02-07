@@ -3,7 +3,7 @@ package org.iesalandalus.programacion.matriculacion.modelo.dominio;
 import java.util.Objects;
 
 public class CicloFormativo {
-    public static int MAXIMO_NUMERO_HORAS=2000;
+    public static int MAXIMO_NUMERO_HORAS = 2000;
     private int codigo;
     private String familiaProfesional;
     private Grado grado;
@@ -31,13 +31,12 @@ public class CicloFormativo {
     }
 
 
-
     public int getHoras() {
         return horas;
     }
 
     public void setHoras(int horas) {
-        if (horas <=0 || horas > MAXIMO_NUMERO_HORAS)
+        if (horas <= 0 || horas > MAXIMO_NUMERO_HORAS)
             throw new IllegalArgumentException("ERROR: El número de horas de un ciclo formativo no puede ser menor o igual a 0 ni mayor a " + MAXIMO_NUMERO_HORAS + ".");
 
         this.horas = horas;
@@ -90,15 +89,14 @@ public class CicloFormativo {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CicloFormativo that = (CicloFormativo) o;
-        return horas == that.horas && Objects.equals(familiaProfesional, that.familiaProfesional) && grado == that.grado && Objects.equals(nombre, that.nombre);
+        return codigo == that.codigo;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codigo, familiaProfesional, grado, nombre, horas);
+        return Objects.hashCode(codigo);
     }
 
     @Override

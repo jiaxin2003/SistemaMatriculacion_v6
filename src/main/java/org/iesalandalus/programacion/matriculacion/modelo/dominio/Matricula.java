@@ -12,7 +12,7 @@ public class Matricula {
     public static int MAXIMO_DIAS_ANTERIOR_MATRICULA = 15;
     public static int MAXIMO_NUMERO_HORAS_MATRICULA = 1000;
     public static int MAXIMO_NUMERO_ASIGNATURAS_POR_MATRICULA = 10;
-    private static final String ER_CURSO_ACADEMICO = "^\\d{2}-\\d{2}$";
+    private static final String ER_CURSO_ACADEMICO = "^\\d{2}-\\d{2}";
     public static String FORMATO_FECHA = "dd/MM/yyyy";
     private int idMatricula;
     private String cursoAcademico;
@@ -180,14 +180,14 @@ public class Matricula {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Matricula matricula)) return false;
-        return Objects.equals(cursoAcademico, matricula.cursoAcademico) && Objects.equals(fechaMatriculacion, matricula.fechaMatriculacion) && Objects.equals(fechaAnulacion, matricula.fechaAnulacion) && Objects.deepEquals(coleccionAsignaturas, matricula.coleccionAsignaturas);
+        if (o == null || getClass() != o.getClass()) return false;
+        Matricula matricula = (Matricula) o;
+        return idMatricula == matricula.idMatricula;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idMatricula, cursoAcademico, fechaMatriculacion, fechaAnulacion);
+        return Objects.hashCode(idMatricula);
     }
 
     @Override

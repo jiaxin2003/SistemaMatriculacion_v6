@@ -93,9 +93,12 @@ public class Consola {
         do {
             System.out.println("Elige el grado: ");
             for (Grado grado : Grado.values()) {
-                System.out.println(grado.ordinal() + grado.toString());
+                System.out.println(grado.ordinal()+1 + grado.toString());
             }
             opcion = Entrada.entero();
+            if (opcion < 0 || opcion > 3) {
+                System.out.println("ERROR: La opcion introducida no es correcta.");
+            }
             if (opcion == 1) {
                 opcion = 0;
             } else if (opcion == 2) {
@@ -103,7 +106,9 @@ public class Consola {
             } else if (opcion == 3) {
                 opcion = 2;
             }
+
         } while (opcion < 0 || opcion > Grado.values().length);
+
         return Grado.values()[opcion];
     }
 
@@ -165,9 +170,12 @@ public class Consola {
         do {
             System.out.println("Elige la especialidad del profesorado: ");
             for (EspecialidadProfesorado especialidadProfesorado : EspecialidadProfesorado.values()) {
-                System.out.println(especialidadProfesorado.ordinal() + especialidadProfesorado.toString());
+                System.out.println(especialidadProfesorado.ordinal()+1 + especialidadProfesorado.toString());
             }
             opcion = Entrada.entero();
+            if (opcion < 0 || opcion > 3) {
+                System.out.println("ERROR: La opcion introducida no es correcta.");
+            }
             if (opcion == 1) {
                 opcion = 0;
             } else if (opcion == 2) {
@@ -176,6 +184,7 @@ public class Consola {
                 opcion = 2;
             }
         } while (opcion < 0 || opcion > EspecialidadProfesorado.values().length);
+
         return EspecialidadProfesorado.values()[opcion];
     }
 
@@ -184,15 +193,20 @@ public class Consola {
         do {
             System.out.println("Elige el curso: ");
             for (Curso curso : Curso.values()) {
-                System.out.println(curso.ordinal() + curso.toString());
+                System.out.println(curso.ordinal()+1 + curso.toString());
             }
             opcion = Entrada.entero();
+            if (opcion < 0 || opcion > 2) {
+                System.out.println("ERROR: La opcion introducida no es correcta.");
+            }
             if (opcion == 1) {
                 opcion = 0;
             } else if (opcion == 2) {
                 opcion = 1;
             }
         } while (opcion < 0 || opcion > Curso.values().length);
+
+
         return Curso.values()[opcion];
     }
 
@@ -294,9 +308,9 @@ public class Consola {
         Matricula matricula;
         CicloFormativo cicloFormativo;
         int idMatricula = 2009;
-        String cursoAcademico = "24/25";
-        LocalDate fechaMatriculacion = LocalDate.of(2009, 1, 1);
-        Alumno alumno = new Alumno("Pepe Perez", "12345678F", "666555444", "PepePerez@gmail.com", LocalDate.of(2000, 12, 12));
+        String cursoAcademico = "24-25";
+        LocalDate fechaMatriculacion = LocalDate.of(2025, 2, 5);
+        Alumno alumno = new Alumno("Pepe Perez", "87654321x", "666555444", "PepePerez@gmail.com", LocalDate.of(2000, 12, 12));
         ArrayList<Asignatura> asignatura = new ArrayList<>();
 
         do {
