@@ -170,7 +170,7 @@ public class Alumno {
         if (!comprobarLetraDni(dni.toUpperCase())) {
             throw new IllegalArgumentException("ERROR: La letra del dni del alumno no es correcta.");
         }
-        this.dni = dni.toUpperCase();
+        this.dni = dni.toUpperCase() ;
     }
 
     public LocalDate getFechaNacimiento() {
