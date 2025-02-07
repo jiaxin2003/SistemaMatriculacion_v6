@@ -93,7 +93,7 @@ public class Consola {
         do {
             System.out.println("Elige el grado: ");
             for (Grado grado : Grado.values()) {
-                System.out.println(grado.ordinal()+1 + grado.toString());
+                System.out.println(grado.ordinal() + 1 + grado.toString());
             }
             opcion = Entrada.entero();
             if (opcion < 0 || opcion > 3) {
@@ -170,7 +170,7 @@ public class Consola {
         do {
             System.out.println("Elige la especialidad del profesorado: ");
             for (EspecialidadProfesorado especialidadProfesorado : EspecialidadProfesorado.values()) {
-                System.out.println(especialidadProfesorado.ordinal()+1 + especialidadProfesorado.toString());
+                System.out.println(especialidadProfesorado.ordinal() + 1 + especialidadProfesorado.toString());
             }
             opcion = Entrada.entero();
             if (opcion < 0 || opcion > 3) {
@@ -193,7 +193,7 @@ public class Consola {
         do {
             System.out.println("Elige el curso: ");
             for (Curso curso : Curso.values()) {
-                System.out.println(curso.ordinal()+1 + curso.toString());
+                System.out.println(curso.ordinal() + 1 + curso.toString());
             }
             opcion = Entrada.entero();
             if (opcion < 0 || opcion > 2) {
@@ -259,8 +259,8 @@ public class Consola {
         if (asignaturas.isEmpty()) {
             System.out.println("No hay asignaturas matriculadas.");
         } else {
-            for (Asignatura asignatura: asignaturas)
-                if (asignatura != null){
+            for (Asignatura asignatura : asignaturas)
+                if (asignatura != null) {
                     System.out.println(asignatura);
                 }
         }
@@ -309,7 +309,7 @@ public class Consola {
         CicloFormativo cicloFormativo;
         int idMatricula = 2009;
         String cursoAcademico = "24-25";
-        LocalDate fechaMatriculacion = LocalDate.of(2025, 2, 5);
+        LocalDate fechaMatriculacion = LocalDate.of(2025, 2, 1);
         Alumno alumno = new Alumno("Pepe Perez", "87654321x", "666555444", "PepePerez@gmail.com", LocalDate.of(2000, 12, 12));
         ArrayList<Asignatura> asignatura = new ArrayList<>();
 

@@ -13,6 +13,7 @@ import org.iesalandalus.programacion.utilidades.Entrada;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -290,14 +291,14 @@ public class Vista {
     private void anularMatricula() {
         try {
             Matricula matricula = Consola.getMatriculaPorIdentificador();
-            this.controlador.borrar(matricula);
             if (matricula.getFechaAnulacion() != null) {
                 System.out.println("Matrícula ya anulada.");
             } else {
                 do {
                     System.out.println("Introduce la fecha de anulación de la matrícula (dd/mm/aaaa).");
                     String fechaAnulacion = Entrada.cadena();
-                    matricula.setFechaAnulacion(LocalDate.parse(fechaAnulacion));
+                    matricula.setFechaAnulacion(LocalDate.parse(fechaAnulacion, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                    this.controlador.borrar(matricula);
                 } while (matricula.getFechaAnulacion() == null);
             }
             System.out.println("Matrícula anulada correctamente.");

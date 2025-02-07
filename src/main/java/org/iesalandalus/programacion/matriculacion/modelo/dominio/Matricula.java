@@ -54,7 +54,6 @@ public class Matricula {
     }
 
 
-
     private boolean superaMaximoNumeroHorasMatricula(ArrayList<Asignatura> asignaturasMatricula) {
         int horasMatriculadas = 0;
         for (Asignatura coleccionAsignatura : asignaturasMatricula) {
@@ -66,13 +65,14 @@ public class Matricula {
     }
 
     private String asignaturasMatricula() {
-        String asignaturas="";
+        String asignaturas = "";
         for (int i = 0; i < coleccionAsignaturas.size(); i++) {
             if (coleccionAsignaturas.get(i) != null) {
                 asignaturas += coleccionAsignaturas.get(i).getNombre();
-            };
+            }
+            ;
             if (i < coleccionAsignaturas.size() - 1) {
-               asignaturas+=(", ");
+                asignaturas += (", ");
             }
         }
         return asignaturas;

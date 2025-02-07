@@ -31,7 +31,7 @@ public class Modelo {
             this.ciclosFormativos.insertar(cf1);
             Asignatura as1 = new Asignatura("5678", "Programacion", 30, Curso.PRIMERO, 2, EspecialidadProfesorado.INFORMATICA, cf1);
             this.asignaturas.insertar(as1);
-            Matricula m1 = new Matricula(9876, "24-25", LocalDate.now(), a1, this.asignaturas.get());
+            Matricula m1 = new Matricula(9876, "24-25", LocalDate.of(2025, 2, 1), a1, this.asignaturas.get());
             this.matriculas.insertar(m1);
         } catch (Exception e) {
             e.printStackTrace();

@@ -170,7 +170,7 @@ public class Alumno {
         if (!comprobarLetraDni(dni.toUpperCase())) {
             throw new IllegalArgumentException("ERROR: La letra del dni del alumno no es correcta.");
         }
-        this.dni = dni.toUpperCase() ;
+        this.dni = dni.toUpperCase();
     }
 
     public LocalDate getFechaNacimiento() {
@@ -181,7 +181,6 @@ public class Alumno {
         if (fechaNacimiento == null) {
             throw new NullPointerException("ERROR: La fecha de nacimiento de un alumno no puede ser nula.");
         }
-        // fechaNacimiento = LocalDate.parse(fechaNacimiento.format(DateTimeFormatter.ofPattern(Alumno.FORMATO_FECHA)));
 
         long edad = ChronoUnit.YEARS.between(fechaNacimiento, LocalDate.now());
 
