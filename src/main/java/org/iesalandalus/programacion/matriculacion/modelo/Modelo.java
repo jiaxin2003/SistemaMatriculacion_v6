@@ -24,7 +24,7 @@ public class Modelo {
         this.asignaturas = new Asignaturas();
         this.ciclosFormativos = new CiclosFormativos();
         this.matriculas = new Matriculas();
-        try {
+        /*try {
             Alumno a1 = new Alumno("Pepe", "12345678Z",  "666666666","asbvadvsa@aasdsad.com", LocalDate.of(2000, 1, 1));
             this.alumnos.insertar(a1);
             CicloFormativo cf1 = new CicloFormativo(1234, "DAW", Grado.GDCFGS, "Desarrollo Aplicaciones Web", 20);
@@ -36,7 +36,7 @@ public class Modelo {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+*/
 
     }
 
