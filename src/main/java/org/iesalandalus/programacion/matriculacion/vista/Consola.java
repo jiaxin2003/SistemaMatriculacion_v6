@@ -18,7 +18,7 @@ public class Consola {
 
     }
 
-    public static void mostrarMenu() {
+    public static void mostrarMenu()  {
         for (Opcion opcion : Opcion.values()) {
             System.out.println(opcion.toString());
         }
