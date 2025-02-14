@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 
@@ -18,7 +19,7 @@ public class Consola {
 
     }
 
-    public static void mostrarMenu()  {
+    public static void mostrarMenu() {
         for (Opcion opcion : Opcion.values()) {
             System.out.println(opcion.toString());
         }
@@ -78,7 +79,7 @@ public class Consola {
 
     public static Alumno getAlumnoPorDni() {
 
-        String dni = "78945613B";
+        String dni;
         do {
             System.out.println("Introduce el DNI del alumno: ");
             dni = Entrada.cadena();
@@ -88,29 +89,40 @@ public class Consola {
         return new Alumno("pepe perez", dni, "666333888", "PepePerez@gmail.com", LocalDate.of(2000, 12, 12));
     }
 
-    public static Grado leerGrado() {
+    public static TiposGrado leerTipoGrado() {
         int opcion;
         do {
-            System.out.println("Elige el grado: ");
-            for (Grado grado : Grado.values()) {
-                System.out.println(grado.ordinal() + 1 + grado.toString());
+            System.out.println("Elige el tipo de grado: ");
+            for (TiposGrado tipo : TiposGrado.values()) {
+                System.out.println(tipo.ordinal() + 1 + " " + tipo.name());
             }
             opcion = Entrada.entero();
-            if (opcion < 0 || opcion > 3) {
-                System.out.println("ERROR: La opcion introducida no es correcta.");
-            }
-            if (opcion == 1) {
-                opcion = 0;
-            } else if (opcion == 2) {
-                opcion = 1;
-            } else if (opcion == 3) {
-                opcion = 2;
-            }
-
-        } while (opcion < 0 || opcion > Grado.values().length);
-
-        return Grado.values()[opcion];
+        } while (opcion < 0 || opcion >= TiposGrado.values().length);
+        if (opcion == 1) {
+            opcion = 0;
+        } else if (opcion == 2) {
+            opcion = 1;
+        }
+        return TiposGrado.values()[opcion];
     }
+
+    public static Modalidad leerModalidad() {
+        int opcion;
+        do {
+            System.out.println("Elige el tipo de grado: ");
+            for (Modalidad modalidad : Modalidad.values()) {
+                System.out.println(modalidad.ordinal() + 1 + " " + modalidad.name());
+            }
+            opcion = Entrada.entero();
+        } while (opcion < 0 || opcion >= TiposGrado.values().length);
+        if (opcion == 1) {
+            opcion = 0;
+        } else if (opcion == 2) {
+            opcion = 1;
+        }
+        return Modalidad.values()[opcion];
+    }
+
 
     public static CicloFormativo leerCicloFormativo() {
 
@@ -131,9 +143,37 @@ public class Consola {
             System.out.println("Horas: ");
             horas = Entrada.entero();
             grado = leerGrado();
-        } while (codigo <= 0 || familiaProfesional.isEmpty() || grado == null || nombre.isEmpty() || horas <= 0);
+        } while (codigo <= 0 || familiaProfesional.isEmpty() || nombre.isEmpty() || horas <= 0 || grado == null);
 
         return new CicloFormativo(codigo, familiaProfesional, grado, nombre, horas);
+    }
+
+    public static Grado leerGrado() {
+
+        String nombre;
+        int anio;
+
+        TiposGrado tiposGrado = leerTipoGrado();
+
+        do {
+            System.out.println("Introduce los datos del grado");
+            System.out.println("Nombre del grado: ");
+            nombre = Entrada.cadena();
+            System.out.println("Introduce el Anio: ");
+            System.out.println("Si tu grado es GradoD el año esta comprendido entre 2 y 3 y si es GradoE el año es 1");
+            anio = Entrada.entero();
+        } while (nombre.isBlank() || (tiposGrado == TiposGrado.GRADOD && (anio < 2 || anio > 3)) || (tiposGrado == TiposGrado.GRADOE && anio != 1));
+        if (tiposGrado == TiposGrado.GRADOD) {
+            Modalidad modalidad = leerModalidad();
+            return new GradoD(nombre, anio, modalidad);
+        } else {
+            int numEdiciones = -1;
+            do {
+                System.out.println("Introduce el numero de ediciones: ");
+                numEdiciones = Entrada.entero();
+            } while (numEdiciones <= 0);
+            return new GradoE(nombre,anio,numEdiciones);
+        }
     }
 
     public void mostrarCiclosFormativos(List<CicloFormativo> cicloFormativos) {
@@ -147,9 +187,9 @@ public class Consola {
 
     public static CicloFormativo getCicloPorCodigo() {
         CicloFormativo cicloFormativo = null;
-        int codigo = 5555;
+        int codigo ;
         String familiaProfesional = "Informatica";
-        Grado grado = Grado.GDCFGB;
+        Grado grado = new GradoD("Grado D", 2, Modalidad.PRESENCIAL);
         String nombre = "Pepe Perez";
         int horas = 250;
 
@@ -245,7 +285,8 @@ public class Consola {
         int horasDesdoble = 3;
         Curso curso = Curso.PRIMERO;
         EspecialidadProfesorado especialidadProfesorado = EspecialidadProfesorado.INFORMATICA;
-        CicloFormativo cicloFormativo = new CicloFormativo(1234, "Informatica", Grado.GDCFGB, "Pepe Perez", 250);
+        Grado grado = new GradoD("Grado D", 2, Modalidad.PRESENCIAL);
+        CicloFormativo cicloFormativo = new CicloFormativo(1234, "Informatica", grado, "Pepe Perez", 250);
 
         do {
             System.out.println("Introduce el codigo de la asignatura: ");
@@ -307,7 +348,7 @@ public class Consola {
     public static Matricula getMatriculaPorIdentificador() throws OperationNotSupportedException {
         Matricula matricula;
         CicloFormativo cicloFormativo;
-        int idMatricula = 2009;
+        int idMatricula;
         String cursoAcademico = "24-25";
         LocalDate fechaMatriculacion = LocalDate.of(2025, 2, 1);
         Alumno alumno = new Alumno("Pepe Perez", "87654321x", "666555444", "PepePerez@gmail.com", LocalDate.of(2000, 12, 12));
