@@ -1,13 +1,13 @@
 package org.iesalandalus.programacion.matriculacion.modelo.dominio;
 
 
-
 import java.util.Objects;
 
 public class Asignatura {
-    public static final int MAX_NUM_HORAS_ANUALES=300;
-    public static final int MAX_NUM_HORAS_DESDOBLES=6;
-    private String ER_CODIGO="^[0-9]{4}$";
+    public static final int MAX_NUM_HORAS_ANUALES = 300;
+    public static final int MAX_NUM_HORAS_DESDOBLES = 6;
+    private String ER_CODIGO = "^[0-9]{4}$";
+
     private String codigo;
     private String nombre;
     private int horasAnuales;
@@ -17,7 +17,7 @@ public class Asignatura {
     private CicloFormativo cicloFormativo;
 
 
-    public Asignatura(String codigo, String nombre, int horas,  Curso curso,int horasDesdobles, EspecialidadProfesorado especialidadProfesorado, CicloFormativo cicloFormativo) {
+    public Asignatura(String codigo, String nombre, int horas, Curso curso, int horasDesdobles, EspecialidadProfesorado especialidadProfesorado, CicloFormativo cicloFormativo) {
         setCodigo(codigo);
         setNombre(nombre);
         setHorasAnuales(horas);
@@ -28,7 +28,7 @@ public class Asignatura {
     }
 
     public Asignatura(Asignatura asignatura) {
-        if(asignatura == null){
+        if (asignatura == null) {
             throw new NullPointerException("ERROR: No es posible copiar una asignatura nula.");
         }
         setCodigo(asignatura.getCodigo());
@@ -46,14 +46,14 @@ public class Asignatura {
     }
 
     private void setCodigo(String codigo) {
-        if (codigo == null){
+        if (codigo == null) {
             throw new NullPointerException("ERROR: El código de una asignatura no puede ser nulo.");
         }
         if (codigo.isEmpty()) {
             throw new IllegalArgumentException("ERROR: El código de una asignatura no puede estar vacío.");
         }
         if (!codigo.matches(ER_CODIGO)) {
-           throw new IllegalArgumentException("ERROR: El código de la asignatura no tiene un formato válido.");
+            throw new IllegalArgumentException("ERROR: El código de la asignatura no tiene un formato válido.");
         }
         this.codigo = codigo;
     }
@@ -63,9 +63,9 @@ public class Asignatura {
     }
 
     public void setNombre(String nombre) {
-        if (nombre == null){
+        if (nombre == null) {
             throw new NullPointerException("ERROR: El nombre de una asignatura no puede ser nulo.");
-    } else if (nombre.isBlank() ) {
+        } else if (nombre.isBlank()) {
             throw new IllegalArgumentException("ERROR: El nombre de una asignatura no puede estar vacío.");
         }
         this.nombre = nombre;
@@ -125,16 +125,6 @@ public class Asignatura {
         }
         this.cicloFormativo = cicloFormativo;
     }
-    public String getER_CODIGO() {
-        return ER_CODIGO;
-    }
-
-    public void setER_CODIGO(String ER_CODIGO) {
-        if (codigo != null && codigo.length() != 4) {
-            throw new IllegalArgumentException("ERROR: El código de una asignatura debe ser un número de 4 dígitos.");
-        }
-        this.ER_CODIGO = ER_CODIGO;
-    }
 
 
     @Override
@@ -158,8 +148,9 @@ public class Asignatura {
                 ", horas desdoble=" + horasDesdoble +
                 ", ciclo formativo=" + cicloFormativo.imprimir() +
                 ", especialidad profesorado=" + especialidadProfesorado
-                 ;
+                ;
     }
+
     public String imprimir() {
         return "Código asignatura=" + codigo +
                 ", nombre asignatura=" + nombre +

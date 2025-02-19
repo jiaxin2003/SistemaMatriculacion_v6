@@ -43,7 +43,7 @@ public class Vista {
         do {
             Consola.mostrarMenu();
             opcion = Consola.elegirOpcion();
-            ejecutarOpcion(opcion);
+            opcion.ejecutar();
         } while (opcion != Opcion.SALIR);
     }
 
@@ -66,9 +66,6 @@ public class Vista {
     public void buscarAlumno() {
         try {
             Alumno alumno = this.controlador.buscar(Consola.getAlumnoPorDni());
-            if (alumno == null) {
-                System.out.println("ERROR: No se pudo buscar el alumno.");
-            }
             System.out.println(alumno);
         } catch (IllegalArgumentException | NullPointerException e) {
             System.out.println("ERROR: No se pudo buscar el alumno.");
@@ -113,9 +110,6 @@ public class Vista {
     public void buscarAsignatura() {
         try {
             Asignatura asignatura = this.controlador.buscar(Consola.getAsignaturaPorCodigo());
-            if (asignatura == null) {
-                System.out.println("ERROR: No se pudo buscar la asignatura.");
-            }
             System.out.println(asignatura);
         } catch (IllegalArgumentException | NullPointerException e) {
             System.out.println("ERROR: No se pudo buscar la asignatura.");
@@ -205,11 +199,12 @@ public class Vista {
 
     public void buscarMatricula() {
         try {
-            Matricula matricula = this.controlador.buscar(Consola.getMatriculaPorIdentificador());
-            if (matricula == null) {
+            Matricula matricula = Consola.getMatriculaPorIdentificador();
+            Matricula matriculaBuscar = this.controlador.buscar(matricula);
+            if (matriculaBuscar == null) {
                 System.out.println("ERROR: No se pudo buscar la matrícula.");
             }
-            System.out.println(matricula);
+            System.out.println(matriculaBuscar);
         } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException e) {
             System.out.println("ERROR: No se pudo buscar la matrícula.");
         }
@@ -218,14 +213,15 @@ public class Vista {
     public void anularMatricula() {
         try {
             Matricula matricula = Consola.getMatriculaPorIdentificador();
+            Matricula matriculaEncontrada = controlador.buscar(matricula);
             if (matricula.getFechaAnulacion() != null) {
                 System.out.println("Matrícula ya anulada.");
             } else {
                 do {
                     System.out.println("Introduce la fecha de anulación de la matrícula (dd/mm/aaaa).");
                     String fechaAnulacion = Entrada.cadena();
-                    matricula.setFechaAnulacion(LocalDate.parse(fechaAnulacion, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-                } while (matricula.getFechaAnulacion() == null);
+                    matriculaEncontrada.setFechaAnulacion(LocalDate.parse(fechaAnulacion, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                } while (matriculaEncontrada.getFechaAnulacion() == null);
             }
             System.out.println("Matrícula anulada correctamente.");
         } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException e) {

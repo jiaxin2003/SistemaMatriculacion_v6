@@ -7,6 +7,7 @@ import org.iesalandalus.programacion.matriculacion.modelo.negocio.CiclosFormativ
 import org.iesalandalus.programacion.matriculacion.modelo.negocio.Matriculas;
 
 import javax.naming.OperationNotSupportedException;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -24,19 +25,19 @@ public class Modelo {
         this.asignaturas = new Asignaturas();
         this.ciclosFormativos = new CiclosFormativos();
         this.matriculas = new Matriculas();
-        /*try {
+        try {
             Alumno a1 = new Alumno("Pepe", "12345678Z",  "666666666","asbvadvsa@aasdsad.com", LocalDate.of(2000, 1, 1));
             this.alumnos.insertar(a1);
-            CicloFormativo cf1 = new CicloFormativo(1234, "DAW", Grado.GDCFGS, "Desarrollo Aplicaciones Web", 20);
+            CicloFormativo cf1 = new CicloFormativo(1234, "DAW", new GradoD("Grado D", 2, Modalidad.PRESENCIAL), "Desarrollo Aplicaciones Web", 20);
             this.ciclosFormativos.insertar(cf1);
             Asignatura as1 = new Asignatura("5678", "Programacion", 30, Curso.PRIMERO, 2, EspecialidadProfesorado.INFORMATICA, cf1);
             this.asignaturas.insertar(as1);
-            Matricula m1 = new Matricula(9876, "24-25", LocalDate.of(2025, 2, 1), a1, this.asignaturas.get());
+            Matricula m1 = new Matricula(9876, "24-25", LocalDate.of(2025, 2, 15), a1, this.asignaturas.get());
             this.matriculas.insertar(m1);
         } catch (Exception e) {
             e.printStackTrace();
         }
-*/
+
 
     }
 
@@ -122,14 +123,14 @@ public class Modelo {
     }
 
     public List<Matricula> getMatriculas(Alumno alumno) throws OperationNotSupportedException {
-        return this.matriculas.get();
+        return this.matriculas.get(alumno);
     }
 
     public List<Matricula> getMatriculas(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
-        return this.matriculas.get();
+        return this.matriculas.get(cicloFormativo);
     }
 
     public List<Matricula> getMatriculas(String cursoAcademico) throws OperationNotSupportedException {
-        return this.matriculas.get();
+        return this.matriculas.get(cursoAcademico);
     }
 }

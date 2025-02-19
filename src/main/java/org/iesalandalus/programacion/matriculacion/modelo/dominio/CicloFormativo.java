@@ -22,11 +22,11 @@ public class CicloFormativo {
         if (cicloFormativo == null)
             throw new NullPointerException("ERROR: No es posible copiar un ciclo formativo nulo.");
         {
-            setCodigo(cicloFormativo.codigo);
-            setFamiliaProfesional(cicloFormativo.familiaProfesional);
-            setGrado(cicloFormativo.grado);
-            setNombre(cicloFormativo.nombre);
-            setHoras(cicloFormativo.horas);
+            setCodigo(cicloFormativo.getCodigo());
+            setFamiliaProfesional(cicloFormativo.getFamiliaProfesional());
+            setGrado(cicloFormativo.getGrado());
+            setNombre(cicloFormativo.getNombre());
+            setHoras(cicloFormativo.getHoras());
         }
     }
 

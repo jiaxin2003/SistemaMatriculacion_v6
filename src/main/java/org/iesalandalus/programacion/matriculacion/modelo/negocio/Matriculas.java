@@ -52,7 +52,7 @@ public class Matriculas {
         if (indice == -1) {
             return null;
         }
-        return new Matricula(this.coleccionMatriculas.get(indice));
+        return this.coleccionMatriculas.get(indice);
 
     }
 

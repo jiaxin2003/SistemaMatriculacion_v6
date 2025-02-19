@@ -19,7 +19,7 @@ public class Alumno {
     private static final String ER_CORREO = "^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$";
     private static final String ER_DNI = "^([0-9]{8})([A-Za-z])$";
     public static String FORMATO_FECHA = "dd/MM/yyyy";
-    private String ER_NIA = "[A-Za-z]{4}[0-9]{3}";
+    private final String ER_NIA = "[A-Za-z]{4}[0-9]{3}";
     private final int MIN_EDAD_ALUMNO = 16;
 
 

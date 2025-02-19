@@ -96,13 +96,10 @@ public class Consola {
             for (TiposGrado tipo : TiposGrado.values()) {
                 System.out.println(tipo.ordinal() + 1 + " " + tipo.name());
             }
-            opcion = Entrada.entero();
+            opcion = Entrada.entero()-1;
+
         } while (opcion < 0 || opcion >= TiposGrado.values().length);
-        if (opcion == 1) {
-            opcion = 0;
-        } else if (opcion == 2) {
-            opcion = 1;
-        }
+
         return TiposGrado.values()[opcion];
     }
 
@@ -113,13 +110,8 @@ public class Consola {
             for (Modalidad modalidad : Modalidad.values()) {
                 System.out.println(modalidad.ordinal() + 1 + " " + modalidad.name());
             }
-            opcion = Entrada.entero();
+            opcion = Entrada.entero()-1;
         } while (opcion < 0 || opcion >= TiposGrado.values().length);
-        if (opcion == 1) {
-            opcion = 0;
-        } else if (opcion == 2) {
-            opcion = 1;
-        }
         return Modalidad.values()[opcion];
     }
 
@@ -172,11 +164,11 @@ public class Consola {
                 System.out.println("Introduce el numero de ediciones: ");
                 numEdiciones = Entrada.entero();
             } while (numEdiciones <= 0);
-            return new GradoE(nombre,anio,numEdiciones);
+            return new GradoE(nombre, anio, numEdiciones);
         }
     }
 
-    public void mostrarCiclosFormativos(List<CicloFormativo> cicloFormativos) {
+    public static void mostrarCiclosFormativos(List<CicloFormativo> cicloFormativos) {
         if (cicloFormativos.isEmpty()) {
             System.out.println("No hay ciclos formativos.");
         } else {
@@ -187,17 +179,17 @@ public class Consola {
 
     public static CicloFormativo getCicloPorCodigo() {
         CicloFormativo cicloFormativo = null;
-        int codigo ;
+        int codigo;
         String familiaProfesional = "Informatica";
         Grado grado = new GradoD("Grado D", 2, Modalidad.PRESENCIAL);
         String nombre = "Pepe Perez";
         int horas = 250;
-
-        do {
-            System.out.println("Introduce el codigo del ciclo formativo: ");
-            codigo = Entrada.entero();
-        } while (codigo <= 0);
+        
         try {
+            do {
+                System.out.println("Introduce el codigo del ciclo formativo: ");
+                codigo = Entrada.entero();
+            } while (codigo <= 0);
             cicloFormativo = new CicloFormativo(codigo, familiaProfesional, grado, nombre, horas);
         } catch (IllegalArgumentException | NullPointerException e) {
             System.out.println("ERROR: Los datos introducidos no son correctos.");
@@ -212,17 +204,7 @@ public class Consola {
             for (EspecialidadProfesorado especialidadProfesorado : EspecialidadProfesorado.values()) {
                 System.out.println(especialidadProfesorado.ordinal() + 1 + especialidadProfesorado.toString());
             }
-            opcion = Entrada.entero();
-            if (opcion < 0 || opcion > 3) {
-                System.out.println("ERROR: La opcion introducida no es correcta.");
-            }
-            if (opcion == 1) {
-                opcion = 0;
-            } else if (opcion == 2) {
-                opcion = 1;
-            } else if (opcion == 3) {
-                opcion = 2;
-            }
+            opcion = Entrada.entero()-1;
         } while (opcion < 0 || opcion > EspecialidadProfesorado.values().length);
 
         return EspecialidadProfesorado.values()[opcion];
@@ -235,15 +217,7 @@ public class Consola {
             for (Curso curso : Curso.values()) {
                 System.out.println(curso.ordinal() + 1 + curso.toString());
             }
-            opcion = Entrada.entero();
-            if (opcion < 0 || opcion > 2) {
-                System.out.println("ERROR: La opcion introducida no es correcta.");
-            }
-            if (opcion == 1) {
-                opcion = 0;
-            } else if (opcion == 2) {
-                opcion = 1;
-            }
+            opcion = Entrada.entero()-1;
         } while (opcion < 0 || opcion > Curso.values().length);
 
 
@@ -307,7 +281,7 @@ public class Consola {
         }
     }
 
-    static boolean asignaturaYaMatriculada(List<Asignatura> asignaturasMatricula, Asignatura asignatura) {
+    private static boolean asignaturaYaMatriculada(List<Asignatura> asignaturasMatricula, Asignatura asignatura) {
         if (asignaturasMatricula != null) {
             for (Asignatura asignaturas : asignaturasMatricula) {
                 if (asignaturas != null && asignaturas.equals(asignatura)) {
@@ -350,8 +324,8 @@ public class Consola {
         CicloFormativo cicloFormativo;
         int idMatricula;
         String cursoAcademico = "24-25";
-        LocalDate fechaMatriculacion = LocalDate.of(2025, 2, 1);
-        Alumno alumno = new Alumno("Pepe Perez", "87654321x", "666555444", "PepePerez@gmail.com", LocalDate.of(2000, 12, 12));
+        LocalDate fechaMatriculacion = LocalDate.of(2025, 2, 15);
+        Alumno alumno = new Alumno("Pepe Perez", "87654321x", "666555444", "PepePerez@gmail.com", LocalDate.of(2000, 12, 15));
         ArrayList<Asignatura> asignatura = new ArrayList<>();
 
         do {
