@@ -216,7 +216,7 @@ public class Alumno {
 
 
     public String imprimir() {
-        return String.format("Alumno: %s\nDNI: %s\nCorreo: %s\nTeléfono: %s\nFecha de Nacimiento: %s\nNIA: %s", nombre, dni, correo, telefono, fechaNacimiento, nia);
+        return ("Alumno:" + nombre  + " DNI: "+ dni);
     }
 
     @Override

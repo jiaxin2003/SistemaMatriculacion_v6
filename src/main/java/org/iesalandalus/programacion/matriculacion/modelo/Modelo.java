@@ -1,10 +1,10 @@
 package org.iesalandalus.programacion.matriculacion.modelo;
 
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.*;
-import org.iesalandalus.programacion.matriculacion.modelo.negocio.Alumnos;
-import org.iesalandalus.programacion.matriculacion.modelo.negocio.Asignaturas;
-import org.iesalandalus.programacion.matriculacion.modelo.negocio.CiclosFormativos;
-import org.iesalandalus.programacion.matriculacion.modelo.negocio.Matriculas;
+import org.iesalandalus.programacion.matriculacion.modelo.negocio.mysql.Alumnos;
+import org.iesalandalus.programacion.matriculacion.modelo.negocio.mysql.Asignaturas;
+import org.iesalandalus.programacion.matriculacion.modelo.negocio.mysql.CiclosFormativos;
+import org.iesalandalus.programacion.matriculacion.modelo.negocio.mysql.Matriculas;
 
 import javax.naming.OperationNotSupportedException;
 

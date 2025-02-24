@@ -1,10 +1,9 @@
-package org.iesalandalus.programacion.matriculacion.modelo.negocio;
-
-import java.util.ArrayList;
+package org.iesalandalus.programacion.matriculacion.modelo.negocio.memoria;
 
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Alumno;
 
 import javax.naming.OperationNotSupportedException;
+import java.util.ArrayList;
 
 public class Alumnos {
     private final ArrayList<Alumno> coleccionAlumnos;

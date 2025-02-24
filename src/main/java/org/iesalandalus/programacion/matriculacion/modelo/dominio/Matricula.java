@@ -193,12 +193,12 @@ public class Matricula {
     @Override
     public String toString() {
         return "Matricula" +
-                "idMatricula=" + idMatricula +
+                "  idMatricula=" + idMatricula +
                 ", cursoAcademico='" + cursoAcademico + '\'' +
                 ", fechaMatriculacion=" + fechaMatriculacion +
                 ", fechaAnulacion=" + fechaAnulacion +
                 ", coleccionAsignaturas=" + coleccionAsignaturas +
-                ", alumno=" + alumno.imprimir();
+                alumno.imprimir();
     }
 }
 

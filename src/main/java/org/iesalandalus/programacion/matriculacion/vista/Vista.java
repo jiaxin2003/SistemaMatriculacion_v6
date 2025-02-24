@@ -181,7 +181,6 @@ public class Vista {
                 System.out.println(cicloFormativo);
             }
         }
-
     }
 
     public void insertarMatricula() {
@@ -252,15 +251,14 @@ public class Vista {
             Alumno alumno = Consola.getAlumnoPorDni();
             Alumno alumnoEncontrado = controlador.buscar(alumno);
             List<Matricula> matriculas = (this.controlador.getMatriculas(alumnoEncontrado));
-            if (matriculas == null) {
+            if (matriculas.isEmpty()) {
                 System.out.println("No hay Matriculas con ese Alumno");
             } else
                 matriculas.sort(Comparator.comparing(Matricula::getFechaMatriculacion).reversed().thenComparing
                         (matriculaAlumno -> matriculaAlumno.getAlumno().getNombre()));
-            if (matriculas != null)
-                for (Matricula matricula : matriculas) {
-                    System.out.println(matricula);
-                }
+            for (Matricula matricula : matriculas) {
+                System.out.println(matricula);
+            }
 
         } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException e) {
             System.out.println("ERROR: No se pudo mostrar las matrículas por alumno.");
@@ -272,17 +270,13 @@ public class Vista {
             CicloFormativo cicloFormativo = Consola.getCicloPorCodigo();
             CicloFormativo ciclo = controlador.buscar(cicloFormativo);
             List<Matricula> matriculas = (this.controlador.getMatriculas(ciclo));
-            if (matriculas == null) {
+            if (matriculas.isEmpty()) {
                 System.out.println("No hay Matriculas con ese Ciclo Formativo");
             } else matriculas.sort(Comparator.comparing(Matricula::getFechaMatriculacion).reversed().thenComparing
                     (matriculaCiclo -> matriculaCiclo.getAlumno().getNombre()));
-            if (matriculas != null) {
-                for (Matricula matricula : matriculas) {
-                    System.out.println(matricula);
-                }
+            for (Matricula matricula : matriculas) {
+                System.out.println(matricula);
             }
-
-
         } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException e) {
             System.out.println(e.getMessage());
         }
@@ -294,14 +288,13 @@ public class Vista {
             System.out.println("Tiene que tener este formato YY-YY");
             String cursoAcademmico = Entrada.cadena();
             List<Matricula> matriculas = controlador.getMatriculas(cursoAcademmico);
-            if (matriculas == null) {
+            if (matriculas.isEmpty()) {
                 System.out.println("no hay matriculas con ese curso academico");
             } else matriculas.sort(Comparator.comparing(Matricula::getFechaMatriculacion).reversed().thenComparing
                     (Matricula::getCursoAcademico));
-            if (matriculas != null)
-                for (Matricula matricula : matriculas) {
-                    System.out.println(matricula);
-                }
+            for (Matricula matricula : matriculas) {
+                System.out.println(matricula);
+            }
         } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException e) {
             System.out.println("ERROR: No se pudo mostrar las matrículas por curso.");
         }
