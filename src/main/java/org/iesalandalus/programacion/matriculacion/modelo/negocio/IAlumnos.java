@@ -3,6 +3,7 @@ package org.iesalandalus.programacion.matriculacion.modelo.negocio;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Alumno;
 
 import javax.naming.OperationNotSupportedException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface IAlumnos {
@@ -11,7 +12,7 @@ public interface IAlumnos {
 
     void terminar();
 
-    ArrayList<Alumno> get();
+    ArrayList<Alumno> get() throws SQLException;
 
     int getTamano();
 

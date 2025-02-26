@@ -1,40 +1,68 @@
 package org.iesalandalus.programacion.matriculacion.modelo.negocio.mysql;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Alumno;
 import org.iesalandalus.programacion.matriculacion.modelo.negocio.IAlumnos;
+import org.iesalandalus.programacion.matriculacion.modelo.negocio.mysql.utilidades.MySQL;
 
 import javax.naming.OperationNotSupportedException;
 
 public class Alumnos implements IAlumnos {
     private final ArrayList<Alumno> coleccionAlumnos;
+    private Connection conexion;
+    private static Alumnos instancia;
 
 
     public Alumnos() {
         this.coleccionAlumnos = new ArrayList<>();
+        comenzar();
+    }
+
+    public static Alumnos getInstancia() {
+        if (instancia == null) {
+            instancia = new Alumnos();
+        }
+        return instancia;
     }
 
     @Override
     public void comenzar() {
+        conexion = MySQL.establecerConexion();
     }
 
     @Override
     public void terminar() {
-
+        MySQL.cerrarConexion();
     }
 
-    public ArrayList<Alumno> get() {
-        return (copiaProfundaAlumnos());
-    }
-
-    private ArrayList<Alumno> copiaProfundaAlumnos() {
-        ArrayList<Alumno> copia = new ArrayList<>(this.coleccionAlumnos.size());
-        for (Alumno alumno : this.coleccionAlumnos) {
-            copia.add(new Alumno(alumno));
+    public ArrayList<Alumno> get() throws SQLException {
+        ArrayList<Alumno> copiaProfunda = new ArrayList<>();
+        String query = """ 
+                SELECT nombre
+                      , dni
+                      , telefono 
+                      , email
+                      , fechaNacimiento 
+                      FROM alumnos""";
+        Statement sentencia = conexion.createStatement();
+        ResultSet resultado = sentencia.executeQuery(query);
+        while (resultado.next()) {
+            Alumno alumno = new Alumno(
+                      resultado.getString("nombre")
+                    , resultado.getString("dni")
+                    , resultado.getString("telefono")
+                    , resultado.getString("email")
+                    , resultado.getDate("fechaNacimiento").toLocalDate());
+            copiaProfunda.add(alumno);
         }
-        return copia;
+        return copiaProfunda;
     }
+
 
     public int getTamano() {
         return this.coleccionAlumnos.size();
