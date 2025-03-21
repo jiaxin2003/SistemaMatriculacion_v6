@@ -32,7 +32,7 @@ public class Alumno {
         setNia();
     }
 
-    public Alumno(Alumno alumno)  {
+    public Alumno(Alumno alumno) {
         if (alumno == null) {
             throw new NullPointerException("ERROR: No es posible copiar un alumno nulo.");
         }
@@ -216,7 +216,7 @@ public class Alumno {
 
 
     public String imprimir() {
-        return ("Alumno:" + nombre  + " DNI: "+ dni);
+        return ("Alumno:" + nombre + " DNI: " + dni);
     }
 
     @Override
