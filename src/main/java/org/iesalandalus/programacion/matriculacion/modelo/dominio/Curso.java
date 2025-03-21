@@ -1,20 +1,20 @@
 package org.iesalandalus.programacion.matriculacion.modelo.dominio;
 
 public enum Curso {
-    PRIMERO(" Primero"), SEGUNDO(" Segundo");
+    PRIMERO("primero"), SEGUNDO("segundo");
 
     private final String cadenaAMostrar;
-    private Curso(String cadenaAMostrar)
-    {
-        this.cadenaAMostrar=cadenaAMostrar;
+
+    private Curso(String cadenaAMostrar) {
+        this.cadenaAMostrar = cadenaAMostrar;
     }
-    public String imprimir()
-    {
+
+    public String imprimir() {
         return cadenaAMostrar;
     }
 
     @Override
     public String toString() {
-        return  cadenaAMostrar ;
+        return cadenaAMostrar;
     }
 }

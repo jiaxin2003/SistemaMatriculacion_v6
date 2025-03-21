@@ -32,7 +32,9 @@ public abstract class Grado {
         this.iniciales = inicial.toUpperCase();
     }
 
-
+    public int getNumAnios() {
+        return numAnio;
+    }
     public abstract void setNumAnio(int numAnio);
 
     @Override

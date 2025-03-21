@@ -36,11 +36,11 @@ public class Alumno {
         if (alumno == null) {
             throw new NullPointerException("ERROR: No es posible copiar un alumno nulo.");
         }
-        setDni(alumno.dni);
-        setNombre(alumno.nombre);
-        setTelefono(alumno.telefono);
-        setCorreo(alumno.correo);
-        setFechaNacimiento(alumno.fechaNacimiento);
+        setDni(alumno.getDni());
+        setNombre(alumno.getNombre());
+        setTelefono(alumno.getTelefono());
+        setCorreo(alumno.getCorreo());
+        setFechaNacimiento(alumno.getFechaNacimiento());
         setNia();
     }
 

@@ -14,13 +14,13 @@ public interface IAlumnos {
 
     ArrayList<Alumno> get() throws SQLException;
 
-    int getTamano();
+    int getTamano() throws SQLException;
 
-    void insertar(Alumno alumno) throws OperationNotSupportedException;
+    void insertar(Alumno alumno) throws OperationNotSupportedException, SQLException;
 
-    Alumno buscar(Alumno alumno);
+    Alumno buscar(Alumno alumno) throws SQLException;
 
-    void borrar(Alumno alumno) throws OperationNotSupportedException;
+    void borrar(Alumno alumno) throws OperationNotSupportedException, SQLException;
 
 
 }

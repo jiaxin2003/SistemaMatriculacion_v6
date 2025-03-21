@@ -2,7 +2,6 @@ package org.iesalandalus.programacion.matriculacion.vista;
 
 
 import org.iesalandalus.programacion.matriculacion.controlador.Controlador;
-import org.iesalandalus.programacion.matriculacion.modelo.Modelo;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Alumno;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Asignatura;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.CicloFormativo;
@@ -12,6 +11,7 @@ import org.iesalandalus.programacion.utilidades.Entrada;
 
 
 import javax.naming.OperationNotSupportedException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -37,7 +37,6 @@ public class Vista {
     }
 
     public void comenzar() {
-        setControlador(new Controlador(this, new Modelo()));
         controlador.comenzar();
         Opcion opcion;
         do {
@@ -58,8 +57,8 @@ public class Vista {
             Alumno alumno = Consola.leerAlumno();
             this.controlador.insertar(alumno);
             System.out.println("Alumno insertado correctamente.");
-        } catch (IllegalArgumentException | OperationNotSupportedException e) {
-            System.out.println("ERROR: No se pudo insertar el alumno.");
+        } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException | SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -67,8 +66,8 @@ public class Vista {
         try {
             Alumno alumno = this.controlador.buscar(Consola.getAlumnoPorDni());
             System.out.println(alumno);
-        } catch (IllegalArgumentException | NullPointerException e) {
-            System.out.println("ERROR: No se pudo buscar el alumno.");
+        } catch (IllegalArgumentException | NullPointerException | SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -77,20 +76,24 @@ public class Vista {
             Alumno alumno = Consola.getAlumnoPorDni();
             this.controlador.borrar(alumno);
             System.out.println("Alumno borrado correctamente.");
-        } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException e) {
-            System.out.println("ERROR: No se pudo borrar el alumno.");
+        } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException | SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
     public void mostrarAlumnos() {
-        List<Alumno> alumnos = this.controlador.getAlumnos();
-        if (alumnos.isEmpty()) {
-            System.out.println("No hay alumnos.");
-        } else {
-            alumnos.sort(Comparator.comparing(Alumno::getNombre));
-            for (Alumno alumno : alumnos) {
-                System.out.println(alumno);
+        try {
+            List<Alumno> alumnos = this.controlador.getAlumnos();
+            if (alumnos.isEmpty()) {
+                System.out.println("No hay alumnos.");
+            } else {
+                alumnos.sort(Comparator.comparing(Alumno::getNombre));
+                for (Alumno alumno : alumnos) {
+                    System.out.println(alumno);
+                }
             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -101,8 +104,8 @@ public class Vista {
             Asignatura asignatura = Consola.leerAsignatura(cicloFormativo);
             this.controlador.insertar(asignatura);
             System.out.println("Asignatura insertada correctamente.");
-        } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException e) {
-            System.out.println("ERROR: No se pudo insertar la asignatura.");
+        } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException | SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -111,8 +114,8 @@ public class Vista {
         try {
             Asignatura asignatura = this.controlador.buscar(Consola.getAsignaturaPorCodigo());
             System.out.println(asignatura);
-        } catch (IllegalArgumentException | NullPointerException e) {
-            System.out.println("ERROR: No se pudo buscar la asignatura.");
+        } catch (IllegalArgumentException | NullPointerException | SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -121,21 +124,27 @@ public class Vista {
             Asignatura asignatura = Consola.getAsignaturaPorCodigo();
             this.controlador.borrar(asignatura);
             System.out.println("Asignatura borrada correctamente.");
-        } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException e) {
-            System.out.println("ERROR: No se pudo borrar la asignatura.");
+        } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException | SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
 
     public void mostrarAsignaturas() {
-        List<Asignatura> asignaturas = this.controlador.getAsignaturas();
-        if (asignaturas.isEmpty()) {
-            System.out.println("No hay asignaturas.");
-        } else {
-            asignaturas.sort(Comparator.comparing(Asignatura::getNombre));
-            for (Asignatura asignatura : asignaturas) {
-                System.out.println(asignatura);
+        try {
+
+
+            List<Asignatura> asignaturas = this.controlador.getAsignaturas();
+            if (asignaturas.isEmpty()) {
+                System.out.println("No hay asignaturas.");
+            } else {
+                asignaturas.sort(Comparator.comparing(Asignatura::getNombre));
+                for (Asignatura asignatura : asignaturas) {
+                    System.out.println(asignatura);
+                }
             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -144,8 +153,8 @@ public class Vista {
             CicloFormativo ciclo = Consola.leerCicloFormativo();
             this.controlador.insertar(ciclo);
             System.out.println("Ciclo formativo insertado correctamente.");
-        } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException e) {
-            System.out.println("ERROR: No se pudo insertar el ciclo formativo.");
+        } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException | SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -156,8 +165,8 @@ public class Vista {
                 System.out.println("ERROR: No se pudo buscar el ciclo formativo.");
             }
             System.out.println(ciclo);
-        } catch (IllegalArgumentException | NullPointerException e) {
-            System.out.println("ERROR: No se pudo buscar el ciclo formativo.");
+        } catch (IllegalArgumentException | NullPointerException | SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -166,20 +175,24 @@ public class Vista {
             CicloFormativo ciclo = Consola.getCicloPorCodigo();
             this.controlador.borrar(ciclo);
             System.out.println("Ciclo formativo borrado correctamente.");
-        } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException e) {
-            System.out.println("ERROR: No se pudo borrar el ciclo formativo.");
+        } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException | SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
     public void mostrarCiclosFormativos() {
-        List<CicloFormativo> cicloFormativos = this.controlador.getCiclosFormativos();
-        if (cicloFormativos.isEmpty()) {
-            System.out.println("No hay ciclos formativos.");
-        } else {
-            cicloFormativos.sort(Comparator.comparing(CicloFormativo::getNombre));
-            for (CicloFormativo cicloFormativo : cicloFormativos) {
-                System.out.println(cicloFormativo);
+        try {
+            List<CicloFormativo> cicloFormativos = this.controlador.getCiclosFormativos();
+            if (cicloFormativos.isEmpty()) {
+                System.out.println("No hay ciclos formativos.");
+            } else {
+                cicloFormativos.sort(Comparator.comparing(CicloFormativo::getNombre));
+                for (CicloFormativo cicloFormativo : cicloFormativos) {
+                    System.out.println(cicloFormativo);
+                }
             }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -191,8 +204,8 @@ public class Vista {
             Matricula matricula = Consola.leerMatricula(alumnoMatricula, asignatura);
             this.controlador.insertar(matricula);
             System.out.println("Matrícula insertada correctamente.");
-        } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException e) {
-            System.out.println("ERROR: No se pudo insertar la matrícula.");
+        } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException | SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -204,8 +217,8 @@ public class Vista {
                 System.out.println("ERROR: No se pudo buscar la matrícula.");
             }
             System.out.println(matriculaBuscar);
-        } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException e) {
-            System.out.println("ERROR: No se pudo buscar la matrícula.");
+        } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException | SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -220,11 +233,12 @@ public class Vista {
                     System.out.println("Introduce la fecha de anulación de la matrícula (dd/mm/aaaa).");
                     String fechaAnulacion = Entrada.cadena();
                     matriculaEncontrada.setFechaAnulacion(LocalDate.parse(fechaAnulacion, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                    this.controlador.borrar(matriculaEncontrada);
                 } while (matriculaEncontrada.getFechaAnulacion() == null);
             }
             System.out.println("Matrícula anulada correctamente.");
-        } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException e) {
-            System.out.println("ERROR: No se pudo anular la matrícula.");
+        } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException | SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -241,8 +255,8 @@ public class Vista {
                     System.out.println(matricula);
                 }
             }
-        } catch (OperationNotSupportedException e) {
-            System.out.println("ERROR: No se pudo mostrar las matrículas.");
+        } catch (OperationNotSupportedException | SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -260,8 +274,8 @@ public class Vista {
                 System.out.println(matricula);
             }
 
-        } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException e) {
-            System.out.println("ERROR: No se pudo mostrar las matrículas por alumno.");
+        } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException | SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -277,7 +291,7 @@ public class Vista {
             for (Matricula matricula : matriculas) {
                 System.out.println(matricula);
             }
-        } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException e) {
+        } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException | SQLException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -295,8 +309,8 @@ public class Vista {
             for (Matricula matricula : matriculas) {
                 System.out.println(matricula);
             }
-        } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException e) {
-            System.out.println("ERROR: No se pudo mostrar las matrículas por curso.");
+        } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException | SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

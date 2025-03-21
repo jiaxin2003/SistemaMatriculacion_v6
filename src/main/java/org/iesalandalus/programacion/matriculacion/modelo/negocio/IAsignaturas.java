@@ -3,6 +3,7 @@ package org.iesalandalus.programacion.matriculacion.modelo.negocio;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Asignatura;
 
 import javax.naming.OperationNotSupportedException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface IAsignaturas {
@@ -11,11 +12,11 @@ public interface IAsignaturas {
 
     void terminar();
 
-    ArrayList<Asignatura> get();
+    ArrayList<Asignatura> get() throws SQLException;
 
-    void insertar(Asignatura asignatura) throws OperationNotSupportedException;
+    void insertar(Asignatura asignatura) throws OperationNotSupportedException, SQLException;
 
-    Asignatura buscar(Asignatura asignatura);
+    Asignatura buscar(Asignatura asignatura) throws SQLException;
 
-    void borrar(Asignatura asignatura) throws OperationNotSupportedException;
+    void borrar(Asignatura asignatura) throws OperationNotSupportedException, SQLException;
 }

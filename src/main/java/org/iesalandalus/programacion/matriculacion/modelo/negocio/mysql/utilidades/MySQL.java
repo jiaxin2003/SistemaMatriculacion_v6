@@ -6,10 +6,10 @@ import java.sql.SQLException;
 
 public class MySQL {
 
-    private static final String HOST = /*"URL DEL SERVIDOR"*/"infothot.ddns.net";
+    private static final String HOST = /*"URL DEL SERVIDOR"*/"programacion-2025.ccbintxjpoyj.us-east-1.rds.amazonaws.com";
     private static final String ESQUEMA = "sistemamatriculacion";
     private static final String USUARIO = "sistemamatriculacion";
-    private static final String CONTRASENA = "sistemamatriculacion-2025";
+    private static final String CONTRASENA = "sistemamatriculacion-2024";
     private static Connection conexion;
 
 
@@ -19,7 +19,6 @@ public class MySQL {
     public static Connection establecerConexion() {
         if (conexion == null) {
             try {
-
                 Class.forName("com.mysql.cj.jdbc.Driver");
 
                 String url = "jdbc:mysql://" + HOST + ":3306/" + ESQUEMA;

@@ -3,7 +3,7 @@ package org.iesalandalus.programacion.matriculacion.modelo.dominio;
 public class GradoD extends Grado {
     private Modalidad modalidad;
 
-    public GradoD(String nombre,int numAnio, Modalidad modalidad) {
+    public GradoD(String nombre, int numAnio, Modalidad modalidad) {
         super(nombre);
         setNumAnio(numAnio);
         setModalidad(modalidad);
@@ -21,7 +21,7 @@ public class GradoD extends Grado {
 
     @Override
     public void setNumAnio(int numAnio) {
-        if (numAnio<2 || numAnio>3) {
+        if (numAnio < 2 || numAnio > 3) {
             throw new IllegalArgumentException("ERROR: El grado D debe tener un año comprendido entre 2 y 3.");
         }
         this.numAnio = numAnio;
@@ -29,6 +29,6 @@ public class GradoD extends Grado {
 
     @Override
     public String toString() {
-        return super.toString() + " - " + modalidad;
+        return super.toString() + " - " + "Numero de anios: " + numAnio + " - " + modalidad;
     }
 }

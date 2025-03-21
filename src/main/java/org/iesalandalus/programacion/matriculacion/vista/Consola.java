@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
 
@@ -85,7 +84,6 @@ public class Consola {
             dni = Entrada.cadena();
 
         } while (dni == null || dni.isEmpty());
-        //return new Alumno(nombre, dni, telefono, correo, fechaNacimiento);
         return new Alumno("pepe perez", dni, "666333888", "PepePerez@gmail.com", LocalDate.of(2000, 12, 12));
     }
 
@@ -135,7 +133,7 @@ public class Consola {
             System.out.println("Horas: ");
             horas = Entrada.entero();
             grado = leerGrado();
-        } while (codigo <= 0 || familiaProfesional.isEmpty() || nombre.isEmpty() || horas <= 0 || grado == null);
+        } while (codigo <= 0 || familiaProfesional.isEmpty() || nombre.isEmpty() || horas <= 0);
 
         return new CicloFormativo(codigo, familiaProfesional, grado, nombre, horas);
     }
@@ -324,16 +322,16 @@ public class Consola {
         CicloFormativo cicloFormativo;
         int idMatricula;
         String cursoAcademico = "24-25";
-        LocalDate fechaMatriculacion = LocalDate.of(2025, 2, 15);
+        LocalDate fechaMatriculacion = LocalDate.of(2025, 3, 14);
         Alumno alumno = new Alumno("Pepe Perez", "87654321x", "666555444", "PepePerez@gmail.com", LocalDate.of(2000, 12, 15));
-        ArrayList<Asignatura> asignatura = new ArrayList<>();
+
 
         do {
             System.out.println("Introduzca el ID de la Matricula:");
             idMatricula = Entrada.entero();
         } while (idMatricula < 0);
 
-        return new Matricula(idMatricula, cursoAcademico, fechaMatriculacion, alumno, asignatura);
+        return new Matricula(idMatricula, cursoAcademico, fechaMatriculacion, alumno, new ArrayList<>());
     }
 
     public static ArrayList<Asignatura> elegirAsignaturasMatricula(List<Asignatura> asignaturas) {

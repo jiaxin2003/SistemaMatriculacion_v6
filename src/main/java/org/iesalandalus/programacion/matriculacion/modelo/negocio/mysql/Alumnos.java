@@ -1,9 +1,6 @@
 package org.iesalandalus.programacion.matriculacion.modelo.negocio.mysql;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Alumno;
@@ -13,13 +10,12 @@ import org.iesalandalus.programacion.matriculacion.modelo.negocio.mysql.utilidad
 import javax.naming.OperationNotSupportedException;
 
 public class Alumnos implements IAlumnos {
-    private final ArrayList<Alumno> coleccionAlumnos;
+
     private Connection conexion;
     private static Alumnos instancia;
 
 
     public Alumnos() {
-        this.coleccionAlumnos = new ArrayList<>();
         comenzar();
     }
 
@@ -40,68 +36,91 @@ public class Alumnos implements IAlumnos {
         MySQL.cerrarConexion();
     }
 
+    @Override
     public ArrayList<Alumno> get() throws SQLException {
         ArrayList<Alumno> copiaProfunda = new ArrayList<>();
         String query = """ 
-                SELECT nombre
-                      , dni
-                      , telefono 
-                      , email
-                      , fechaNacimiento 
-                      FROM alumnos""";
+                SELECT nombre, dni, telefono, correo , fechaNacimiento
+                FROM alumno
+                """;
         Statement sentencia = conexion.createStatement();
         ResultSet resultado = sentencia.executeQuery(query);
         while (resultado.next()) {
             Alumno alumno = new Alumno(
-                      resultado.getString("nombre")
+                    resultado.getString("nombre")
                     , resultado.getString("dni")
                     , resultado.getString("telefono")
-                    , resultado.getString("email")
+                    , resultado.getString("correo")
                     , resultado.getDate("fechaNacimiento").toLocalDate());
             copiaProfunda.add(alumno);
         }
         return copiaProfunda;
     }
 
-
-    public int getTamano() {
-        return this.coleccionAlumnos.size();
+    @Override
+    public int getTamano() throws SQLException {
+        String query = """
+                SELECT COUNT(dni) as "Total Alumnos"
+                FROM alumno
+                """;
+        Statement sentencia = conexion.createStatement();
+        ResultSet resultado = sentencia.executeQuery(query);
+        return resultado.getInt(1);
     }
 
-    public void insertar(Alumno alumno) throws OperationNotSupportedException {
-        if (alumno == null) {
-            throw new NullPointerException("ERROR: No se puede insertar un alumno nulo.");
-        }
-        int indice = this.coleccionAlumnos.indexOf(alumno);
-        if (indice != -1) {
+    @Override
+    public void insertar(Alumno alumno) throws OperationNotSupportedException, SQLException {
+        if (buscar(alumno) != null) {
             throw new OperationNotSupportedException("ERROR: Ya existe un alumno con ese dni.");
-        } else {
-
-            this.coleccionAlumnos.add(new Alumno(alumno));
         }
+        String query = """
+                INSERT INTO alumno (nombre, telefono, correo, dni, fechaNacimiento)
+                VALUES (?, ?, ?, ?, ?)
+                """;
+        PreparedStatement preStatement = conexion.prepareStatement(query);
+        preStatement.setString(1, alumno.getNombre());
+        preStatement.setString(2, alumno.getTelefono());
+        preStatement.setString(3, alumno.getCorreo());
+        preStatement.setString(4, alumno.getDni());
+        preStatement.setDate(5, java.sql.Date.valueOf(alumno.getFechaNacimiento()));
+        preStatement.executeUpdate();
+
     }
 
-    public Alumno buscar(Alumno alumno) {
-        if (alumno == null) {
-            throw new NullPointerException("ERROR: El alumno no puede ser nulo.");
+    @Override
+    public Alumno buscar(Alumno alumno) throws SQLException {
+        String query = """
+                SELECT nombre, dni, telefono, correo, fechaNacimiento
+                FROM alumno
+                WHERE dni = ?
+                """;
+        PreparedStatement preStatement = conexion.prepareStatement(query);
+        preStatement.setString(1, alumno.getDni());
+        ResultSet resultado = preStatement.executeQuery();
+        if (resultado.next()) {
+            return new Alumno(
+                    resultado.getString("nombre")
+                    , resultado.getString("dni")
+                    , resultado.getString("telefono")
+                    , resultado.getString("correo")
+                    , resultado.getDate("fechaNacimiento").toLocalDate());
         }
-        int indice = this.coleccionAlumnos.indexOf(alumno);
-        if (indice == -1) {
-            return null;
-        }
-        return new Alumno(this.coleccionAlumnos.get(indice));
+        return null;
     }
 
+    @Override
+    public void borrar(Alumno alumno) throws OperationNotSupportedException, SQLException {
 
-    public void borrar(Alumno alumno) throws OperationNotSupportedException {
-        if (alumno == null) {
-            throw new NullPointerException("ERROR: No se puede borrar un alumno nulo.");
+        if (buscar(alumno) == null) {
+            throw new OperationNotSupportedException("ERROR: No existe un alumno con ese dni.");
         }
-        int indice = this.coleccionAlumnos.indexOf(alumno);
-        if (indice == -1) {
-            throw new OperationNotSupportedException("ERROR: No existe ningún alumno como el indicado.");
-        }
-        this.coleccionAlumnos.remove(indice);
+        String query = """
+                DELETE FROM alumno
+                WHERE dni = ?
+                """;
+        PreparedStatement preStatement = conexion.prepareStatement(query);
+        preStatement.setString(1, alumno.getDni().toUpperCase());
+        preStatement.executeUpdate();
     }
 
 

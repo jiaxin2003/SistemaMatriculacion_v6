@@ -5,6 +5,7 @@ import org.iesalandalus.programacion.matriculacion.modelo.dominio.CicloFormativo
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Matricula;
 
 import javax.naming.OperationNotSupportedException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface IMatriculas {
@@ -13,17 +14,17 @@ public interface IMatriculas {
 
     void terminar();
 
-    ArrayList<Matricula> get() throws OperationNotSupportedException;
+    ArrayList<Matricula> get() throws OperationNotSupportedException, SQLException;
 
-    void insertar(Matricula matricula) throws OperationNotSupportedException;
+    void insertar(Matricula matricula) throws OperationNotSupportedException, SQLException;
 
-    Matricula buscar(Matricula matricula)throws OperationNotSupportedException;
+    Matricula buscar(Matricula matricula) throws OperationNotSupportedException, SQLException;
 
-    void borrar(Matricula matricula) throws OperationNotSupportedException;
+    void borrar(Matricula matricula) throws OperationNotSupportedException, SQLException;
 
-    ArrayList<Matricula> get(Alumno alumno)throws OperationNotSupportedException;
+    ArrayList<Matricula> get(Alumno alumno) throws OperationNotSupportedException, SQLException;
 
-    ArrayList<Matricula> get(String cursoAcademico)throws OperationNotSupportedException;
+    ArrayList<Matricula> get(String cursoAcademico) throws OperationNotSupportedException, SQLException;
 
-    ArrayList<Matricula> get(CicloFormativo cicloFormativo)throws OperationNotSupportedException;
+    ArrayList<Matricula> get(CicloFormativo cicloFormativo) throws OperationNotSupportedException, SQLException;
 }

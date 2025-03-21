@@ -15,7 +15,6 @@ public enum Modalidad {
 
     @Override
     public String toString() {
-        return this.ordinal() + ". -" +
-                cadenaAMostrar;
+        return cadenaAMostrar;
     }
 }

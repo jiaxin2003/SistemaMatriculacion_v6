@@ -8,6 +8,7 @@ import org.iesalandalus.programacion.matriculacion.modelo.dominio.Matricula;
 import org.iesalandalus.programacion.matriculacion.vista.Vista;
 
 import javax.naming.OperationNotSupportedException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class Controlador {
@@ -34,87 +35,87 @@ public class Controlador {
 
     }
 
-    public void insertar(Alumno alumno) throws OperationNotSupportedException {
+    public void insertar(Alumno alumno) throws OperationNotSupportedException, SQLException {
         this.modelo.insertar(alumno);
 
     }
 
-    public Alumno buscar(Alumno alumno) {
+    public Alumno buscar(Alumno alumno) throws SQLException {
         return this.modelo.buscar(alumno);
     }
 
-    public void borrar(Alumno alumno) throws OperationNotSupportedException {
+    public void borrar(Alumno alumno) throws OperationNotSupportedException, SQLException {
         this.modelo.borrar(alumno);
 
     }
 
-    public List<Alumno> getAlumnos() {
+    public List<Alumno> getAlumnos() throws SQLException {
         return this.modelo.getAlumnos();
     }
 
-    public void insertar(Asignatura asignatura) throws OperationNotSupportedException {
+    public void insertar(Asignatura asignatura) throws OperationNotSupportedException, SQLException {
         this.modelo.insertar(asignatura);
 
     }
 
-    public Asignatura buscar(Asignatura asignatura) {
+    public Asignatura buscar(Asignatura asignatura) throws SQLException {
         return this.modelo.buscar(asignatura);
     }
 
-    public void borrar(Asignatura asignatura) throws OperationNotSupportedException {
+    public void borrar(Asignatura asignatura) throws OperationNotSupportedException, SQLException {
         this.modelo.borrar(asignatura);
 
     }
 
-    public List<Asignatura> getAsignaturas() {
+    public List<Asignatura> getAsignaturas() throws SQLException {
         return this.modelo.getAsignaturas();
     }
 
-    public void insertar(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
+    public void insertar(CicloFormativo cicloFormativo) throws OperationNotSupportedException, SQLException {
         this.modelo.insertar(cicloFormativo);
 
     }
 
-    public CicloFormativo buscar(CicloFormativo cicloFormativo) {
+    public CicloFormativo buscar(CicloFormativo cicloFormativo) throws SQLException {
         return this.modelo.buscar(cicloFormativo);
     }
 
-    public void borrar(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
+    public void borrar(CicloFormativo cicloFormativo) throws OperationNotSupportedException, SQLException {
         this.modelo.borrar(cicloFormativo);
 
     }
 
-    public List<CicloFormativo> getCiclosFormativos() {
+    public List<CicloFormativo> getCiclosFormativos() throws SQLException {
         return this.modelo.getCiclosFormativos();
     }
 
-    public void insertar(Matricula matricula) throws OperationNotSupportedException {
+    public void insertar(Matricula matricula) throws OperationNotSupportedException, SQLException {
         this.modelo.insertar(matricula);
 
     }
 
-    public Matricula buscar(Matricula matricula) throws OperationNotSupportedException {
+    public Matricula buscar(Matricula matricula) throws OperationNotSupportedException, SQLException {
         return this.modelo.buscar(matricula);
     }
 
-    public void borrar(Matricula matricula) throws OperationNotSupportedException {
+    public void borrar(Matricula matricula) throws OperationNotSupportedException, SQLException {
         this.modelo.borrar(matricula);
 
     }
 
-    public List<Matricula> getMatriculas() throws OperationNotSupportedException {
+    public List<Matricula> getMatriculas() throws OperationNotSupportedException, SQLException {
         return this.modelo.getMatriculas();
     }
 
-    public List<Matricula> getMatriculas(Alumno alumno) throws OperationNotSupportedException {
+    public List<Matricula> getMatriculas(Alumno alumno) throws OperationNotSupportedException, SQLException {
         return this.modelo.getMatriculas(alumno);
     }
 
-    public List<Matricula> getMatriculas(CicloFormativo cicloFormativo) throws OperationNotSupportedException {
+    public List<Matricula> getMatriculas(CicloFormativo cicloFormativo) throws OperationNotSupportedException, SQLException {
         return this.modelo.getMatriculas(cicloFormativo);
     }
 
-    public List<Matricula> getMatriculas(String cursoAcademico) throws OperationNotSupportedException {
+    public List<Matricula> getMatriculas(String cursoAcademico) throws OperationNotSupportedException, SQLException {
         return this.modelo.getMatriculas(cursoAcademico);
     }
 }
