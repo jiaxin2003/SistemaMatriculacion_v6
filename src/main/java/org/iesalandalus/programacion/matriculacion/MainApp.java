@@ -21,12 +21,14 @@ public class MainApp {
 
     private static Modelo procesarArgumentosFuenteDatos(String[] args) {
         if (args.length == 0) {
+            System.out.println("Fuente de Datos en Memoria");
             return new Modelo(FactoriaFuenteDatos.MEMORIA);
         } else {
             System.out.println("Fuente de Datos MySQL");
             if (args[0].equalsIgnoreCase("-fdmysql")) {
                 return new Modelo(FactoriaFuenteDatos.MySQL);
             } else if (args[0].equalsIgnoreCase("-fdmemoria")) {
+                System.out.println("Fuente de Datos en Memoria");
                 return new Modelo(FactoriaFuenteDatos.MEMORIA);
             } else {
                 System.out.println("Fuente de Datos no Reconocida");
