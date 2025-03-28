@@ -61,7 +61,7 @@ public class CiclosFormativos implements ICiclosFormativos {
         }
         int indice = this.coleccionCiclosFormativos.indexOf(cicloFormativo);
         if (indice == -1) {
-           throw new NullPointerException("ERROR: No existe ningún ciclo formativo como el indicado.");
+            throw new NullPointerException("ERROR: No existe ningún ciclo formativo como el indicado.");
         }
         return new CicloFormativo(this.coleccionCiclosFormativos.get(indice));
     }
