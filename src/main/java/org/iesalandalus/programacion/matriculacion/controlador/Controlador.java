@@ -5,7 +5,7 @@ import org.iesalandalus.programacion.matriculacion.modelo.dominio.Alumno;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Asignatura;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.CicloFormativo;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Matricula;
-import org.iesalandalus.programacion.matriculacion.vista.Vista;
+import org.iesalandalus.programacion.matriculacion.vista.texto.VistaTexto;
 
 import javax.naming.OperationNotSupportedException;
 import java.sql.SQLException;
@@ -13,10 +13,10 @@ import java.util.List;
 
 public class Controlador {
 
-    private Vista vista;
+    private VistaTexto vista;
     private final Modelo modelo;
 
-    public Controlador(Vista vista, Modelo modelo) {
+    public Controlador(VistaTexto vista, Modelo modelo) {
         if (vista == null || modelo == null) {
             throw new NullPointerException("ERROR: El modelo o la vista no pueden ser nulos");
         }

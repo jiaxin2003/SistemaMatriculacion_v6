@@ -1,5 +1,5 @@
 
-package org.iesalandalus.programacion.matriculacion.vista;
+package org.iesalandalus.programacion.matriculacion.vista.texto;
 
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.*;
 

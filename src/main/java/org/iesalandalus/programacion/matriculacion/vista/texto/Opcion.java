@@ -1,4 +1,4 @@
-package org.iesalandalus.programacion.matriculacion.vista;
+package org.iesalandalus.programacion.matriculacion.vista.texto;
 
 public enum Opcion {
 
@@ -125,7 +125,7 @@ public enum Opcion {
 
 
     private final String cadenaAMostrar;
-    private static Vista vista;
+    private static VistaTexto vista;
 
     private Opcion(String cadenaAMostrar) {
         this.cadenaAMostrar = cadenaAMostrar;
@@ -133,7 +133,7 @@ public enum Opcion {
 
     public abstract void ejecutar();
 
-    public static void setVista(Vista vista) {
+    public static void setVista(VistaTexto vista) {
         Opcion.vista = vista;
     }
 
