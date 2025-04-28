@@ -4,21 +4,16 @@ import org.iesalandalus.programacion.matriculacion.controlador.Controlador;
 import org.iesalandalus.programacion.matriculacion.modelo.FactoriaFuenteDatos;
 import org.iesalandalus.programacion.matriculacion.modelo.Modelo;
 
+import org.iesalandalus.programacion.matriculacion.vista.FactoriaVista;
 import org.iesalandalus.programacion.matriculacion.vista.Vista;
-import org.iesalandalus.programacion.matriculacion.vista.grafica.LanzadoraVentanaPrincipal;
-import org.iesalandalus.programacion.matriculacion.vista.grafica.VistaGrafica;
-import org.iesalandalus.programacion.matriculacion.vista.texto.VistaTexto;
 
-import static javafx.application.Application.launch;
 
 
 public class MainApp {
 
     public static void main(String[] args) {
-        LanzadoraVentanaPrincipal.main(args);
-
         Modelo modelo = procesarArgumentosFuenteDatos(args);
-        VistaTexto vista = new VistaTexto();
+        Vista vista = procesarArgumentosVista(args);
         Controlador controlador = new Controlador(vista, modelo);
         modelo.comenzar();
         controlador.comenzar();
@@ -26,31 +21,38 @@ public class MainApp {
     }
 
     private static Modelo procesarArgumentosFuenteDatos(String[] args) {
-        if (args.length == 0) {
-            System.out.println("Fuente de Datos en Memoria");
-            return new Modelo(FactoriaFuenteDatos.MEMORIA);
-        } else {
-            System.out.println("Fuente de Datos MySQL");
-            if (args[0].equalsIgnoreCase("-fdmysql")) {
-                return new Modelo(FactoriaFuenteDatos.MySQL);
-            } else if (args[0].equalsIgnoreCase("-fdmemoria")) {
-                System.out.println("Fuente de Datos en Memoria");
-                return new Modelo(FactoriaFuenteDatos.MEMORIA);
-            } else {
-                System.out.println("Fuente de Datos no Reconocida");
-                return new Modelo(FactoriaFuenteDatos.MEMORIA);
+        try {
+            for (String arg : args) {
+                if (arg.equalsIgnoreCase("-fdmysql")) {
+                    System.out.println("Fuente de Datos en MySQL");
+                    return new Modelo(FactoriaFuenteDatos.MySQL);
+                } else if (arg.equalsIgnoreCase("-fdmemoria")) {
+                    System.out.println("Fuente de Datos en Memoria");
+                    return new Modelo(FactoriaFuenteDatos.MEMORIA);
+                }
             }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
+        System.out.println("Fuente de Datos no Reconocida, Usando Memoria por defecto.");
+        return new Modelo(FactoriaFuenteDatos.MEMORIA);
+
     }
-    private Vista procesarArgumentosVista(String[] args) {
-        if (args.length == 0) {
-            System.out.println("Vista en Consola");
-            return null;
-            //return new VistaTexto();
-        } else {
-                System.out.println("Vista en Grafica");
-            return new VistaGrafica();
-        }
+
+    private static Vista procesarArgumentosVista(String[] args) {
+
+            for (String arg : args) {
+                if (arg.equalsIgnoreCase("-vgrafica")) {
+                    System.out.println("Vista en Grafica");
+                    return FactoriaVista.GRAFICA.crear();
+                } else if (arg.equalsIgnoreCase("-vtexto")) {
+                    System.out.println("Vista en Texto");
+                    return FactoriaVista.TEXTO.crear();
+                }
+            }
+        System.out.println("Vista no Reconocida, Usando Texto por defecto.");
+        return FactoriaVista.TEXTO.crear();
+
     }
 }
 

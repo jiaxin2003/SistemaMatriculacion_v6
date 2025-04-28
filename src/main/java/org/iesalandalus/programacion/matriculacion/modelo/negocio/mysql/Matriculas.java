@@ -42,6 +42,7 @@ public class Matriculas implements IMatriculas {
         String sql = """
                 SELECT m.idMatricula
                 , m.fechaMatriculacion
+                ,m.fechaAnulacion
                 , m.cursoAcademico
                 ,a.dni
                 FROM matricula m
@@ -58,6 +59,11 @@ public class Matriculas implements IMatriculas {
                     resultado.getDate("fechaMatriculacion").toLocalDate(),
                     alumno,
                     getAsignaturasMatricula(resultado.getInt("idMatricula")));
+            Date fechaBD = resultado.getDate("fechaAnulacion");
+            LocalDate fechaAnulacion = (fechaBD == null) ? null : fechaBD.toLocalDate();
+            if (fechaAnulacion != null) {
+                matricula.setFechaAnulacion(fechaAnulacion);
+            }
 
             copiaProfunda.add(matricula);
         }

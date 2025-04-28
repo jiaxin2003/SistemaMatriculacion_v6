@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<TabPane fx:id="tbp_Sistema" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="693.0" prefWidth="1001.0" stylesheets="@../estilos/estilos.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.iesalandalus.programacion.matriculacion.vista.grafica.controladores.ControladorVentanaPrincipal">
+  <tabs>
+    <Tab fx:id="tab_Alumnos" text="Alumnos">
+      <content>
+        <AnchorPane prefHeight="746.0">
+               <children>
+                  <ScrollPane layoutY="-4.0" prefHeight="658.0" prefWidth="1001.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="646.0" prefWidth="1005.0">
+                           <children>
+                              <VBox layoutY="2.0" prefHeight="632.0" prefWidth="1001.0">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="1001.0">
+                                       <children>
+                                          <TextField fx:id="tf_alumnoBuscar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" promptText="Buscar por Nombre">
+                                             <HBox.margin>
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                          <Button fx:id="btnAlumnoBuscar" alignment="CENTER" mnemonicParsing="false" onAction="#buscarAlumno" text="Buscar">
+                                             <graphic>
+                                                <ImageView fitHeight="33.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../imagenes/buscar.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic></Button>
+                                       </children>
+                                    </HBox>
+                                    <VBox alignment="CENTER" prefHeight="512.0" prefWidth="1001.0">
+                                       <children>
+                                          <TableView fx:id="table_Alumnos" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="264.0" prefWidth="999.0">
+                                            <columns>
+                                              <TableColumn fx:id="clm_nombre_alumno" prefWidth="204.0" text="Nombre" />
+                                              <TableColumn fx:id="clm_dni_alumno" minWidth="0.0" prefWidth="186.0" text="DNI" />
+                                                <TableColumn fx:id="clm_telefono_alumno" prefWidth="143.0" text="Telefono" />
+                                                <TableColumn fx:id="clm_correo_alumno" prefWidth="251.0" text="Correo" />
+                                                <TableColumn fx:id="clm_fechaNac" maxWidth="435.0" prefWidth="214.0" text="Fecha Nacimiento" />
+                                            </columns>
+                                          </TableView>
+                                          <TableView fx:id="tvAlumnoMatricula" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="245.0" prefWidth="1001.0">
+                                            <columns>
+                                              <TableColumn fx:id="clmAlumnoMatriculaVer" prefWidth="208.0" text="Alumno" />
+                                              <TableColumn fx:id="clmDNIAlumnoMatriculaVer" prefWidth="190.0" text="DNI" />
+                                                <TableColumn fx:id="clmIDMatriculaAlumnoVer" prefWidth="129.0" text="ID Matricula" />
+                                                <TableColumn fx:id="clmAsignaturasAlumnoMatriculasVer" prefWidth="166.0" text="Asignaturas" />
+                                                <TableColumn fx:id="clmFechaMatriculacionAlumnoVer" prefWidth="153.0" text="Fecha Matriculacion" />
+                                                <TableColumn fx:id="clmFechaAnulacionAlumnoVer" prefWidth="152.0" text="Fecha Anulacion" />
+                                            </columns>
+                                          </TableView>
+                                       </children>
+                                    </VBox>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="66.0" prefWidth="1001.0" stylesheets="@../estilos/estilos.css">
+                                       <children>
+                                          <Button fx:id="btnAlumnoAñadir" alignment="CENTER" mnemonicParsing="false" onAction="#aniadirAlumno" prefHeight="43.0" prefWidth="111.0" text="Añadir">
+                                             <HBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="33.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../imagenes/agregar-usuario.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="btnAlumnoBorrar" alignment="CENTER" mnemonicParsing="false" onAction="#borrarAlumno" text="Borrar">
+                                             <HBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="33.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../imagenes/eliminar-amigo.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="btnSalir" alignment="CENTER" mnemonicParsing="false" onAction="#cerrarVentanaAlumno" text="Salir">
+                                             <HBox.margin>
+                                                <Insets bottom="10.0" left="10.0" right="25.0" top="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="33.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../imagenes/salida.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab fx:id="tab_ciclos" text="Ciclos Formativos">
+      <content>
+        <AnchorPane fx:id="ach_ciclos" minHeight="0.0" minWidth="0.0" prefHeight="780.0" prefWidth="1001.0">
+               <children>
+                  <ScrollPane layoutX="-1.0" layoutY="1.0" prefHeight="650.0" prefWidth="1001.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="657.0" prefWidth="1007.0">
+                           <children>
+                              <GridPane layoutX="-2.0" layoutY="-1.0" prefHeight="641.0" prefWidth="982.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints maxHeight="701.0" minHeight="10.0" prefHeight="70.0" valignment="CENTER" />
+                                  <RowConstraints maxHeight="714.0" minHeight="10.0" prefHeight="517.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="398.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="72.0" prefWidth="1001.0">
+                                       <children>
+                                          <TextField fx:id="tf_cicloFormativo" promptText="Nombre Ciclo Formativo">
+                                             <HBox.margin>
+                                                <Insets left="30.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                          <Button fx:id="btn_buscarCiclo" mnemonicParsing="false" onAction="#buscarCiclo" text="Buscar">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="33.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../imagenes/buscar.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="984.0" GridPane.rowIndex="2">
+                                       <children>
+                                          <Button fx:id="btn_aniadirCiclo" mnemonicParsing="false" onAction="#aniadirCiclo" text="Añadir">
+                                             <HBox.margin>
+                                                <Insets right="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="33.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../imagenes/agregar-usuario.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="btn_borrarCiclo" mnemonicParsing="false" onAction="#borrarCiclo" prefHeight="26.0" text="Borrar">
+                                             <HBox.margin>
+                                                <Insets right="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="33.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../imagenes/eliminar-amigo.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="btn_SalirCiclos" mnemonicParsing="false" onAction="#cerrarVentanaAlumno" prefHeight="26.0" text="Salir">
+                                             <HBox.margin>
+                                                <Insets right="10.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="33.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../imagenes/salida.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <VBox prefHeight="587.0" prefWidth="1001.0" GridPane.rowIndex="1">
+                                       <children>
+                                          <TableView fx:id="tv_cicloFormativo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="244.0" prefWidth="1002.0">
+                                            <columns>
+                                              <TableColumn fx:id="clm_nombreCiclo" prefWidth="230.0" text="Nombre" />
+                                              <TableColumn fx:id="clm_CodigoCiclo" minWidth="0.0" prefWidth="97.0" text="Codigo" />
+                                                <TableColumn fx:id="clm_FamProCiclo" prefWidth="213.0" text="Familia Profesional" />
+                                                <TableColumn fx:id="clm_GradoCiclo" prefWidth="358.0" text="Grado" />
+                                                <TableColumn fx:id="clm_horasCiclo" minWidth="0.0" prefWidth="90.0" text="Horas" />
+                                            </columns>
+                                          </TableView>
+                                          <TableView fx:id="tvMatriculaCiclos" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="272.0" prefWidth="1001.0">
+                                            <columns>
+                                              <TableColumn fx:id="clmCicloMatricula" prefWidth="218.0" text="Ciclo Formativo" />
+                                              <TableColumn fx:id="clmCodigoCicloMatricula" prefWidth="116.0" text="Codigo Ciclo " />
+                                                <TableColumn fx:id="clmIdMatriculaCiclo" prefWidth="142.0" text="Id Matricula" />
+                                                <TableColumn fx:id="clmAsignaturasCicloMatriculas" prefWidth="162.0" text="Asiganturas" />
+                                                <TableColumn fx:id="clmFechaMatriculacionCiclo" prefWidth="169.0" text="Fecha Matriculacion" />
+                                                <TableColumn fx:id="clmFechaAnulacionCiclo" prefWidth="189.0" text="Fecha Anulacion" />
+                                            </columns>
+                                          </TableView>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+      <Tab fx:id="tab_Asignaturas" text="Asignaturas">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <ScrollPane prefHeight="652.0" prefWidth="1001.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="672.0" prefWidth="1000.0">
+                           <children>
+                              <GridPane prefHeight="645.0" prefWidth="981.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints maxHeight="265.0" minHeight="0.0" prefHeight="67.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="688.0" minHeight="10.0" prefHeight="535.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="143.0" minHeight="0.0" prefHeight="85.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="981.0">
+                                       <children>
+                                          <TextField fx:id="tfAsignatura" promptText="Nombre Asignatura">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                          <Button fx:id="btnBuscarAsignatura" mnemonicParsing="false" text="Buscar">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="33.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../imagenes/buscar.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="84.0" prefWidth="981.0" GridPane.rowIndex="2">
+                                       <children>
+                                          <Button fx:id="btnAniadriAsignatura" mnemonicParsing="false" onAction="#aniadirAsignatura" text="Añadir">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="33.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../imagenes/agregar-usuario.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="btnBorrarAsignatura" mnemonicParsing="false" onAction="#borrarAsignatura" text="Borrar">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="33.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../imagenes/eliminar-amigo.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="btnSalirAsignatura" mnemonicParsing="false" onAction="#cerrarVentanaAlumno" text="Salir">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="28.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../imagenes/salida.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <TableView fx:id="tvAsignatura" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="1001.0" GridPane.rowIndex="1">
+                                      <columns>
+                                        <TableColumn fx:id="clmNombreAsignatura" prefWidth="144.0" text="Nombre" />
+                                        <TableColumn fx:id="clmCodigoAsignatura" minWidth="0.0" prefWidth="89.0" text="Codigo" />
+                                          <TableColumn fx:id="clmCursoAsignatura" prefWidth="115.0" text="Curso" />
+                                          <TableColumn fx:id="clmEspeProfeAsignatura" prefWidth="173.0" text="Especialidad Profesorado" />
+                                          <TableColumn fx:id="clmHorasAnualesAsignatura" prefWidth="79.0" text="Horas" />
+                                          <TableColumn fx:id="clmHorasDesdoAsignatura" prefWidth="112.0" text="Horas Desdoble" />
+                                          <TableColumn fx:id="clmCicloFormativoAsignatura" prefWidth="288.0" text="Ciclo Formativo" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+               </children></AnchorPane>
+        </content>
+      </Tab>
+      <Tab fx:id="tab_Matriculas" text="Matriculas">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="642.0" prefWidth="1001.0">
+               <children>
+                  <ScrollPane prefHeight="654.0" prefWidth="1001.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="644.0" prefWidth="1000.0">
+                           <children>
+                              <GridPane prefHeight="631.0" prefWidth="984.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints maxHeight="262.0" minHeight="0.0" prefHeight="69.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="689.0" minHeight="10.0" prefHeight="510.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="208.0" minHeight="0.0" prefHeight="66.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="984.0">
+                                       <children>
+                                          <TextField fx:id="tfBuscarMatricula" prefHeight="26.0" prefWidth="172.0" promptText="ID matricula">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                          <Button fx:id="btnBuscarMatricula" mnemonicParsing="false" onAction="#buscarMatricula" text="Buscar">
+                                             <HBox.margin>
+                                                <Insets left="20.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="33.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../imagenes/buscar.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <TextField fx:id="tfCursoAcademicoMatricula" promptText="Curso Academico">
+                                             <HBox.margin>
+                                                <Insets left="20.0" right="10.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                          <Button fx:id="btnBuscarMatriculaCursoAcademico" mnemonicParsing="false" onAction="#buscarMatricula" text="Buscar">
+                                             <graphic>
+                                                <ImageView fitHeight="33.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../imagenes/buscar.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="198.0" prefWidth="984.0" GridPane.rowIndex="2">
+                                       <children>
+                                          <Button fx:id="btnAniadirMatricula" mnemonicParsing="false" onAction="#aniadirMatricula" text="Añadir">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="33.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../imagenes/agregar-usuario.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="btnBorrarMatricula" mnemonicParsing="false" onAction="#borrarMatricula" text="Anular">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="35.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../imagenes/eliminar-amigo.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                          <Button fx:id="btnSalirMatricula" mnemonicParsing="false" text="Salir">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                             <graphic>
+                                                <ImageView fitHeight="33.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../imagenes/salida.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <VBox prefHeight="524.0" prefWidth="984.0" GridPane.rowIndex="1">
+                                       <children>
+                                          <TableView fx:id="tvMatricula" prefHeight="257.0" prefWidth="984.0">
+                                            <columns>
+                                              <TableColumn fx:id="clmIDMatricula" prefWidth="113.0" text="ID Matricula" />
+                                              <TableColumn fx:id="clmCursoAcademico" prefWidth="119.0" text="Curso Academico" />
+                                                <TableColumn fx:id="clmFechaMatricula" prefWidth="144.0" text="Fecha Matriculacion" />
+                                                <TableColumn fx:id="clmAlumnoMatricula" minWidth="0.0" prefWidth="153.0" text="Alumno" />
+                                                <TableColumn fx:id="clmAsignaturaMatricula" prefWidth="286.0" text="Asignaturas" />
+                                                <TableColumn fx:id="clmFecahAnuMatricula" prefWidth="180.0" text="Fecha Anulacion" />
+                                            </columns>
+                                          </TableView>
+                                          <TableView fx:id="tvMatriculasPorCursoAcademico" prefHeight="267.0" prefWidth="984.0">
+                                            <columns>
+                                              <TableColumn fx:id="clmMatriculaPorCursoAcademico" prefWidth="144.0" text="Curso Academico" />
+                                              <TableColumn fx:id="clmIdMatriculaPorCursoAcademico" prefWidth="321.0" text="Id Matricula" />
+                                                <TableColumn fx:id="clmAsignaturasCursoAcademicoMatricula" prefWidth="183.0" text="Asignaturas" />
+                                                <TableColumn fx:id="clmFechaMaticulaPorCursoAcademico" prefWidth="175.0" text="Fecha Matriculacion" />
+                                                <TableColumn fx:id="clmFechaAnulacionPorCursoAcademico" prefWidth="177.0" text="Fecha Anulacion" />
+                                            </columns>
+                                          </TableView>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+               </children></AnchorPane>
+        </content>
+      </Tab>
+  </tabs>
+</TabPane>

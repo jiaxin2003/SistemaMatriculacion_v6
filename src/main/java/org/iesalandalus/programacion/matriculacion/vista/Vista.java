@@ -12,6 +12,9 @@ public abstract class Vista {
     }
 
     public void setControlador(Controlador controlador) {
+        if (controlador == null) {
+            throw new NullPointerException("ERROR: El controlador no puede ser nulo.");
+        }
         this.controlador = controlador;
     }
 

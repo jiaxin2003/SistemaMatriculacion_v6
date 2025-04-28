@@ -215,13 +215,15 @@ public class Alumno {
     }
 
 
+
+
     public String imprimir() {
         return ("Alumno:" + nombre + " DNI: " + dni);
     }
 
     @Override
     public String toString() {
-        return String.format("Número de Identificación del Alumnado (NIA)=%s " + "nombre=%s (%s), DNI=%s, correo=%s, teléfono=%s, fecha nacimiento=%s", this.nia, this.nombre, getIniciales(this.nombre), this.dni, this.correo, this.telefono, this.fechaNacimiento.format(DateTimeFormatter.ofPattern(FORMATO_FECHA)));
+        return String.format("NIA=%s " + "nombre=%s (%s), DNI=%s, correo=%s, teléfono=%s, fecha nacimiento=%s", this.nia, this.nombre, getIniciales(this.nombre), this.dni, this.correo, this.telefono, this.fechaNacimiento.format(DateTimeFormatter.ofPattern(FORMATO_FECHA)));
     }
 
     @Override

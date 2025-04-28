@@ -1,9 +1,9 @@
 package org.iesalandalus.programacion.matriculacion.modelo.dominio;
 
 public enum EspecialidadProfesorado {
-    INFORMATICA("informatica"),
-    FOL("fol"),
-    SISTEMAS("sistemas");
+    INFORMATICA("Informatica"),
+    FOL("Fol"),
+    SISTEMAS("Sistemas");
 
     private final String cadenaAMostrar;
 

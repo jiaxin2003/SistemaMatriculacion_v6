@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class MySQL {
 
-    private static final String HOST = /*"URL DEL SERVIDOR"*/"programacion-2025.ccbintxjpoyj.us-east-1.rds.amazonaws.com";
+    private static final String HOST ="programacion-2025.ccbintxjpoyj.us-east-1.rds.amazonaws.com";
     private static final String ESQUEMA = "sistemamatriculacion";
     private static final String USUARIO = "sistemamatriculacion";
     private static final String CONTRASENA = "sistemamatriculacion-2024";

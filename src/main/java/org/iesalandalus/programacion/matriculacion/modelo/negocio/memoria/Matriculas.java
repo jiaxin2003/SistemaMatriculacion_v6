@@ -7,6 +7,7 @@ import org.iesalandalus.programacion.matriculacion.modelo.dominio.Matricula;
 import org.iesalandalus.programacion.matriculacion.modelo.negocio.IMatriculas;
 
 import javax.naming.OperationNotSupportedException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Matriculas implements IMatriculas {
@@ -75,7 +76,7 @@ public class Matriculas implements IMatriculas {
         if (indice == -1) {
             throw new OperationNotSupportedException("ERROR: No existe ninguna matrícula como la indicada.");
         }
-        this.coleccionMatriculas.remove(indice);
+        this.coleccionMatriculas.get(indice).setFechaAnulacion(LocalDate.now());
     }
 
 

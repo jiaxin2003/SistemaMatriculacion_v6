@@ -322,7 +322,7 @@ public class Consola {
         CicloFormativo cicloFormativo;
         int idMatricula;
         String cursoAcademico = "24-25";
-        LocalDate fechaMatriculacion = LocalDate.of(2025, 3, 14);
+        LocalDate fechaMatriculacion = LocalDate.now();
         Alumno alumno = new Alumno("Pepe Perez", "87654321x", "666555444", "PepePerez@gmail.com", LocalDate.of(2000, 12, 15));
 
 

@@ -1,12 +1,13 @@
 package org.iesalandalus.programacion.matriculacion.vista.texto;
 
 
-import org.iesalandalus.programacion.matriculacion.controlador.Controlador;
+
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Alumno;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Asignatura;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.CicloFormativo;
 import org.iesalandalus.programacion.matriculacion.modelo.dominio.Matricula;
 
+import org.iesalandalus.programacion.matriculacion.vista.Vista;
 import org.iesalandalus.programacion.utilidades.Entrada;
 
 
@@ -20,24 +21,15 @@ import java.util.Comparator;
 import java.util.List;
 
 
-public class VistaTexto {
-
-    private Controlador controlador;
-
+public class VistaTexto extends Vista {
 
     public VistaTexto() {
         Opcion.setVista(this);
     }
 
-    public void setControlador(Controlador controlador) {
-        if (controlador == null) {
-            throw new NullPointerException("ERROR: El controlador no puede ser nulo.");
-        }
-        this.controlador = controlador;
-    }
 
     public void comenzar() {
-        controlador.comenzar();
+        getControlador().comenzar();
         Opcion opcion;
         do {
             Consola.mostrarMenu();
@@ -55,7 +47,7 @@ public class VistaTexto {
     public void insertarAlumno() {
         try {
             Alumno alumno = Consola.leerAlumno();
-            this.controlador.insertar(alumno);
+            getControlador().insertar(alumno);
             System.out.println("Alumno insertado correctamente.");
         } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException | SQLException e) {
             System.out.println(e.getMessage());
@@ -64,7 +56,7 @@ public class VistaTexto {
 
     public void buscarAlumno() {
         try {
-            Alumno alumno = this.controlador.buscar(Consola.getAlumnoPorDni());
+            Alumno alumno = getControlador().buscar(Consola.getAlumnoPorDni());
             System.out.println(alumno);
         } catch (IllegalArgumentException | NullPointerException | SQLException e) {
             System.out.println(e.getMessage());
@@ -74,7 +66,7 @@ public class VistaTexto {
     public void borrarAlumno() {
         try {
             Alumno alumno = Consola.getAlumnoPorDni();
-            this.controlador.borrar(alumno);
+            getControlador().borrar(alumno);
             System.out.println("Alumno borrado correctamente.");
         } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException | SQLException e) {
             System.out.println(e.getMessage());
@@ -83,7 +75,7 @@ public class VistaTexto {
 
     public void mostrarAlumnos() {
         try {
-            List<Alumno> alumnos = this.controlador.getAlumnos();
+            List<Alumno> alumnos = getControlador().getAlumnos();
             if (alumnos.isEmpty()) {
                 System.out.println("No hay alumnos.");
             } else {
@@ -100,9 +92,9 @@ public class VistaTexto {
     public void insertarAsignatura() {
         try {
             CicloFormativo ciclo = Consola.getCicloPorCodigo();
-            CicloFormativo cicloFormativo = controlador.buscar(ciclo);
+            CicloFormativo cicloFormativo = getControlador().buscar(ciclo);
             Asignatura asignatura = Consola.leerAsignatura(cicloFormativo);
-            this.controlador.insertar(asignatura);
+            getControlador().insertar(asignatura);
             System.out.println("Asignatura insertada correctamente.");
         } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException | SQLException e) {
             System.out.println(e.getMessage());
@@ -112,7 +104,7 @@ public class VistaTexto {
 
     public void buscarAsignatura() {
         try {
-            Asignatura asignatura = this.controlador.buscar(Consola.getAsignaturaPorCodigo());
+            Asignatura asignatura = getControlador().buscar(Consola.getAsignaturaPorCodigo());
             System.out.println(asignatura);
         } catch (IllegalArgumentException | NullPointerException | SQLException e) {
             System.out.println(e.getMessage());
@@ -122,7 +114,7 @@ public class VistaTexto {
     public void borrarAsignatura() {
         try {
             Asignatura asignatura = Consola.getAsignaturaPorCodigo();
-            this.controlador.borrar(asignatura);
+            getControlador().borrar(asignatura);
             System.out.println("Asignatura borrada correctamente.");
         } catch (IllegalArgumentException | NullPointerException | OperationNotSupportedException | SQLException e) {
             System.out.println(e.getMessage());
@@ -134,7 +126,7 @@ public class VistaTexto {
         try {
 
 
-            List<Asignatura> asignaturas = this.controlador.getAsignaturas();
+            List<Asignatura> asignaturas = getControlador().getAsignaturas();
             if (asignaturas.isEmpty()) {
                 System.out.println("No hay asignaturas.");
             } else {
@@ -151,7 +143,7 @@ public class VistaTexto {
     public void insertarCicloFormativo() {
         try {
             CicloFormativo ciclo = Consola.leerCicloFormativo();
-            this.controlador.insertar(ciclo);
+            getControlador().insertar(ciclo);
             System.out.println("Ciclo formativo insertado correctamente.");
         } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException | SQLException e) {
             System.out.println(e.getMessage());
@@ -160,7 +152,7 @@ public class VistaTexto {
 
     public void buscarCicloFormativo() {
         try {
-            CicloFormativo ciclo = this.controlador.buscar(Consola.getCicloPorCodigo());
+            CicloFormativo ciclo = getControlador().buscar(Consola.getCicloPorCodigo());
             if (ciclo == null) {
                 System.out.println("ERROR: No se pudo buscar el ciclo formativo.");
             }
@@ -173,7 +165,7 @@ public class VistaTexto {
     public void borrarCicloFormativo() {
         try {
             CicloFormativo ciclo = Consola.getCicloPorCodigo();
-            this.controlador.borrar(ciclo);
+            getControlador().borrar(ciclo);
             System.out.println("Ciclo formativo borrado correctamente.");
         } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException | SQLException e) {
             System.out.println(e.getMessage());
@@ -182,7 +174,7 @@ public class VistaTexto {
 
     public void mostrarCiclosFormativos() {
         try {
-            List<CicloFormativo> cicloFormativos = this.controlador.getCiclosFormativos();
+            List<CicloFormativo> cicloFormativos = getControlador().getCiclosFormativos();
             if (cicloFormativos.isEmpty()) {
                 System.out.println("No hay ciclos formativos.");
             } else {
@@ -199,10 +191,10 @@ public class VistaTexto {
     public void insertarMatricula() {
         try {
             Alumno alumno = Consola.getAlumnoPorDni();
-            Alumno alumnoMatricula = controlador.buscar(alumno);
-            ArrayList<Asignatura> asignatura = Consola.elegirAsignaturasMatricula(controlador.getAsignaturas());
+            Alumno alumnoMatricula = getControlador().buscar(alumno);
+            ArrayList<Asignatura> asignatura = Consola.elegirAsignaturasMatricula(getControlador().getAsignaturas());
             Matricula matricula = Consola.leerMatricula(alumnoMatricula, asignatura);
-            this.controlador.insertar(matricula);
+            getControlador().insertar(matricula);
             System.out.println("Matrícula insertada correctamente.");
         } catch (IllegalArgumentException | OperationNotSupportedException | NullPointerException | SQLException e) {
             System.out.println(e.getMessage());
@@ -212,7 +204,7 @@ public class VistaTexto {
     public void buscarMatricula() {
         try {
             Matricula matricula = Consola.getMatriculaPorIdentificador();
-            Matricula matriculaBuscar = this.controlador.buscar(matricula);
+            Matricula matriculaBuscar = getControlador().buscar(matricula);
             if (matriculaBuscar == null) {
                 System.out.println("ERROR: No se pudo buscar la matrícula.");
             }
@@ -225,15 +217,12 @@ public class VistaTexto {
     public void anularMatricula() {
         try {
             Matricula matricula = Consola.getMatriculaPorIdentificador();
-            Matricula matriculaEncontrada = controlador.buscar(matricula);
+            Matricula matriculaEncontrada = getControlador().buscar(matricula);
             if (matricula.getFechaAnulacion() != null) {
                 System.out.println("Matrícula ya anulada.");
             } else {
                 do {
-                    System.out.println("Introduce la fecha de anulación de la matrícula (dd/mm/aaaa).");
-                    String fechaAnulacion = Entrada.cadena();
-                    matriculaEncontrada.setFechaAnulacion(LocalDate.parse(fechaAnulacion, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-                    this.controlador.borrar(matriculaEncontrada);
+                    this.getControlador().borrar(matriculaEncontrada);
                 } while (matriculaEncontrada.getFechaAnulacion() == null);
             }
             System.out.println("Matrícula anulada correctamente.");
@@ -244,7 +233,7 @@ public class VistaTexto {
 
     public void mostrarMatriculas() {
         try {
-            List<Matricula> matriculas = this.controlador.getMatriculas();
+            List<Matricula> matriculas = getControlador().getMatriculas();
             if (matriculas == null) {
                 System.out.println("No hay matrículas.");
             } else {
@@ -263,8 +252,8 @@ public class VistaTexto {
     public void mostrarMatriculasPorAlumno() {
         try {
             Alumno alumno = Consola.getAlumnoPorDni();
-            Alumno alumnoEncontrado = controlador.buscar(alumno);
-            List<Matricula> matriculas = (this.controlador.getMatriculas(alumnoEncontrado));
+            Alumno alumnoEncontrado = getControlador().buscar(alumno);
+            List<Matricula> matriculas = (getControlador().getMatriculas(alumnoEncontrado));
             if (matriculas.isEmpty()) {
                 System.out.println("No hay Matriculas con ese Alumno");
             } else
@@ -282,8 +271,8 @@ public class VistaTexto {
     public void mostrarMatriculasPorCicloFormativo() {
         try {
             CicloFormativo cicloFormativo = Consola.getCicloPorCodigo();
-            CicloFormativo ciclo = controlador.buscar(cicloFormativo);
-            List<Matricula> matriculas = (this.controlador.getMatriculas(ciclo));
+            CicloFormativo ciclo = getControlador().buscar(cicloFormativo);
+            List<Matricula> matriculas = (getControlador().getMatriculas(ciclo));
             if (matriculas.isEmpty()) {
                 System.out.println("No hay Matriculas con ese Ciclo Formativo");
             } else matriculas.sort(Comparator.comparing(Matricula::getFechaMatriculacion).reversed().thenComparing
@@ -301,7 +290,7 @@ public class VistaTexto {
             System.out.println("Indique el curso academico ");
             System.out.println("Tiene que tener este formato YY-YY");
             String cursoAcademmico = Entrada.cadena();
-            List<Matricula> matriculas = controlador.getMatriculas(cursoAcademmico);
+            List<Matricula> matriculas = getControlador().getMatriculas(cursoAcademmico);
             if (matriculas.isEmpty()) {
                 System.out.println("no hay matriculas con ese curso academico");
             } else matriculas.sort(Comparator.comparing(Matricula::getFechaMatriculacion).reversed().thenComparing
