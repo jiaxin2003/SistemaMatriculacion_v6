@@ -726,8 +726,7 @@ public class ControladorVentanaPrincipal {
             tvMatriculaCiclos.setItems(matriculasCicloObservable);
 
             clmCicloMatricula.setCellValueFactory(nombreCiclo ->
-                    new SimpleStringProperty(
-                            nombreCiclo.getValue().getColeccionAsignaturas().getFirst().getCicloFormativo().getNombre()
+                    new SimpleStringProperty(nombreCiclo.getValue().getColeccionAsignaturas().getFirst().getCicloFormativo().getNombre()
                     ));
 
             clmCodigoCicloMatricula.setCellValueFactory(codigoCicloMatricula -> {

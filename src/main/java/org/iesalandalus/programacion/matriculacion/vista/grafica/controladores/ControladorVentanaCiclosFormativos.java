@@ -67,7 +67,6 @@ public class ControladorVentanaCiclosFormativos {
 
     private void modificadoListaGrados(String oldValue, String newValue)
     {
-        System.out.println("Modificado valor del ListView");
         System.out.println("El nuevo valor seleccionado es: " + newValue);
 
         if (newValue.equals("Grado D")) {
@@ -110,12 +109,10 @@ public class ControladorVentanaCiclosFormativos {
             if (familiaPro.isBlank() || nombreCiclo.isBlank() || nombreGrado.isBlank() || tfHorasCiclos.getText().isBlank() || tfAnios.getText().isBlank() || tfCodigoCiclo.getText().isBlank()) {
                 Dialogos.mostrarDialogoError("Error", "Los campos no pueden estar vacíos.");
                 return;
-            }
-            if (codigoCiclo < 1000 || codigoCiclo > 9999) {
+            }else if (codigoCiclo < 1000 || codigoCiclo > 9999) {
                 Dialogos.mostrarDialogoError("Error", "El código de un ciclo formativo debe ser un número de 4 dígitos.");
                 return;
-            }
-            if (horas <= 0|| horas >2000) {
+            }else if (horas <= 0|| horas >2000) {
                 Dialogos.mostrarDialogoError("Error", "Las horas deben estar comprendidas entre 0 y 2000.");
                 return;
             }
@@ -130,8 +127,7 @@ public class ControladorVentanaCiclosFormativos {
                 int ediciones = Integer.parseInt(tfEdiciones.getText());
                 if (ediciones <= 0) {
                     Dialogos.mostrarDialogoError("Error", "Las ediciones deben ser mayores que 0");
-                }
-                if (anios != 1){
+                }else if (anios != 1){
                     Dialogos.mostrarDialogoError("Error", "Los anios deben ser 1");
                 }
                 grado = new GradoE(nombreGrado, anios, ediciones);

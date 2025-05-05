@@ -52,7 +52,7 @@ public class ControladorVentanaMatricula {
     }
 
     private void listViewActualizaAsignaturas(Asignatura oldValue, Asignatura newValue) {
-        System.out.println("Modificado valor del ChoiceBox");
+        System.out.println("Modificado valor del ListView");
         System.out.println("El valor anteriormente seleccionado era: " + oldValue);
         System.out.println("El nuevo valor seleccionado es: " + newValue);
     }

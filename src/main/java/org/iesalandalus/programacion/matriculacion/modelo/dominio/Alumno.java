@@ -45,6 +45,7 @@ public class Alumno {
     }
 
 
+
     private String formateaNombre(String nombre) {
         if (nombre == null) {
             throw new NullPointerException("ERROR: El dni de un alumno no puede ser nulo.");
