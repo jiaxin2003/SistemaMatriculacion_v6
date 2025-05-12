@@ -29,6 +29,9 @@ public class MainApp {
                 } else if (arg.equalsIgnoreCase("-fdmemoria")) {
                     System.out.println("Fuente de Datos en Memoria");
                     return new Modelo(FactoriaFuenteDatos.MEMORIA);
+                } else if (arg.equalsIgnoreCase("-fdfichero")) {
+                    System.out.println("Fuende de Datos en Fichero");
+                    return new Modelo(FactoriaFuenteDatos.FICHERO);
                 }
             }
         } catch (Exception e) {

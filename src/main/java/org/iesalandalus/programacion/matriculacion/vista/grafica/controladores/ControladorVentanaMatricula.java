@@ -47,7 +47,7 @@ public class ControladorVentanaMatricula {
             lvAsignaturasMatriculas.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
             lvAsignaturasMatriculas.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> listViewActualizaAsignaturas(oldValue, newValue));
         } catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", "Ha ocurrido un error."+ e.getMessage());
         }
     }
 
@@ -112,7 +112,7 @@ public class ControladorVentanaMatricula {
             ((Stage) btnAceptarMatricula.getScene().getWindow()).close();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", "Ha ocurrido un error."+ e.getMessage());
         }
     }
 

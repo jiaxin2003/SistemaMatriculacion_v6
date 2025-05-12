@@ -407,7 +407,7 @@
                                                 </ImageView>
                                              </graphic>
                                           </Button>
-                                          <Button fx:id="btnSalirMatricula" mnemonicParsing="false" text="Salir">
+                                          <Button fx:id="btnSalirMatricula" mnemonicParsing="false" onAction="#cerrarVentanaAlumno" text="Salir">
                                              <HBox.margin>
                                                 <Insets right="20.0" />
                                              </HBox.margin>

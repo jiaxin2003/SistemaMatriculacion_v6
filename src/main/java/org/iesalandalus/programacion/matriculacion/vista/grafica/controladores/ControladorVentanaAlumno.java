@@ -17,6 +17,7 @@ import org.iesalandalus.programacion.matriculacion.vista.grafica.utilidades.Dial
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class ControladorVentanaAlumno {
@@ -74,29 +75,27 @@ private ObservableList<Alumno> alumnosObservable = FXCollections.observableArray
             String telefono = tf_telefonoAlumno.getText();
             String correo = tf_correoAlumno.getText();
             LocalDate fechaNacimiento = dtp_fechaNacAlumno.getValue();
+            long edad = ChronoUnit.YEARS.between(fechaNacimiento, LocalDate.now());
+
+
 
 
             if (nombre.trim().isBlank() || dni.trim().isBlank() || telefono.trim().isBlank() || correo.trim().isBlank() || fechaNacimiento == null) {
                 Dialogos.mostrarDialogoAdvertencia("Error", "Los campos no pueden estar vacíos");
-                return; // Detenemos la ejecución
-            }
 
-            if (!dni.matches("[0-9]{8}[A-Za-z]")) {
+            }else if (!dni.matches("[0-9]{8}[A-Za-z]")) {
                 Dialogos.mostrarDialogoAdvertencia("Error", "El DNI no tiene un formato válido");
-                return;
-            }
 
-            if (!telefono.matches("\\d{9}")) {
+            }else if (!telefono.matches("\\d{9}")) {
                 Dialogos.mostrarDialogoAdvertencia("Error", "El teléfono no tiene un formato válido");
-                return;
-            }
 
-            if (!correo.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            }else if (!correo.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
                 Dialogos.mostrarDialogoAdvertencia("Error", "El correo electrónico no tiene un formato válido");
-                return;
-            }
 
-            if (VistaGrafica.getInstancia().getControlador().buscar(new Alumno("Ficticio", dni, "666554433", "ficticio@fake.com", LocalDate.of(2000, 1, 1))) != null) {
+            }else if (edad < 16) {
+                Dialogos.mostrarDialogoAdvertencia("Error", "El alumno debe tener al menos 16 años");
+
+            }else if (VistaGrafica.getInstancia().getControlador().buscar(new Alumno("Ficticio", dni, "666554433", "ficticio@fake.com", LocalDate.of(2000, 1, 1))) != null) {
                 Dialogos.mostrarDialogoAdvertencia("Error", "Ya existe un alumno con ese DNI");
             }
             else {
@@ -105,7 +104,7 @@ private ObservableList<Alumno> alumnosObservable = FXCollections.observableArray
                 ((Stage)btn_AñadirAlumno.getScene().getWindow()).close();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", e.getMessage());
         }
 
 
@@ -116,7 +115,7 @@ private ObservableList<Alumno> alumnosObservable = FXCollections.observableArray
             this.coleccionAlumnos = VistaGrafica.getInstancia().getControlador().getAlumnos();
             this.alumnosObservable.setAll(coleccionAlumnos);
         } catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", e.getMessage());
         }
     }
 

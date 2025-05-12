@@ -138,7 +138,7 @@ public class ControladorVentanaCiclosFormativos {
             Dialogos.mostrarDialogoInformacion("Información", "Ciclo añadido correctamente");
             ((Stage) btnAceptarCiclo.getScene().getWindow()).close();
         }catch (Exception e) {
-            e.printStackTrace();
+           Dialogos.mostrarDialogoError("Error", e.getMessage());
         }
     }
 

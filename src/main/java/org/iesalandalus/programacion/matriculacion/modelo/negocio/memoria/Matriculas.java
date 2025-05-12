@@ -62,7 +62,7 @@ public class Matriculas implements IMatriculas {
         }
         int indice = this.coleccionMatriculas.indexOf(matricula);
         if (indice == -1) {
-            return null;
+           throw new NullPointerException("ERROR: No existe ninguna matrícula como la indicada.");
         }
         return this.coleccionMatriculas.get(indice);
 

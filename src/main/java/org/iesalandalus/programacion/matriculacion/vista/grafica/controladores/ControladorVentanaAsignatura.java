@@ -117,7 +117,7 @@ public class ControladorVentanaAsignatura {
             ((Stage) btnAceptarAsignatura.getScene().getWindow()).close();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", "Ha ocurrido un error."+ e.getMessage());
         }
     }
 

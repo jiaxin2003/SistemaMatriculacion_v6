@@ -91,7 +91,9 @@ public class Matricula {
     }
 
     public void setFechaAnulacion(LocalDate fechaAnulacion) {
-
+        if (fechaAnulacion == null) {
+            throw new NullPointerException("ERROR: La fecha de anulación de una matrícula no puede ser nula.");
+        }
         if (fechaAnulacion.isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("ERROR: La fecha de anulación de una matrícula no puede ser posterior a hoy.");
         }
@@ -175,6 +177,9 @@ public class Matricula {
     }
 
     public void setAlumno(Alumno alumno) {
+        if (alumno == null) {
+            throw new NullPointerException("ERROR: El alumno de una matrícula no puede ser nulo.");
+        }
         this.alumno = alumno;
     }
 

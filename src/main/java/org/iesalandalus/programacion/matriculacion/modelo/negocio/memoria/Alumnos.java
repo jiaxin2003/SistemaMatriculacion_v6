@@ -59,7 +59,7 @@ public class Alumnos implements IAlumnos {
         }
         int indice = this.coleccionAlumnos.indexOf(alumno);
         if (indice == -1) {
-            return null;
+            throw new NullPointerException("ERROR: No existe ningun alumno como el indicado.");
         }
         return new Alumno(this.coleccionAlumnos.get(indice));
     }

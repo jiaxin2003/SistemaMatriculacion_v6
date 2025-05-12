@@ -57,7 +57,7 @@ public class Asignaturas implements IAsignaturas {
         }
         int indice = this.coleccionAsignaturas.indexOf(asignatura);
         if (indice == -1) {
-            return null;
+            throw new NullPointerException("ERROR: No existe ninguna asignatura como la indicada.");
         }
         return new Asignatura(this.coleccionAsignaturas.get(indice));
     }

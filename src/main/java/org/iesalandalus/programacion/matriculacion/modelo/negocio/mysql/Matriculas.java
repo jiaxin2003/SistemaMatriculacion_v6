@@ -174,7 +174,7 @@ public class Matriculas implements IMatriculas {
                 WHERE idMatricula = ?
                 """;
         PreparedStatement preStatement = conexion.prepareStatement(query);
-        preStatement.setDate(1, Date.valueOf(Date.valueOf(matricula.getFechaAnulacion()).toLocalDate()));
+        preStatement.setDate(1, Date.valueOf(LocalDate.now()));
         preStatement.setInt(2, matricula.getIdMatricula());
         preStatement.executeUpdate();
     }

@@ -36,7 +36,6 @@ public class ControladorVentanaPrincipal {
     @FXML private Button btnSalirAsignatura;
     @FXML private Button btnSalirMatricula;
 
-
     @FXML private TableColumn<Alumno, String> clm_correo_alumno;
     @FXML private TableColumn<Alumno, String> clm_dni_alumno;
     @FXML private TableColumn<Alumno, String> clm_fechaNac;
@@ -166,7 +165,7 @@ public class ControladorVentanaPrincipal {
 
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", "Ha ocurrido un error."+ e.getMessage());
         }
 
     }
@@ -186,7 +185,7 @@ public class ControladorVentanaPrincipal {
 
             table_Alumnos.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> muestraAlumnoSeleccionada(newValue));
         } catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", "Ha ocurrido un error."+ e.getMessage());
         }
     }
 
@@ -223,7 +222,7 @@ public class ControladorVentanaPrincipal {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", "Ha ocurrido un error."+ e.getMessage());
         }
     }
 
@@ -247,7 +246,7 @@ public class ControladorVentanaPrincipal {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", "Ha ocurrido un error."+ e.getMessage());
         }
     }
 
@@ -316,7 +315,7 @@ public class ControladorVentanaPrincipal {
             tv_cicloFormativo.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> muestraCicloSeleccionada(newValue));
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", "Ha ocurrido un error."+ e.getMessage());
         }
     }
 
@@ -345,7 +344,7 @@ public class ControladorVentanaPrincipal {
 
 
         }catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", "Ha ocurrido un error."+ e.getMessage());
         }
 
     }
@@ -389,7 +388,7 @@ public class ControladorVentanaPrincipal {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", "Ha ocurrido un error."+ e.getMessage());
         }
     }
 
@@ -412,7 +411,7 @@ public class ControladorVentanaPrincipal {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", "Ha ocurrido un error."+ e.getMessage());
         }
 
     }
@@ -449,7 +448,7 @@ public class ControladorVentanaPrincipal {
 
         tvAsignatura.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> muestraAsignaturaSeleccionada(newValue));
         }catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", "Ha ocurrido un error."+ e.getMessage());
         }
 
 
@@ -479,7 +478,7 @@ public class ControladorVentanaPrincipal {
             coleccionAsignaturas = new ArrayList<>(VistaGrafica.getInstancia().getControlador().getAsignaturas());
             asignaturasObservable.setAll(coleccionAsignaturas);
         }catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", "Ha ocurrido un error."+ e.getMessage());
         }
 
     }
@@ -498,7 +497,7 @@ public class ControladorVentanaPrincipal {
                 asignaturasObservable.setAll(coleccionAsignaturas);
             }
         }catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", "Ha ocurrido un error."+ e.getMessage());
         }
     }
 
@@ -519,7 +518,7 @@ public class ControladorVentanaPrincipal {
                 asignaturasObservable.setAll(coleccionAsignaturas);
             }
         }catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", "Ha ocurrido un error."+ e.getMessage());
         }
     }
 
@@ -569,7 +568,7 @@ public class ControladorVentanaPrincipal {
             coleccionMatriculas = new ArrayList<>(VistaGrafica.getInstancia().getControlador().getMatriculas());
             matriculasObservable.setAll(coleccionMatriculas);
         }catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", "Ha ocurrido un error."+ e.getMessage());
         }
     }
 
@@ -592,7 +591,7 @@ public class ControladorVentanaPrincipal {
                 matriculasObservable.setAll(coleccionMatriculas);
             }
         }catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", "Ha ocurrido un error."+ e.getMessage());
         }
 
     }
@@ -631,7 +630,7 @@ public class ControladorVentanaPrincipal {
             matriculasObservable.setAll(coleccionMatriculas);
 
         }catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", "Ha ocurrido un error."+ e.getMessage());
         }
 
     }
@@ -652,7 +651,7 @@ public class ControladorVentanaPrincipal {
                 matriculasObservable.setAll(coleccionMatriculas);
             }
         }catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", "Ha ocurrido un error."+ e.getMessage());
         }
 
 
@@ -704,7 +703,7 @@ public class ControladorVentanaPrincipal {
             });
 
         }catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", "Ha ocurrido un error."+ e.getMessage());
         }
     }
 
@@ -767,7 +766,7 @@ public class ControladorVentanaPrincipal {
             });
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", "Ha ocurrido un error."+ e.getMessage());
         }
     }
 
@@ -817,7 +816,7 @@ public class ControladorVentanaPrincipal {
 
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Dialogos.mostrarDialogoError("Error", "Ha ocurrido un error."+ e.getMessage());
         }
     }
 

@@ -10,7 +10,15 @@ public enum TiposGrado {
     }
 
     public String imprimir() {
-        return cadenaAMostrar;
+        int digito;
+        if (cadenaAMostrar == GRADOD.cadenaAMostrar) {
+            digito=1;
+        } else if (cadenaAMostrar == GRADOE.cadenaAMostrar){
+            digito=2;
+        } else {
+            digito=3;
+        }
+        return digito+".-"+cadenaAMostrar;
     }
 
     @Override

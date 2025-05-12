@@ -10,7 +10,15 @@ public enum Modalidad {
     }
 
     public String imprimir() {
-        return cadenaAMostrar;
+        int digito;
+        if (cadenaAMostrar == PRESENCIAL.cadenaAMostrar) {
+            digito=1;
+        } else if (cadenaAMostrar == SEMIPRESENCIAL.cadenaAMostrar){
+            digito=2;
+        } else {
+            digito=3;
+        }
+        return digito+".-"+cadenaAMostrar;
     }
 
     @Override
