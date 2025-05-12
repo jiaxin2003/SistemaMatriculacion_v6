@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<CiclosFormativos>
+<!--    <CicloFormativo Codigo="1234">-->
+<!--        <Nombre>DAW</Nombre>-->
+<!--        <FamiliaProfesional>Informatica</FamiliaProfesional>-->
+<!--        <Horas>1000</Horas>-->
+<!--        <Grado Tipo = "GradoD">-->
+<!--            <Nombre>CDCFMG</Nombre>-->
+<!--            <NumAnios>2</NumAnios>-->
+<!--            <Modalidad>Presencial</Modalidad>-->
+<!--        </Grado>-->
+<!--    </CicloFormativo>-->
+<!--    <CicloFormativo Codigo="3333">-->
+<!--        <Nombre>DAW</Nombre>-->
+<!--        <FamiliaProfesional>Informatica</FamiliaProfesional>-->
+<!--        <Horas>500</Horas>-->
+<!--        <Grado Tipo = "GradoE">-->
+<!--            <Nombre>CDCGMF</Nombre>-->
+<!--            <NumAnios>1</NumAnios>-->
+<!--            <NumEdidiciones>5</NumEdidiciones>-->
+<!--        </Grado>-->
+<!--    </CicloFormativo>-->
+</CiclosFormativos>
