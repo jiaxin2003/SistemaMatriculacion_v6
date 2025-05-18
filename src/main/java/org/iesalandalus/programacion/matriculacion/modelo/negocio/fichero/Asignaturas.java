@@ -28,7 +28,7 @@ public class Asignaturas implements IAsignaturas {
     private static final String CICLO_FORMATIVO = "CicloFormativo";
     private static final String HORAS = "Horas";
     private static final String ANUALES = "Anuales";
-    private static final String DESDOBLE = "Desdoble";
+    private static final String DESDOBLE = "Desdobles";
 
 
     public Asignaturas() {
@@ -55,7 +55,6 @@ public class Asignaturas implements IAsignaturas {
     }
 
 
-
     private void leerXML() {
         Document document;
         NodeList asignaturas;
@@ -80,24 +79,91 @@ public class Asignaturas implements IAsignaturas {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        }
+    }
 
     private Asignatura elementToAsignatura(Element elemento) {
         if (elemento == null) {
-            return null;
+            throw new NullPointerException("ERROR: El elemento no puede ser nulo.");
         }
 
-        String nombre = elemento.getElementsByTagName(NOMBRE).item(0).getTextContent();
-        String curso = elemento.getElementsByTagName(CURSO).item(0).getTextContent();
+
         String codigo = elemento.getAttribute(CODIGO);
-        String especialidadProfesorado = elemento.getElementsByTagName(ESPECIALIDAD_PROFESORADO).item(0).getTextContent();
-        String cicloFormativo = elemento.getElementsByTagName(CICLO_FORMATIVO).item(0).getTextContent();
-        Element elementoHoras = (Element) elemento.getElementsByTagName("Horas").item(0);
-        String anuales = elementoHoras.getElementsByTagName(ANUALES).item(0).getTextContent();
-        String desdoble = elementoHoras.getElementsByTagName(DESDOBLE).item(0).getTextContent();
-        CicloFormativo cicloEncontrado = CiclosFormativos.getInstancia().buscar(new CicloFormativo(Integer.parseInt(cicloFormativo), "null", new GradoD("null", 2, Modalidad.PRESENCIAL), "null", 120));
-        return new Asignatura(codigo, nombre,Integer.parseInt(anuales), Curso.valueOf(curso), Integer.parseInt(desdoble), EspecialidadProfesorado.valueOf(especialidadProfesorado), cicloEncontrado);
+        if (codigo.isBlank()) {
+            throw new IllegalArgumentException("ERROR: El atributo 'Codigo' es obligatorio.");
+        }
+
+        Node nombreNodo = elemento.getElementsByTagName(NOMBRE).item(0);
+        if (nombreNodo == null) {
+            throw new IllegalArgumentException("ERROR: Falta el nodo <Nombre>.");
+        }
+        String nombre = nombreNodo.getTextContent().trim();
+
+        Node cursoNodo = elemento.getElementsByTagName(CURSO).item(0);
+        if (cursoNodo == null) {
+            throw new IllegalArgumentException("ERROR: Falta el nodo <Curso>.");
+        }
+        String cursoTexto = cursoNodo.getTextContent().trim();
+        Curso curso;
+        if (cursoTexto.equalsIgnoreCase("Primero")) {
+            curso = Curso.PRIMERO;
+        } else if (cursoTexto.equalsIgnoreCase("Segundo")) {
+            curso = Curso.SEGUNDO;
+        } else {
+            throw new IllegalArgumentException("Curso no válido: " + cursoTexto);
+        }
+
+        Node especialidadNodo = elemento.getElementsByTagName(ESPECIALIDAD_PROFESORADO).item(0);
+        if (especialidadNodo == null) {
+            throw new IllegalArgumentException("ERROR: Falta el nodo <EspecialidadProfesorado>.");
+        }
+        String especialidadTexto = especialidadNodo.getTextContent().trim();
+        EspecialidadProfesorado especialidad;
+        if (especialidadTexto.equalsIgnoreCase("Informatica")) {
+            especialidad = EspecialidadProfesorado.INFORMATICA;
+        } else if (especialidadTexto.equalsIgnoreCase("Fol")) {
+            especialidad = EspecialidadProfesorado.FOL;
+        } else if (especialidadTexto.equalsIgnoreCase("Sistemas")) {
+            especialidad = EspecialidadProfesorado.SISTEMAS;
+        } else {
+            throw new IllegalArgumentException("Especialidad no válida: " + especialidadTexto);
+        }
+
+        Node cicloNodo = elemento.getElementsByTagName(CICLO_FORMATIVO).item(0);
+        if (cicloNodo == null) {
+            throw new IllegalArgumentException("ERROR: Falta el nodo <CicloFormativo>.");
+        }
+        int codigoCiclo = Integer.parseInt(cicloNodo.getTextContent().trim());
+        CicloFormativo cicloEncontrado = null;
+        for (CicloFormativo ciclo : CiclosFormativos.getInstancia().get()) {
+            if (ciclo.getCodigo() == codigoCiclo) {
+                cicloEncontrado = ciclo;
+                break;
+            }
+        }
+        if (cicloEncontrado == null) {
+            throw new IllegalArgumentException("ERROR: No se encuentra el ciclo formativo con código " + codigoCiclo);
+        }
+
+        Element horasElemento = (Element) elemento.getElementsByTagName(HORAS).item(0);
+        if (horasElemento == null) {
+            throw new IllegalArgumentException("ERROR: Falta el nodo <Horas>.");
+        }
+
+        Node anualesNodo = horasElemento.getElementsByTagName(ANUALES).item(0);
+        if (anualesNodo == null) {
+            throw new IllegalArgumentException("ERROR: Falta el nodo <Anuales>.");
+        }
+        int horasAnuales = Integer.parseInt(anualesNodo.getTextContent().trim());
+
+        Node desdobleNodo = horasElemento.getElementsByTagName(DESDOBLE).item(0);
+        if (desdobleNodo == null) {
+            throw new IllegalArgumentException("ERROR: Falta el nodo <Desdoble>.");
+        }
+        int horasDesdoble = Integer.parseInt(desdobleNodo.getTextContent().trim());
+
+        return new Asignatura(codigo, nombre, horasAnuales, curso, horasDesdoble, especialidad, cicloEncontrado);
     }
+
 
     private void escribirXML() {
         Document document = UtilidadesXML.crearDomVacio(RAIZ);
@@ -112,6 +178,7 @@ public class Asignaturas implements IAsignaturas {
         if (asignatura == null || document == null) {
             return null;
         }
+
         Element elementoAsignatura = document.createElement(ASIGNATURA);
         elementoAsignatura.setAttribute(CODIGO, asignatura.getCodigo());
 
@@ -128,11 +195,10 @@ public class Asignaturas implements IAsignaturas {
         elementoAsignatura.appendChild(elementoEspecialidadProfesorado);
 
         Element elementoCicloFormativo = document.createElement(CICLO_FORMATIVO);
-        elementoCicloFormativo.setTextContent(asignatura.getCicloFormativo().toString());
+        elementoCicloFormativo.setTextContent(String.valueOf(asignatura.getCicloFormativo().getCodigo()));
         elementoAsignatura.appendChild(elementoCicloFormativo);
 
         Element elementoHoras = document.createElement(HORAS);
-        elementoAsignatura.appendChild(elementoHoras);
 
         Element elementoAnuales = document.createElement(ANUALES);
         elementoAnuales.setTextContent(String.valueOf(asignatura.getHorasAnuales()));
@@ -141,6 +207,8 @@ public class Asignaturas implements IAsignaturas {
         Element elementoDesdoble = document.createElement(DESDOBLE);
         elementoDesdoble.setTextContent(String.valueOf(asignatura.getHorasDesdoble()));
         elementoHoras.appendChild(elementoDesdoble);
+
+        elementoAsignatura.appendChild(elementoHoras);
 
         return elementoAsignatura;
     }
@@ -171,6 +239,7 @@ public class Asignaturas implements IAsignaturas {
             throw new OperationNotSupportedException("ERROR: Ya existe una asignatura con ese código.");
         }
         this.coleccionAsignaturas.add(new Asignatura(asignatura));
+        escribirXML();
     }
 
     public Asignatura buscar(Asignatura asignatura) {
@@ -194,6 +263,7 @@ public class Asignaturas implements IAsignaturas {
             throw new OperationNotSupportedException("ERROR: No existe ninguna asignatura como la indicada.");
         }
         this.coleccionAsignaturas.remove(indice);
+        escribirXML();
     }
 
 

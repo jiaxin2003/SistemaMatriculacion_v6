@@ -84,31 +84,27 @@ public class Matriculas implements IMatriculas {
     }
 
     private Matricula elementToMatricula(Element elemento) throws OperationNotSupportedException {
-
         if (elemento == null) {
             throw new NullPointerException("ERROR: No se puede convertir un elemento nulo en una matrícula.");
         }
 
         String idMatricula = elemento.getAttribute(ID_MATRICULA);
-        String cursoAcademico = elemento.getElementsByTagName(CURSO_ACADEMICO).item(0).getTextContent();
+        String cursoAcademico = elemento.getElementsByTagName(CURSO_ACADEMICO).item(0).getTextContent().trim();
         String dniAlumno = elemento.getAttribute(ALUMNO);
-        String fechaMatriculacion = elemento.getElementsByTagName(FECHA_MATRICULACION).item(0).getTextContent();
-        String fechaAnulacion = elemento.getElementsByTagName(FECHA_ANULACION).item(0).getTextContent();
-        LocalDate fechaMatri = LocalDate.parse(fechaMatriculacion, DateTimeFormatter.ofPattern(Alumno.FORMATO_FECHA));
-        LocalDate fechaAnu = LocalDate.parse(fechaAnulacion, DateTimeFormatter.ofPattern(Alumno.FORMATO_FECHA));
+        String fechaMatriculacion = elemento.getElementsByTagName(FECHA_MATRICULACION).item(0).getTextContent().trim();
 
-        Alumno alumno = Alumnos.getInstancia().buscar(new Alumno("null", dniAlumno, "null", "null", LocalDate.now()));
+        LocalDate fechaMatri = LocalDate.parse(fechaMatriculacion, DateTimeFormatter.ofPattern(Alumno.FORMATO_FECHA));
+
+        Alumno alumno = Alumnos.getInstancia().buscar(new Alumno("null", dniAlumno, "666555444", "null@null.com", LocalDate.of(2000, 1, 1)));
         if (alumno == null) {
             throw new IllegalArgumentException("ERROR: No se encuentra el alumno con DNI: " + dniAlumno);
         }
 
-
-
         ArrayList<Asignatura> asignaturasList = new ArrayList<>();
-        NodeList asignaturasXML = ((Element) elemento.getElementsByTagName("Asignaturas").item(0)).getElementsByTagName("Asignatura");
+        NodeList asignaturasXML = ((Element) elemento.getElementsByTagName(ASIGNATURAS).item(0)).getElementsByTagName(ASIGNATURA);
         for (int i = 0; i < asignaturasXML.getLength(); i++) {
             Element asignaturaElement = (Element) asignaturasXML.item(i);
-            String codigoAsignatura = asignaturaElement.getAttribute("Codigo");
+            String codigoAsignatura = asignaturaElement.getAttribute(CODIGO_ASIGNATURA);
 
             CicloFormativo cicloFormativo = new CicloFormativo(7771, "null", new GradoD("null", 2, Modalidad.PRESENCIAL), "null", 120);
             Asignatura asignaturaBuscar = new Asignatura(codigoAsignatura, "null", 200, Curso.PRIMERO, 2, EspecialidadProfesorado.FOL, cicloFormativo);
@@ -118,14 +114,21 @@ public class Matriculas implements IMatriculas {
                 asignaturasList.add(asignatura);
             }
         }
-        if (fechaAnu != null) {
-           Matricula matricula = new Matricula(Integer.parseInt(idMatricula), cursoAcademico, fechaMatri, alumno, asignaturasList);
-           matricula.setFechaAnulacion(fechaAnu);
 
+        Matricula matricula = new Matricula(Integer.parseInt(idMatricula), cursoAcademico, fechaMatri, alumno, asignaturasList);
+
+
+        Node fechaAnulacionNodo = elemento.getElementsByTagName(FECHA_ANULACION).item(0);
+        if (fechaAnulacionNodo != null && !fechaAnulacionNodo.getTextContent().isBlank()) {
+            LocalDate fechaAnu = LocalDate.parse(fechaAnulacionNodo.getTextContent().trim(), DateTimeFormatter.ofPattern(Alumno.FORMATO_FECHA));
+            matricula.setFechaAnulacion(fechaAnu);
         }
 
-        return new Matricula(Integer.parseInt(idMatricula), cursoAcademico, fechaMatri, alumno, asignaturasList);
+        return matricula;
     }
+
+
+
 
     private void escribirXML() {
         Document document = UtilidadesXML.crearDomVacio(RAIZ);
@@ -137,17 +140,25 @@ public class Matriculas implements IMatriculas {
     }
 
     private Element matriculaToElement(Document document, Matricula matricula) {
-
         Element matriculaElement = document.createElement(MATRICULA);
         matriculaElement.setAttribute(ID_MATRICULA, String.valueOf(matricula.getIdMatricula()));
+        matriculaElement.setAttribute(ALUMNO, matricula.getAlumno().getDni());
+
 
         Element elemntoCursoAcademico = document.createElement(CURSO_ACADEMICO);
         elemntoCursoAcademico.setTextContent(matricula.getCursoAcademico());
         matriculaElement.appendChild(elemntoCursoAcademico);
 
-        Element elementoAlumno = document.createElement(ALUMNO);
-        elementoAlumno.setTextContent(matricula.getAlumno().getDni());
-        matriculaElement.appendChild(elementoAlumno);
+        Element elementoFechaMatriculacion = document.createElement(FECHA_MATRICULACION);
+        elementoFechaMatriculacion.setTextContent(matricula.getFechaMatriculacion().format(DateTimeFormatter.ofPattern(Alumno.FORMATO_FECHA)));
+        matriculaElement.appendChild(elementoFechaMatriculacion);
+
+
+        if (matricula.getFechaAnulacion() != null) {
+            Element elementoFechaAnulacion = document.createElement(FECHA_ANULACION);
+            elementoFechaAnulacion.setTextContent(matricula.getFechaAnulacion().format(DateTimeFormatter.ofPattern(Alumno.FORMATO_FECHA)));
+            matriculaElement.appendChild(elementoFechaAnulacion);
+        }
 
         Element elementoAsignaturas = document.createElement(ASIGNATURAS);
         for (Asignatura asignatura : matricula.getColeccionAsignaturas()) {
@@ -157,17 +168,9 @@ public class Matriculas implements IMatriculas {
         }
         matriculaElement.appendChild(elementoAsignaturas);
 
-        Element elementoFechaMatriculacion = document.createElement(FECHA_MATRICULACION);
-        elementoFechaMatriculacion.setTextContent(matricula.getFechaMatriculacion().format(DateTimeFormatter.ofPattern(Alumno.FORMATO_FECHA)));
-        matriculaElement.appendChild(elementoFechaMatriculacion);
-
-        Element elementoFechaAnulacion = document.createElement(FECHA_ANULACION);
-        if (matricula.getFechaAnulacion() != null) {
-            elementoFechaAnulacion.setTextContent(matricula.getFechaAnulacion().format(DateTimeFormatter.ofPattern(Alumno.FORMATO_FECHA)));
-        }
-        matriculaElement.appendChild(elementoFechaAnulacion);
         return matriculaElement;
     }
+
 
 
     public ArrayList<Matricula> get() throws OperationNotSupportedException {
@@ -196,6 +199,7 @@ public class Matriculas implements IMatriculas {
             throw new OperationNotSupportedException("ERROR: Ya existe una matrícula con ese identificador.");
         }
         this.coleccionMatriculas.add(new Matricula(matricula));
+        escribirXML();
     }
 
 
@@ -220,6 +224,7 @@ public class Matriculas implements IMatriculas {
             throw new OperationNotSupportedException("ERROR: No existe ninguna matrícula como la indicada.");
         }
         this.coleccionMatriculas.get(indice).setFechaAnulacion(LocalDate.now());
+        escribirXML();
     }
 
 

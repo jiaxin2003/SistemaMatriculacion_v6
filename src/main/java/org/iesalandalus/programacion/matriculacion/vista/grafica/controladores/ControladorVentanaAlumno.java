@@ -22,28 +22,12 @@ import java.util.List;
 
 public class ControladorVentanaAlumno {
 
-    @FXML
-    private VBox vbox_añiadirAlumno;
-    @FXML
-    private GridPane gdp_Alumnos;
 
     @FXML
     private Button btn_AñadirAlumno;
     @FXML
     private Button btn_cancelarAlumno;
-    @FXML
-    private Button btnSalir;
 
-    @FXML
-    private Label lb_DniAlumno;
-    @FXML
-    private Label lb_correoAlumno;
-    @FXML
-    private Label lb_fechaNacAlumno;
-    @FXML
-    private Label lb_nombreAlumno;
-    @FXML
-    private Label lb_telefonoAlumno;
 
     @FXML
     private TextField tf_correoAlumno;

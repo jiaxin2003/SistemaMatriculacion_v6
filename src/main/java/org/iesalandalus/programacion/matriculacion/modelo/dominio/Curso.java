@@ -11,15 +11,16 @@ public enum Curso {
 
     public String imprimir() {
         int digito;
-        if (cadenaAMostrar == PRIMERO.cadenaAMostrar) {
-            digito=1;
-        } else if (cadenaAMostrar == SEGUNDO.cadenaAMostrar){
-            digito=2;
+        if (this == PRIMERO) {
+            digito = 1;
+        } else if (this == SEGUNDO) {
+            digito = 2;
         } else {
-            digito=3;
+            digito = 3;
         }
-        return digito+".-"+cadenaAMostrar;
+        return digito + ".-" + cadenaAMostrar;
     }
+
 
     @Override
     public String toString() {

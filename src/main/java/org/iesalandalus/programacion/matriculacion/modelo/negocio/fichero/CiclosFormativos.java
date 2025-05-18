@@ -102,7 +102,7 @@ public class CiclosFormativos implements ICiclosFormativos {
         String numAnios = elementoGrado.getElementsByTagName(NUMERO_ANIOS).item(0).getTextContent();
 
         if (tipoGrado.equals("GradoD")) {
-            String modalidad = elementoGrado.getElementsByTagName(MODALIDAD).item(0).getTextContent();
+            String modalidad = elementoGrado.getElementsByTagName(MODALIDAD).item(0).getTextContent().trim();
             grado = new GradoD(nombreGrado, Integer.parseInt(numAnios), Modalidad.valueOf(modalidad.toUpperCase()));
         } else if (tipoGrado.equals("GradoE")) {
             String numEdiciones = elementoGrado.getElementsByTagName(NUMERO_EDICIONES).item(0).getTextContent();
@@ -124,29 +124,54 @@ public class CiclosFormativos implements ICiclosFormativos {
     }
 
     private Element cicloFormativoToElement(Document document, CicloFormativo cicloFormativo) {
-        if (cicloFormativo == null|| document == null) {
-            throw new NullPointerException("ERROR: El ciclo formativo o el document no pueden ser nulos.");
+        if (cicloFormativo == null || document == null) {
+            throw new NullPointerException("ERROR: El ciclo formativo o el documento no pueden ser nulos.");
         }
 
         Element elementoCicloFormativo = document.createElement(CICLO_FORMATIVO);
         elementoCicloFormativo.setAttribute(CODIGO, String.valueOf(cicloFormativo.getCodigo()));
 
-        Element elementoFamiliaProfesional = document.createElement(FAMILIA_PROFESIONAL);
-        elementoFamiliaProfesional.appendChild(document.createTextNode(cicloFormativo.getFamiliaProfesional()));
-        elementoCicloFormativo.appendChild(elementoFamiliaProfesional);
-
-        Element elementoGrado = document.createElement(GRADO);
-        elementoGrado.setAttribute(TIPO, cicloFormativo.getGrado().getClass().getSimpleName());
-        elementoGrado.appendChild(document.createTextNode(cicloFormativo.getGrado().toString()));
-        elementoCicloFormativo.appendChild(elementoGrado);
-
+        // <Nombre>
         Element elementoNombre = document.createElement(NOMBRE);
-        elementoNombre.appendChild(document.createTextNode(cicloFormativo.getNombre()));
+        elementoNombre.setTextContent(cicloFormativo.getNombre());
         elementoCicloFormativo.appendChild(elementoNombre);
 
+        // <FamiliaProfesional>
+        Element elementoFamilia = document.createElement(FAMILIA_PROFESIONAL);
+        elementoFamilia.setTextContent(cicloFormativo.getFamiliaProfesional());
+        elementoCicloFormativo.appendChild(elementoFamilia);
+
+        // <Horas>
         Element elementoHoras = document.createElement(HORAS);
-        elementoHoras.appendChild(document.createTextNode(String.valueOf(cicloFormativo.getHoras())));
+        elementoHoras.setTextContent(String.valueOf(cicloFormativo.getHoras()));
         elementoCicloFormativo.appendChild(elementoHoras);
+
+        // <Grado Tipo="...">
+        Element elementoGrado = document.createElement(GRADO);
+        elementoGrado.setAttribute(TIPO, cicloFormativo.getGrado().getClass().getSimpleName());
+
+        // Subnodos dentro de <Grado>
+        Element elementoNombreGrado = document.createElement(NOMBRE);
+        elementoNombreGrado.setTextContent(cicloFormativo.getGrado().getNombre());
+        elementoGrado.appendChild(elementoNombreGrado);
+
+        Element elementoNumAnios = document.createElement("NumAnios");
+        elementoNumAnios.setTextContent(String.valueOf(cicloFormativo.getGrado().getNumAnios()));
+        elementoGrado.appendChild(elementoNumAnios);
+
+        if (cicloFormativo.getGrado() instanceof GradoD) {
+            GradoD gradoD = (GradoD) cicloFormativo.getGrado();
+            Element elementoModalidad = document.createElement("Modalidad");
+            elementoModalidad.setTextContent(String.valueOf(gradoD.getModalidad()));
+            elementoGrado.appendChild(elementoModalidad);
+        } else if (cicloFormativo.getGrado() instanceof GradoE) {
+            GradoE gradoE = (GradoE) cicloFormativo.getGrado();
+            Element elementoNumEdiciones = document.createElement("NumEdiciones");
+            elementoNumEdiciones.setTextContent(String.valueOf(gradoE.getNumEdiciones()));
+            elementoGrado.appendChild(elementoNumEdiciones);
+        }
+
+        elementoCicloFormativo.appendChild(elementoGrado);
 
         return elementoCicloFormativo;
     }
@@ -177,6 +202,7 @@ public class CiclosFormativos implements ICiclosFormativos {
             throw new OperationNotSupportedException("ERROR: Ya existe un ciclo formativo con ese código.");
         }
         this.coleccionCiclosFormativos.add(new CicloFormativo(cicloFormativo));
+        escribirXML();
     }
 
     public CicloFormativo buscar(CicloFormativo cicloFormativo) {
@@ -199,6 +225,7 @@ public class CiclosFormativos implements ICiclosFormativos {
             throw new OperationNotSupportedException("ERROR: No existe ningún ciclo formativo como el indicado.");
         }
         this.coleccionCiclosFormativos.remove(indice);
+        escribirXML();
     }
 
 }

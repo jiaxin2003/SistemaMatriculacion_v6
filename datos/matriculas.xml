@@ -1,12 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<Matriculas>
-<!--    <Matricula Id="8888" Alumno="12345678Z">-->
-<!--        <CursoAcademico>24-25</CursoAcademico>-->
-<!--        <FechaMatriculacion>06/05/2025</FechaMatriculacion>-->
-<!--        <FechaAnulacion>06/05/2025</FechaAnulacion>-->
-<!--        <Asignaturas>-->
-<!--            <Asignatura Codigo="1234"/>-->
-<!--        </Asignaturas>-->
-<!--    </Matricula>-->
-</Matriculas>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Matriculas><Matricula Alumno="12345678Z" Id="1555"><CursoAcademico>24-25</CursoAcademico><FechaMatriculacion>16/05/2025</FechaMatriculacion><FechaAnulacion>16/05/2025</FechaAnulacion><Asignaturas><Asignatura Codigo="8561"/></Asignaturas></Matricula></Matriculas>

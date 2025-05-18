@@ -1,10 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<Alumnos>
-<!--    <Alumno Dni="12345678Z">-->
-<!--        <Nombre>Jiaxin</Nombre>-->
-<!--        <Telefono>633584998</Telefono>-->
-<!--        <Correo>jiaxin@gmail.com</Correo>-->
-<!--        <FechaNacimiento>17/11/2003</FechaNacimiento>-->
-<!--    </Alumno>-->
-</Alumnos>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Alumnos><Alumno Dni="12345678Z"><Nombre>Jiaxin</Nombre><Telefono>633584998</Telefono><Correo>asfdasfd@asdfas.com</Correo><FechaNacimiento>17/11/2003</FechaNacimiento></Alumno></Alumnos>

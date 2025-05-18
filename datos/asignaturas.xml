@@ -1,14 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<Asignaturas>
-<!--    <Asignatura Codigo="2345">-->
-<!--        <Nombre>Programacion</Nombre>-->
-<!--        <Curso>Primero</Curso>-->
-<!--        <EspecialidadProfesorado>Informatica</EspecialidadProfesorado>-->
-<!--        <CicloFormativo>1234</CicloFormativo>-->
-<!--        <Horas>-->
-<!--            <Anuales>200</Anuales>-->
-<!--            <Desdobles>5</Desdobles>-->
-<!--        </Horas>-->
-<!--    </Asignatura>-->
-</Asignaturas>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Asignaturas><Asignatura Codigo="8561"><Nombre>sadfasdf</Nombre><Curso>Segundo</Curso><EspecialidadProfesorado>Sistemas</EspecialidadProfesorado><CicloFormativo>1234</CicloFormativo><Horas><Anuales>250</Anuales><Desdobles>5</Desdobles></Horas></Asignatura></Asignaturas>

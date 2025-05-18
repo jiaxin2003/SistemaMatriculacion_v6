@@ -52,7 +52,6 @@ public class Alumnos implements IAlumnos {
     }
 
 
-
     private void leerXML() {
         Document document;
         NodeList alumnos;
@@ -99,24 +98,24 @@ public class Alumnos implements IAlumnos {
 
     private void escribirXML() {
         Document documento = UtilidadesXML.crearDomVacio(RAIZ);
-        for (Alumno alumno : coleccionAlumnos){
-            Element elementoAlumno = alumnoToElement(documento,alumno);
+        for (Alumno alumno : coleccionAlumnos) {
+            Element elementoAlumno = alumnoToElement(documento, alumno);
             documento.getDocumentElement().appendChild(elementoAlumno);
         }
         UtilidadesXML.domToXml(documento, RUTA_FICHERO);
     }
 
     private Element alumnoToElement(Document documento, Alumno alumno) {
-        if (documento == null || alumno == null){
+        if (documento == null || alumno == null) {
             return null;
         }
 
-        Element elementoAlumno =documento.createElement(ALUMNO);
+        Element elementoAlumno = documento.createElement(ALUMNO);
         elementoAlumno.setAttribute(DNI, alumno.getDni());
 
         Element elementoNombre = documento.createElement(NOMBRE);
         elementoNombre.setTextContent(alumno.getNombre());
-        elementoAlumno.appendChild(elementoAlumno);
+        elementoAlumno.appendChild(elementoNombre);
 
         Element elementoTelefono = documento.createElement(TELEFONO);
         elementoTelefono.setTextContent(alumno.getTelefono());
@@ -148,6 +147,7 @@ public class Alumnos implements IAlumnos {
         return this.coleccionAlumnos.size();
     }
 
+
     public void insertar(Alumno alumno) throws OperationNotSupportedException {
         if (alumno == null) {
             throw new NullPointerException("ERROR: No se puede insertar un alumno nulo.");
@@ -156,10 +156,11 @@ public class Alumnos implements IAlumnos {
         if (indice != -1) {
             throw new OperationNotSupportedException("ERROR: Ya existe un alumno con ese dni.");
         } else {
-
             this.coleccionAlumnos.add(new Alumno(alumno));
+            escribirXML();
         }
     }
+
 
     public Alumno buscar(Alumno alumno) {
         if (alumno == null) {
@@ -182,6 +183,7 @@ public class Alumnos implements IAlumnos {
             throw new OperationNotSupportedException("ERROR: No existe ningún alumno como el indicado.");
         }
         this.coleccionAlumnos.remove(indice);
+        escribirXML();
     }
 
 
